@@ -61,6 +61,22 @@
       <inventoryverbs type="stringlist" />
       <drop type="boolean">false</drop>
     </object>
+    <exit to="Security">
+      <scenery />
+    </exit>
+    <exit to="Hydroponic Biosphere">
+      <scenery />
+    </exit>
+    <exit to="Armory">
+      <scenery />
+    </exit>
+    <exit to="Med Bay">
+      <scenery />
+    </exit>
+    <exit to="Living Quarters">
+      <scenery />
+    </exit>
+    <exit to="AI Core" />
   </object>
   <object name="Security">
     <inherit name="editor_room" />
