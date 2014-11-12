@@ -19,6 +19,9 @@
     <exit to="AI Core">
       <scenery />
     </exit>
+    <exit to="Solar Array Station">
+      <scenery />
+    </exit>
   </object>
   <object name="AI Core">
     <inherit name="editor_room" />
@@ -32,5 +35,23 @@
     <exit to="Starting Room">
       <scenery />
     </exit>
+  </object>
+  <object name="Solar Array Station">
+    <inherit name="editor_room" />
+  </object>
+  <object name="Security">
+    <inherit name="editor_room" />
+  </object>
+  <object name="Hydroponic Biosphere">
+    <inherit name="editor_room" />
+  </object>
+  <object name="Amory">
+    <inherit name="editor_room" />
+  </object>
+  <object name="Med Bay">
+    <inherit name="editor_room" />
+  </object>
+  <object name="Living Quarters">
+    <inherit name="editor_room" />
   </object>
 </asl>
