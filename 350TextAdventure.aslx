@@ -16,12 +16,26 @@
       <inherit name="editor_object" />
       <inherit name="editor_player" />
     </object>
-    <exit to="AI Core">
-      <scenery />
-    </exit>
     <exit to="Solar Array Station">
       <scenery />
+      <visible />
     </exit>
+    <exit to="Security">
+      <scenery />
+    </exit>
+    <exit to="Hydroponic Biosphere">
+      <scenery />
+    </exit>
+    <exit to="Amory">
+      <scenery />
+    </exit>
+    <exit to="Med Bay">
+      <scenery />
+    </exit>
+    <exit to="Living Quarters">
+      <scenery />
+    </exit>
+    <exit to="AI Core" />
   </object>
   <object name="AI Core">
     <inherit name="editor_room" />
@@ -32,26 +46,119 @@
       <description>It is a beautiful placeholder computer in this framework room! It is shiny and everything you've ever dreamed of in a computer!</description>
       <look>It is a beautiful placeholder object! It is shiny and everything you've ever dreamed of!</look>
     </object>
-    <exit to="Starting Room">
-      <scenery />
-    </exit>
   </object>
   <object name="Solar Array Station">
     <inherit name="editor_room" />
+    <exit to="Security">
+      <scenery />
+    </exit>
+    <exit to="Hydroponic Biosphere">
+      <scenery />
+    </exit>
+    <exit to="Amory">
+      <scenery />
+    </exit>
+    <exit to="Med Bay">
+      <scenery />
+    </exit>
+    <exit to="Living Quarters">
+      <scenery />
+    </exit>
+    <exit to="AI Core" />
   </object>
   <object name="Security">
     <inherit name="editor_room" />
+    <exit to="Solar Array Station">
+      <scenery />
+    </exit>
+    <exit to="Hydroponic Biosphere">
+      <scenery />
+    </exit>
+    <exit to="Amory">
+      <scenery />
+    </exit>
+    <exit to="Med Bay">
+      <scenery />
+    </exit>
+    <exit to="Living Quarters">
+      <scenery />
+    </exit>
+    <exit to="AI Core" />
   </object>
   <object name="Hydroponic Biosphere">
     <inherit name="editor_room" />
+    <exit to="Solar Array Station">
+      <scenery />
+    </exit>
+    <exit to="Security">
+      <scenery />
+    </exit>
+    <exit to="Amory">
+      <scenery />
+    </exit>
+    <exit to="Med Bay">
+      <scenery />
+    </exit>
+    <exit to="Living Quarters">
+      <scenery />
+    </exit>
+    <exit to="AI Core" />
   </object>
   <object name="Amory">
     <inherit name="editor_room" />
+    <exit to="Solar Array Station">
+      <scenery />
+    </exit>
+    <exit to="Security">
+      <scenery />
+    </exit>
+    <exit to="Hydroponic Biosphere">
+      <scenery />
+    </exit>
+    <exit to="Med Bay">
+      <scenery />
+    </exit>
+    <exit to="Living Quarters">
+      <scenery />
+    </exit>
+    <exit to="AI Core" />
   </object>
   <object name="Med Bay">
     <inherit name="editor_room" />
+    <exit to="Solar Array Station">
+      <scenery />
+    </exit>
+    <exit to="Security">
+      <scenery />
+    </exit>
+    <exit to="Hydroponic Biosphere">
+      <scenery />
+    </exit>
+    <exit to="Amory">
+      <scenery />
+    </exit>
+    <exit to="Living Quarters">
+      <scenery />
+    </exit>
+    <exit to="AI Core" />
   </object>
   <object name="Living Quarters">
     <inherit name="editor_room" />
+    <exit to="Solar Array Station">
+      <scenery />
+    </exit>
+    <exit to="Security">
+      <scenery />
+    </exit>
+    <exit to="Hydroponic Biosphere">
+      <scenery />
+    </exit>
+    <exit to="Amory">
+      <scenery />
+    </exit>
+    <exit to="Living Quarters">
+      <scenery />
+    </exit>
+    <exit to="AI Core" />
   </object>
 </asl>
