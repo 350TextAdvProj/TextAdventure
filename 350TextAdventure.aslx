@@ -1,21 +1,36 @@
+<!--Saved by Quest 5.5.5328.26617-->
 <asl version="550">
-
-  <include ref="English.aslx"/>
-  <include ref="Core.aslx"/>
-
+  <include ref="English.aslx" />
+  <include ref="Core.aslx" />
   <game name="350TextAdventure">
     <gameid>36273a24-7575-4e61-8f7c-0bdf8d8b7fe9</gameid>
     <version>1.0</version>
     <firstpublished>2014</firstpublished>
   </game>
-
-  <object name="room">
+  <object name="Starting Room">
     <inherit name="editor_room" />
-
+    <exitslistprefix>You can go to the AI core.</exitslistprefix>
+    <descprefix>You are in</descprefix>
+    <description>You are in a placeholder starting room! You can go to the other rooms from here!</description>
     <object name="player">
       <inherit name="editor_object" />
       <inherit name="editor_player" />
     </object>
+    <exit to="AI Core">
+      <scenery />
+    </exit>
   </object>
-
+  <object name="AI Core">
+    <inherit name="editor_room" />
+    <descprefix type="string"></descprefix>
+    <description>You're looking at the AI core. There are lots of computers and everything looks very sciencey!</description>
+    <object name="Placeholder Computer">
+      <inherit name="editor_object" />
+      <description>It is a beautiful placeholder computer in this framework room! It is shiny and everything you've ever dreamed of in a computer!</description>
+      <look>It is a beautiful placeholder object! It is shiny and everything you've ever dreamed of!</look>
+    </object>
+    <exit to="Starting Room">
+      <scenery />
+    </exit>
+  </object>
 </asl>
