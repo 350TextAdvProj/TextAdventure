@@ -52,7 +52,6 @@
   <object name="Solar Array Station">
     <inherit name="editor_room" />
     <beforefirstenter type="script">
-      AddToInventory (Solar Array Complete)
     </beforefirstenter>
     <object name="Solar Array Complete">
       <inherit name="editor_object" />
@@ -81,6 +80,14 @@
       <scenery />
     </exit>
     <exit to="AI Core" />
+    <object name="Security Complete">
+      <inherit name="editor_object" />
+      <visible type="boolean">false</visible>
+      <scenery />
+      <displayverbs type="stringlist" />
+      <inventoryverbs type="stringlist" />
+      <drop type="boolean">false</drop>
+    </object>
   </object>
   <object name="Hydroponic Biosphere">
     <inherit name="editor_room" />
@@ -100,6 +107,9 @@
       <scenery />
     </exit>
     <exit to="AI Core" />
+    <object name="Hydroponic Biosphere Complete">
+      <inherit name="editor_object" />
+    </object>
   </object>
   <object name="Armory">
     <inherit name="editor_room" />
@@ -119,6 +129,12 @@
       <scenery />
     </exit>
     <exit to="AI Core" />
+    <object name="Armory Complete">
+      <inherit name="editor_object" />
+      <visible type="boolean">false</visible>
+      <scenery />
+      <drop type="boolean">false</drop>
+    </object>
   </object>
   <object name="Med Bay">
     <inherit name="editor_room" />
@@ -138,6 +154,14 @@
       <scenery />
     </exit>
     <exit to="AI Core" />
+    <object name="Med Bay Complete">
+      <inherit name="editor_object" />
+      <visible type="boolean">false</visible>
+      <scenery />
+      <displayverbs type="stringlist" />
+      <inventoryverbs type="stringlist" />
+      <drop type="boolean">false</drop>
+    </object>
   </object>
   <object name="Living Quarters">
     <inherit name="editor_room" />
@@ -157,5 +181,13 @@
       <scenery />
     </exit>
     <exit to="AI Core" />
+    <object name="Living Quarters Complete">
+      <inherit name="editor_object" />
+      <visible type="boolean">false</visible>
+      <scenery />
+      <displayverbs type="stringlist" />
+      <inventoryverbs type="stringlist" />
+      <drop type="boolean">false</drop>
+    </object>
   </object>
 </asl>
