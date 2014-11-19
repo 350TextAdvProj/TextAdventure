@@ -28,7 +28,7 @@
     <exit to="Hydroponic Biosphere">
       <scenery />
     </exit>
-    <exit to="Amory">
+    <exit to="Armory">
       <scenery />
     </exit>
     <exit to="Med Bay">
@@ -51,84 +51,17 @@
   </object>
   <object name="Solar Array Station">
     <inherit name="editor_room" />
-    <object name="Solar Array Station Complete">
-      <inherit name="editor_object" />
-      <visible />
-      <usedefaultprefix />
-      <scenery />
-      <take type="script">
-        AddToInventory (Solar Array Station Complete)
-      </take>
-      <drop type="boolean">false</drop>
-      <inventoryverbs type="stringlist" />
-      <displayverbs type="stringlist" />
-    </object>
-  </object>
-  <object name="Security">
-    <inherit name="editor_room" />
-    <object name="Security Complete">
+    <beforefirstenter type="script">
+      AddToInventory (Solar Array Complete)
+    </beforefirstenter>
+    <object name="Solar Array Complete">
       <inherit name="editor_object" />
       <visible type="boolean">false</visible>
       <scenery />
       <displayverbs type="stringlist" />
       <inventoryverbs type="stringlist" />
-      <take type="script">
-      </take>
       <drop type="boolean">false</drop>
     </object>
-  </object>
-  <object name="Hydroponic Biosphere">
-    <inherit name="editor_room" />
-    <object name="Hydroponic Biosphere Complete">
-      <inherit name="editor_object" />
-      <scenery />
-      <visible type="boolean">false</visible>
-      <usestandardverblist type="boolean">false</usestandardverblist>
-      <displayverbs type="stringlist" />
-      <inventoryverbs type="stringlist" />
-      <take type="script">
-      </take>
-    </object>
-  </object>
-  <object name="Amory">
-    <inherit name="editor_room" />
-    <object name="Armory Complete">
-      <inherit name="editor_object" />
-      <visible type="boolean">false</visible>
-      <scenery />
-      <displayverbs type="stringlist" />
-      <inventoryverbs type="stringlist" />
-    </object>
-  </object>
-  <object name="Med Bay">
-    <inherit name="editor_room" />
-    <object name="MBcmplt">
-      <inherit name="editor_object" />
-      <visible type="boolean">false</visible>
-      <scenery />
-    </object>
-  </object>
-  <object name="Living Quarters">
-    <inherit name="editor_room" />
-    <object name="LQcmplt">
-      <inherit name="editor_object" />
-    </object>
-    <exit to="Security">
-      <scenery />
-    </exit>
-    <exit to="Hydroponic Biosphere">
-      <scenery />
-    </exit>
-    <exit to="Amory">
-      <scenery />
-    </exit>
-    <exit to="Med Bay">
-      <scenery />
-    </exit>
-    <exit to="Living Quarters">
-      <scenery />
-    </exit>
-    <exit to="AI Core" />
   </object>
   <object name="Security">
     <inherit name="editor_room" />
@@ -138,7 +71,7 @@
     <exit to="Hydroponic Biosphere">
       <scenery />
     </exit>
-    <exit to="Amory">
+    <exit to="Armory">
       <scenery />
     </exit>
     <exit to="Med Bay">
@@ -157,7 +90,7 @@
     <exit to="Security">
       <scenery />
     </exit>
-    <exit to="Amory">
+    <exit to="Armory">
       <scenery />
     </exit>
     <exit to="Med Bay">
@@ -168,7 +101,7 @@
     </exit>
     <exit to="AI Core" />
   </object>
-  <object name="Amory">
+  <object name="Armory">
     <inherit name="editor_room" />
     <exit to="Solar Array Station">
       <scenery />
@@ -198,7 +131,7 @@
     <exit to="Hydroponic Biosphere">
       <scenery />
     </exit>
-    <exit to="Amory">
+    <exit to="Armory">
       <scenery />
     </exit>
     <exit to="Living Quarters">
@@ -217,7 +150,7 @@
     <exit to="Hydroponic Biosphere">
       <scenery />
     </exit>
-    <exit to="Amory">
+    <exit to="Armory">
       <scenery />
     </exit>
     <exit to="Living Quarters">
