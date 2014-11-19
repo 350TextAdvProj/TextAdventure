@@ -15,9 +15,12 @@
     <object name="player">
       <inherit name="editor_object" />
       <inherit name="editor_player" />
+      <drop />
     </object>
     <exit to="AI Core">
       <scenery />
+      <visible />
+      <locked type="boolean">false</locked>
     </exit>
     <exit to="Solar Array Station">
       <scenery />
@@ -38,20 +41,67 @@
   </object>
   <object name="Solar Array Station">
     <inherit name="editor_room" />
+    <object name="Solar Array Station Complete">
+      <inherit name="editor_object" />
+      <visible />
+      <usedefaultprefix />
+      <scenery />
+      <take type="script">
+        AddToInventory (Solar Array Station Complete)
+      </take>
+      <drop type="boolean">false</drop>
+      <inventoryverbs type="stringlist" />
+      <displayverbs type="stringlist" />
+    </object>
   </object>
   <object name="Security">
     <inherit name="editor_room" />
+    <object name="Security Complete">
+      <inherit name="editor_object" />
+      <visible type="boolean">false</visible>
+      <scenery />
+      <displayverbs type="stringlist" />
+      <inventoryverbs type="stringlist" />
+      <take type="script">
+      </take>
+      <drop type="boolean">false</drop>
+    </object>
   </object>
   <object name="Hydroponic Biosphere">
     <inherit name="editor_room" />
+    <object name="Hydroponic Biosphere Complete">
+      <inherit name="editor_object" />
+      <scenery />
+      <visible type="boolean">false</visible>
+      <usestandardverblist type="boolean">false</usestandardverblist>
+      <displayverbs type="stringlist" />
+      <inventoryverbs type="stringlist" />
+      <take type="script">
+      </take>
+    </object>
   </object>
   <object name="Amory">
     <inherit name="editor_room" />
+    <object name="Armory Complete">
+      <inherit name="editor_object" />
+      <visible type="boolean">false</visible>
+      <scenery />
+      <displayverbs type="stringlist" />
+      <inventoryverbs type="stringlist" />
+    </object>
   </object>
   <object name="Med Bay">
     <inherit name="editor_room" />
+    <object name="MBcmplt">
+      <inherit name="editor_object" />
+      <visible type="boolean">false</visible>
+      <scenery />
+    </object>
   </object>
   <object name="Living Quarters">
     <inherit name="editor_room" />
+    <object name="LQcmplt">
+      <inherit name="editor_object" />
+    </object>
   </object>
 </asl>
