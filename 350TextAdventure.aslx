@@ -400,6 +400,28 @@
       <inventoryverbs type="stringlist" />
       <drop type="boolean">false</drop>
     </object>
+    <object name="large white board">
+      <inherit name="editor_object" />
+    </object>
+    <object name="bed">
+      <inherit name="editor_object" />
+      <object name="scalpel">
+        <inherit name="editor_object" />
+        <take />
+      </object>
+    </object>
+    <object name="surgical cabinet">
+      <inherit name="editor_object" />
+      <inherit name="container_closed" />
+      <feature_container />
+      <object name="blacklight bulb">
+        <inherit name="editor_object" />
+        <take />
+      </object>
+    </object>
+    <object name="light switch">
+      <inherit name="editor_object" />
+    </object>
   </object>
   <object name="Living Quarters">
     <inherit name="editor_room" />
