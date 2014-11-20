@@ -156,19 +156,17 @@
       <feature_usegive />
       <use type="script"><![CDATA[
         if (IsSwitchedOn(Terminal)) {
-          msg ("Terminal Booted. <br/>Welcome<br/><br/>Press ANY KEY to reboot Security Room droid")
-          wait {
-            msg ("Security Room now accessable")
+          msg ("Please enter the password:<br/>")
+          get input {
+            if (result = "password") {
+              msg ("Password Correct. <br/><br/>Droid initiated in Security Room<br/>Solar Array System Initiated. Power has been stored.<br/><br/>Access to Security now GRANTED")
+            }
             UnlockExit (Exit Start to security)
             UnlockExit (Exit Solar to security)
             UnlockExit (Exit Biosphere to Security)
             UnlockExit (Exit Armory to Security)
             UnlockExit (Exit Med Bay to Security)
             UnlockExit (Exit Living Quarters to Security)
-            msg ("Press ANY KEY to initiate Solar Array System")
-            wait {
-              msg ("Solar Array System online")
-            }
           }
         }
       ]]></use>
