@@ -185,7 +185,7 @@
         <attr name="feature_switchable" type="boolean">false</attr>
         <use type="script"><![CDATA[
           if (IsSwitchedOn(Terminal)) {
-            msg ("Please enter the password:<br/>")
+            msg ("please enter the password:<br/>")
             get input {
               if (result = "password") {
                 msg ("Password Correct. <br/>")
@@ -207,6 +207,9 @@
               UnlockExit (Exit Living Quarters to Security)
               AddToInventory (Solar Array Complete)
             }
+          }
+          else {
+            msg ("The terminal doesn't respond to any key presses. It appears to not have any source of power. ")
           }
         ]]></use>
       </object>
