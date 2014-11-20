@@ -138,49 +138,92 @@
       <inherit name="surface" />
       <feature_container />
       <hidechildren type="boolean">false</hidechildren>
+      <drop type="boolean">false</drop>
+      <look type="script"><![CDATA[
+        SetTimeout (1) {
+          msg ("There is a desk in the middle of the room. <br/>On it sits a terminal. No power is detected. ")
+        }
+        SetTimeout (1) {
+          msg ("...")
+        }
+        SetTimeout (2) {
+          msg ("Initial scans detect unknown objects in the drawer under the desk. ")
+        }
+      ]]></look>
+      <opendrawer type="script">
+        MakeObjectVisible (Clipboard)
+        MakeObjectVisible (Sticky Note)
+        msg ("Inside the drawer is a Clipboard with a sticky note on it.")
+      </opendrawer>
+      <displayverbs type="stringlist">
+        <value>Look at</value>
+      </displayverbs>
       <object name="Clipboard">
         <inherit name="editor_object" />
         <look><![CDATA[On it is the ship's Manifesto and a sticky note.<br/>The Manifesto reads:<br/><br/><br/>“Members of Koncovka          03/12/2122<br/><br/>Jocelyn Beyer<br/>Matt Gallagher<br/>Fabian Gonzalez<br/>Glenn Meyer<br/>Kimberly Normandeau<br/>Henry Pabst”<br/>Robert Taffler<br/>Barbara Ross<br/>Kathleen Harris<br/>Catherine McKinnon<br/><br/>]]></look>
+        <scenery type="boolean">false</scenery>
+        <visible type="boolean">false</visible>
+        <displayverbs type="stringlist">
+          <value>Look at</value>
+        </displayverbs>
       </object>
       <object name="Sticky Note">
         <inherit name="editor_object" />
         <take />
         <drop type="boolean">false</drop>
-        <look><![CDATA[The sticky note reads   <br/><br/>“Remember to change the battery vault passcode. <br/>‘password’ does not meet security requirements”<br/>]]></look>
+        <look><![CDATA[The sticky note reads   <br/><br/>“Remember to change the Terminal passcode. <br/>‘password’ does not meet security requirements”<br/>]]></look>
+        <scenery type="boolean">false</scenery>
+        <visible type="boolean">false</visible>
+      </object>
+      <object name="Terminal">
+        <inherit name="editor_object" />
+        <displayverbs type="stringlist">
+          <value>Look at</value>
+          <value>Use</value>
+        </displayverbs>
+        <feature_usegive />
+        <attr name="feature_switchable" type="boolean">false</attr>
+        <use type="script"><![CDATA[
+          if (IsSwitchedOn(Terminal)) {
+            msg ("Please enter the password:<br/>")
+            get input {
+              if (result = "password") {
+                msg ("Password Correct. <br/>")
+                SetTimeout (2) {
+                  msg ("Droid initiated in Security Room")
+                  SetTimeout (1) {
+                    msg ("Solar Array System Initiated. Power has been stored.")
+                    SetTimeout (1) {
+                      msg ("<br/>Access to Security now GRANTED")
+                    }
+                  }
+                }
+              }
+              UnlockExit (Exit Start to security)
+              UnlockExit (Exit Solar to security)
+              UnlockExit (Exit Biosphere to Security)
+              UnlockExit (Exit Armory to Security)
+              UnlockExit (Exit Med Bay to Security)
+              UnlockExit (Exit Living Quarters to Security)
+              AddToInventory (Solar Array Complete)
+            }
+          }
+        ]]></use>
       </object>
     </object>
-    <object name="Terminal">
+    <object name="Large Battery Array">
       <inherit name="editor_object" />
-      <displayverbs type="stringlist">
-        <value>Look at</value>
-        <value>Use</value>
-      </displayverbs>
-      <feature_usegive />
-      <attr name="feature_switchable" type="boolean">false</attr>
-      <use type="script"><![CDATA[
-        if (IsSwitchedOn(Terminal)) {
-          msg ("Please enter the password:<br/>")
-          get input {
-            if (result = "password") {
-              msg ("Password Correct. <br/><br/>Droid initiated in Security Room<br/>Solar Array System Initiated. Power has been stored.<br/><br/>Access to Security now GRANTED")
-            }
-            UnlockExit (Exit Start to security)
-            UnlockExit (Exit Solar to security)
-            UnlockExit (Exit Biosphere to Security)
-            UnlockExit (Exit Armory to Security)
-            UnlockExit (Exit Med Bay to Security)
-            UnlockExit (Exit Living Quarters to Security)
-          }
-        }
-      ]]></use>
-    </object>
-    <object name="Large Batteries">
-      <inherit name="editor_object" />
-      <inherit name="switchable" />
       <attr name="feature_switchable" type="boolean">false</attr>
       <plugin type="script">
         SwitchOn (Terminal)
       </plugin>
+      <look><![CDATA[The droid scans a set of very large batteries. <br/>The wires trace back to the terminal.<br/>One wire in particular seems to be unhooked from the top of one of the batteries.]]></look>
+      <displayverbs type="stringlist">
+        <value>Look at</value>
+      </displayverbs>
+      <inventoryverbs type="stringlist">
+        <value>Look at</value>
+      </inventoryverbs>
     </object>
   </object>
   <object name="Security">
@@ -314,10 +357,10 @@
   </object>
   <object name="Living Quarters">
     <inherit name="editor_room" />
+    <description>You can see a large and relatively pleasant area. While the other rooms in the ship have been cold work environments or displays of prestige, this room's function appears to be simple utility and comfort.</description>
     <beforeenter type="script">
       play sound ("LQMusic.mp3", false, true)
     </beforeenter>
-    <description>You can see a large and relatively pleasant area. While the other rooms in the ship have been cold work environments or displays of prestige, this room's function appears to be simple utility and comfort.</description>
     <onexit type="script">
       stop sound
     </onexit>
@@ -355,15 +398,15 @@
     <object name="Cat Tree">
       <inherit name="editor_object" />
       <inherit name="surface" />
+      <feature_container />
+      <hidechildren type="boolean">false</hidechildren>
+      <listchildren type="boolean">false</listchildren>
       <look type="script">
         msg ("A three-tiered cat tree covered in cheap fabric and fur.")
         if (Dead Cat.parent = Cat Tree) {
           msg ("A dead cat lies curled up on the top platform.")
         }
       </look>
-      <feature_container />
-      <hidechildren type="boolean">false</hidechildren>
-      <listchildren type="boolean">false</listchildren>
       <takedeadcat type="script">
         AddToInventory (Dead Cat)
       </takedeadcat>
@@ -377,13 +420,14 @@
     </object>
     <object name="Set of Couches">
       <inherit name="editor_object" />
+      <takemsg>A couch is far too heavy for a droid to carry around.</takemsg>
       <look type="script">
         msg ("The couches are fluffy with well placed arm rests. The perfect napping couch.")
       </look>
-      <takemsg>A couch is far too heavy for a droid to carry around.</takemsg>
     </object>
     <object name="Record Player">
       <inherit name="editor_object" />
+      <isplaying type="boolean">false</isplaying>
       <look type="script">
         msg ("An old record player is gathering dust. There is a translucent red 45 under the needle.")
       </look>
@@ -398,7 +442,6 @@
           msg ("The record is already playing.")
         }
       </play>
-      <isplaying type="boolean">false</isplaying>
       <stop type="script">
         if (Record Player.isplaying = True) {
           stop sound
@@ -435,6 +478,16 @@
     <property>takedeadcat</property>
     <pattern>take dead cat</pattern>
     <defaultexpression>"You can't take dead cat " + object.article + "."</defaultexpression>
+  </verb>
+  <verb>
+    <property>opencabinet</property>
+    <pattern>open cabinet</pattern>
+    <defaultexpression>"You can't open cabinet " + object.article + "."</defaultexpression>
+  </verb>
+  <verb>
+    <property>opendrawer</property>
+    <pattern>open drawer</pattern>
+    <defaultexpression>"You can't open drawer " + object.article + "."</defaultexpression>
   </verb>
   <function name="SRAccessDroids">
     get input {
