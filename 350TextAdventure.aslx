@@ -10,8 +10,44 @@
   <object name="Starting Room">
     <inherit name="editor_room" />
     <exitslistprefix>You can switch to a droid in: </exitslistprefix>
-    <descprefix>You are in</descprefix>
-    <description>You are in a placeholder starting room! You can go to the other rooms from here!</description>
+    <descprefix type="string"></descprefix>
+    <description>You are in a small room. lit only by the dim glow of the monitors that fill the room. There are multiple keyboards and papers scattered on the desk, indicating a workstation for the room's occupant.</description>
+    <enter type="script">
+    </enter>
+    <firstenter type="script"><![CDATA[
+      SetTimeout (4) {
+        msg ("As if sensing your presence, a monitor turns on and text appears:<br/>\"Welcome to the Koncova, Bishop.\"")
+        SetTimeout (3) {
+          msg ("Accessing personal file...")
+          SetTimeout (1) {
+            SetTimeout (2) {
+              msg ("..")
+              SetTimeout (2) {
+                msg ("..")
+                SetTimeout (2) {
+                  msg ("Name: Bishop<br/>Assignment: Electronic Systems Monitor on the space station Koncova.<br/>Primary Role: Ensure Optimal System Performance<br/>Clearance Level: 10<br/>Allowed Access to All Systems.<br/>Preparing Status Report.")
+                  SetTimeout (3) {
+                    msg ("Status Report:<br/>Station - Offline<br/>Solar Array Station - Offline<br/>Hydroponic Biosphere - Offline<br/>Communications - Offline<br/>Living Quarters - Offline<br/>Medical Bay - Offline<br/>AI Core - Offline")
+                    SetTimeout (4) {
+                      msg ("Repair droids are online.")
+                      loopvar = 1
+                      while (loopvar = 1) {
+                        msg ("Access repair droids(y/n)?")
+                        get input {
+                          if (result = "yes" or result = "y") {
+                            loopvar = 0
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    ]]></firstenter>
     <object name="player">
       <inherit name="editor_object" />
       <inherit name="editor_player" />
@@ -58,11 +94,11 @@
   </object>
   <object name="Solar Array Station">
     <inherit name="editor_room" />
-    <beforefirstenter type="script">
-    </beforefirstenter>
     <descprefix>Control of droid initiated in</descprefix>
     <objectslistprefix>Droid detects</objectslistprefix>
     <exitslistprefix>You can switch to a droid in: </exitslistprefix>
+    <beforefirstenter type="script">
+    </beforefirstenter>
     <object name="Solar Array Complete">
       <inherit name="editor_object" />
       <visible type="boolean">false</visible>
