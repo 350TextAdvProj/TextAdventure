@@ -111,21 +111,40 @@
         <look><![CDATA[The sticky note reads   <br/><br/>“Remember to change the battery vault passcode. <br/>‘password’ does not meet security requirements”<br/>]]></look>
       </object>
     </object>
-    <object name="Door Control">
+    <object name="Terminal">
       <inherit name="editor_object" />
       <displayverbs type="stringlist">
         <value>Look at</value>
         <value>Use</value>
       </displayverbs>
       <feature_usegive />
-      <use type="script">
-        UnlockExit (Exit Start to security)
-        UnlockExit (Exit Solar to security)
-        UnlockExit (Exit Biosphere to Security)
-        UnlockExit (Exit Armory to Security)
-        UnlockExit (Exit Med Bay to Security)
-        UnlockExit (Exit Living Quarters to Security)
-      </use>
+      <use type="script"><![CDATA[
+        if (IsSwitchedOn(Terminal)) {
+          msg ("Terminal Booted. <br/>Welcome<br/><br/>Press ANY KEY to reboot Security Room droid")
+          wait {
+            msg ("Security Room now accessable")
+            UnlockExit (Exit Start to security)
+            UnlockExit (Exit Solar to security)
+            UnlockExit (Exit Biosphere to Security)
+            UnlockExit (Exit Armory to Security)
+            UnlockExit (Exit Med Bay to Security)
+            UnlockExit (Exit Living Quarters to Security)
+            msg ("Press ANY KEY to initiate Solar Array System")
+            wait {
+              msg ("Solar Array System online")
+            }
+          }
+        }
+      ]]></use>
+      <attr name="feature_switchable" type="boolean">false</attr>
+    </object>
+    <object name="Large Batteries">
+      <inherit name="editor_object" />
+      <inherit name="switchable" />
+      <attr name="feature_switchable" type="boolean">false</attr>
+      <plugin type="script">
+        SwitchOn (Terminal)
+      </plugin>
     </object>
   </object>
   <object name="Security">
@@ -295,5 +314,10 @@
     <property>test</property>
     <pattern>test</pattern>
     <defaultexpression>"You can't test " + object.article + "."</defaultexpression>
+  </verb>
+  <verb>
+    <property>plugin</property>
+    <pattern>plug in</pattern>
+    <defaultexpression>"You can't plug in " + object.article + "."</defaultexpression>
   </verb>
 </asl>
