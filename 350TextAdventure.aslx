@@ -26,19 +26,25 @@
       <scenery type="boolean">false</scenery>
       <locked />
     </exit>
-    <exit to="Hydroponic Biosphere">
+    <exit name="Exit Start to Biosphere" to="Hydroponic Biosphere">
       <scenery type="boolean">false</scenery>
+      <locked />
     </exit>
-    <exit to="Armory">
+    <exit name="Exit Start to Armory" to="Armory">
       <scenery type="boolean">false</scenery>
+      <locked />
     </exit>
-    <exit to="Med Bay">
+    <exit name="Exit Start to Med Bay" to="Med Bay">
       <scenery type="boolean">false</scenery>
+      <locked />
     </exit>
-    <exit to="Living Quarters">
+    <exit name="Exit Start to Living Quarters" to="Living Quarters">
       <scenery type="boolean">false</scenery>
+      <locked />
     </exit>
-    <exit to="AI Core" />
+    <exit name="Exit Start to AI Core" to="AI Core">
+      <locked />
+    </exit>
   </object>
   <object name="AI Core">
     <inherit name="editor_room" />
@@ -70,19 +76,25 @@
       <locked />
       <lockmessage>You do not have control of that Droid yet.</lockmessage>
     </exit>
-    <exit to="Hydroponic Biosphere">
+    <exit name="Exit Solar to Biosphere" to="Hydroponic Biosphere">
       <scenery type="boolean">false</scenery>
+      <locked />
     </exit>
-    <exit to="Armory">
+    <exit name="Exit Solar to Armory" to="Armory">
       <scenery type="boolean">false</scenery>
+      <locked />
     </exit>
-    <exit to="Med Bay">
+    <exit name="Exit Solar to Med Bay" to="Med Bay">
       <scenery type="boolean">false</scenery>
+      <locked />
     </exit>
-    <exit to="Living Quarters">
+    <exit name="Exit Solar to Living Quarters" to="Living Quarters">
       <scenery type="boolean">false</scenery>
+      <locked />
     </exit>
-    <exit to="AI Core" />
+    <exit name="Exit Solar to AI Core" to="AI Core">
+      <locked />
+    </exit>
     <object name="Desk">
       <inherit name="editor_object" />
       <inherit name="surface" />
@@ -114,22 +126,29 @@
   </object>
   <object name="Security">
     <inherit name="editor_room" />
-    <exit to="Solar Array Station">
+    <exit name="Exit Security to Solar" to="Solar Array Station">
       <scenery type="boolean">false</scenery>
+      <locked />
     </exit>
-    <exit to="Hydroponic Biosphere">
+    <exit name="Exit Security to Biosphere" to="Hydroponic Biosphere">
       <scenery type="boolean">false</scenery>
+      <locked />
     </exit>
-    <exit to="Armory">
+    <exit name="Exit Security to Armory" to="Armory">
       <scenery type="boolean">false</scenery>
+      <locked />
     </exit>
-    <exit to="Med Bay">
+    <exit name="Exit Security to Med Bay" to="Med Bay">
       <scenery type="boolean">false</scenery>
+      <locked />
     </exit>
-    <exit to="Living Quarters">
+    <exit name="Exit Security to Living Quarters" to="Living Quarters">
       <scenery type="boolean">false</scenery>
+      <locked />
     </exit>
-    <exit to="AI Core" />
+    <exit name="Exit Security to AI Core" to="AI Core">
+      <locked />
+    </exit>
     <object name="Security Complete">
       <inherit name="editor_object" />
       <visible type="boolean">false</visible>
@@ -141,44 +160,58 @@
   </object>
   <object name="Hydroponic Biosphere">
     <inherit name="editor_room" />
-    <exit to="Solar Array Station">
-      <scenery />
+    <exit name="Exit Biosphere to Solar" to="Solar Array Station">
+      <scenery type="boolean">false</scenery>
+      <locked />
     </exit>
-    <exit to="Security">
-      <scenery />
+    <exit name="Exit Biosphere to Security" to="Security">
+      <scenery type="boolean">false</scenery>
+      <locked />
     </exit>
-    <exit to="Armory">
-      <scenery />
+    <exit name="Exit Biosphere to Armory" to="Armory">
+      <scenery type="boolean">false</scenery>
+      <locked />
     </exit>
-    <exit to="Med Bay">
-      <scenery />
+    <exit name="Exit Biosphere to Med Bay" to="Med Bay">
+      <scenery type="boolean">false</scenery>
+      <locked />
     </exit>
-    <exit to="Living Quarters">
-      <scenery />
+    <exit name="Exit Biosphere to Living Quarters" to="Living Quarters">
+      <scenery type="boolean">false</scenery>
+      <locked />
     </exit>
-    <exit to="AI Core" />
+    <exit name="Exit Biosphere to AI Core" to="AI Core">
+      <locked />
+    </exit>
     <object name="Hydroponic Biosphere Complete">
       <inherit name="editor_object" />
     </object>
   </object>
   <object name="Armory">
     <inherit name="editor_room" />
-    <exit to="Solar Array Station">
-      <scenery />
+    <exit name="Exit Armory to Solar" to="Solar Array Station">
+      <scenery type="boolean">false</scenery>
+      <locked />
     </exit>
-    <exit to="Security">
-      <scenery />
+    <exit name="Exit Armory to Security" to="Security">
+      <scenery type="boolean">false</scenery>
+      <locked />
     </exit>
-    <exit to="Hydroponic Biosphere">
-      <scenery />
+    <exit name="Exit Armory to Biosphere" to="Hydroponic Biosphere">
+      <scenery type="boolean">false</scenery>
+      <locked />
     </exit>
-    <exit to="Med Bay">
-      <scenery />
+    <exit name="Exit Armory to Med Bay" to="Med Bay">
+      <scenery type="boolean">false</scenery>
+      <locked />
     </exit>
-    <exit to="Living Quarters">
-      <scenery />
+    <exit name="Exit Armory to Living Quarters" to="Living Quarters">
+      <scenery type="boolean">false</scenery>
+      <locked />
     </exit>
-    <exit to="AI Core" />
+    <exit name="Exit Armory to AI Core" to="AI Core">
+      <locked />
+    </exit>
     <object name="Armory Complete">
       <inherit name="editor_object" />
       <visible type="boolean">false</visible>
@@ -188,22 +221,29 @@
   </object>
   <object name="Med Bay">
     <inherit name="editor_room" />
-    <exit to="Solar Array Station">
-      <scenery />
+    <exit name="Exit Med Bay to Solar" to="Solar Array Station">
+      <scenery type="boolean">false</scenery>
+      <locked />
     </exit>
-    <exit to="Security">
-      <scenery />
+    <exit name="Exit Med Bay to Security" to="Security">
+      <scenery type="boolean">false</scenery>
+      <locked />
     </exit>
-    <exit to="Hydroponic Biosphere">
-      <scenery />
+    <exit name="Exit Med Bay to Biosphere" to="Hydroponic Biosphere">
+      <scenery type="boolean">false</scenery>
+      <locked />
     </exit>
-    <exit to="Armory">
-      <scenery />
+    <exit name="Exit Med Bay to Armory" to="Armory">
+      <scenery type="boolean">false</scenery>
+      <locked />
     </exit>
-    <exit to="Living Quarters">
-      <scenery />
+    <exit name="Exit Med Bay to Living Quarters" to="Living Quarters">
+      <scenery type="boolean">false</scenery>
+      <locked />
     </exit>
-    <exit to="AI Core" />
+    <exit name="Exit Med Bay to AI Core" to="AI Core">
+      <locked />
+    </exit>
     <object name="Med Bay Complete">
       <inherit name="editor_object" />
       <visible type="boolean">false</visible>
@@ -215,22 +255,29 @@
   </object>
   <object name="Living Quarters">
     <inherit name="editor_room" />
-    <exit to="Solar Array Station">
-      <scenery />
+    <exit name="Exit Living Quarters to Solar" to="Solar Array Station">
+      <scenery type="boolean">false</scenery>
+      <locked />
     </exit>
-    <exit to="Security">
-      <scenery />
+    <exit name="Exit Living Quarters to Security" to="Security">
+      <scenery type="boolean">false</scenery>
+      <locked />
     </exit>
-    <exit to="Hydroponic Biosphere">
-      <scenery />
+    <exit name="Exit Living Quarters to Biosphere" to="Hydroponic Biosphere">
+      <scenery type="boolean">false</scenery>
+      <locked />
     </exit>
-    <exit to="Armory">
-      <scenery />
+    <exit name="Exit Living Quarters to Armory" to="Armory">
+      <scenery type="boolean">false</scenery>
+      <locked />
     </exit>
-    <exit to="Living Quarters">
-      <scenery />
+    <exit name="Exit Living Quarters to Med Bay" to="Med Bay">
+      <scenery type="boolean">false</scenery>
+      <locked />
     </exit>
-    <exit to="AI Core" />
+    <exit name="Exit Living Quarters to AI Core" to="AI Core">
+      <locked />
+    </exit>
     <object name="Living Quarters Complete">
       <inherit name="editor_object" />
       <visible type="boolean">false</visible>
