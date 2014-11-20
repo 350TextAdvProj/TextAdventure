@@ -9,7 +9,7 @@
   </game>
   <object name="Starting Room">
     <inherit name="editor_room" />
-    <exitslistprefix>You can go to the AI core.</exitslistprefix>
+    <exitslistprefix>You can switch to a droid in: </exitslistprefix>
     <descprefix>You are in</descprefix>
     <description>You are in a placeholder starting room! You can go to the other rooms from here!</description>
     <object name="player">
@@ -18,24 +18,25 @@
       <drop />
     </object>
     <exit to="Solar Array Station">
-      <scenery />
+      <scenery type="boolean">false</scenery>
       <visible />
       <locked type="boolean">false</locked>
     </exit>
-    <exit to="Security">
-      <scenery />
+    <exit name="Exit Start to security" to="Security">
+      <scenery type="boolean">false</scenery>
+      <locked />
     </exit>
     <exit to="Hydroponic Biosphere">
-      <scenery />
+      <scenery type="boolean">false</scenery>
     </exit>
     <exit to="Armory">
-      <scenery />
+      <scenery type="boolean">false</scenery>
     </exit>
     <exit to="Med Bay">
-      <scenery />
+      <scenery type="boolean">false</scenery>
     </exit>
     <exit to="Living Quarters">
-      <scenery />
+      <scenery type="boolean">false</scenery>
     </exit>
     <exit to="AI Core" />
   </object>
@@ -53,6 +54,9 @@
     <inherit name="editor_room" />
     <beforefirstenter type="script">
     </beforefirstenter>
+    <descprefix>Control of droid initiated in</descprefix>
+    <objectslistprefix>Droid detects</objectslistprefix>
+    <exitslistprefix>You can switch to a droid in: </exitslistprefix>
     <object name="Solar Array Complete">
       <inherit name="editor_object" />
       <visible type="boolean">false</visible>
@@ -61,39 +65,69 @@
       <inventoryverbs type="stringlist" />
       <drop type="boolean">false</drop>
     </object>
-    <exit to="Security">
-      <scenery />
+    <exit name="Exit Solar to security" to="Security">
+      <scenery type="boolean">false</scenery>
+      <locked />
+      <lockmessage>You do not have control of that Droid yet.</lockmessage>
     </exit>
     <exit to="Hydroponic Biosphere">
-      <scenery />
+      <scenery type="boolean">false</scenery>
     </exit>
     <exit to="Armory">
-      <scenery />
+      <scenery type="boolean">false</scenery>
     </exit>
     <exit to="Med Bay">
-      <scenery />
+      <scenery type="boolean">false</scenery>
     </exit>
     <exit to="Living Quarters">
-      <scenery />
+      <scenery type="boolean">false</scenery>
     </exit>
     <exit to="AI Core" />
+    <object name="Desk">
+      <inherit name="editor_object" />
+      <inherit name="surface" />
+      <feature_container />
+      <hidechildren type="boolean">false</hidechildren>
+      <object name="Clipboard">
+        <inherit name="editor_object" />
+        <look><![CDATA[On it is the ship's Manifesto and a sticky note.<br/>The Manifesto reads:<br/><br/><br/>“Members of Koncovka          03/12/2122<br/><br/>Jocelyn Beyer<br/>Matt Gallagher<br/>Fabian Gonzalez<br/>Glenn Meyer<br/>Kimberly Normandeau<br/>Henry Pabst”<br/>Robert Taffler<br/>Barbara Ross<br/>Kathleen Harris<br/>Catherine McKinnon<br/><br/>]]></look>
+      </object>
+      <object name="Sticky Note">
+        <inherit name="editor_object" />
+        <take />
+        <drop type="boolean">false</drop>
+        <look><![CDATA[The sticky note reads   <br/><br/>“Remember to change the battery vault passcode. <br/>‘password’ does not meet security requirements”<br/>]]></look>
+      </object>
+    </object>
+    <object name="Door Control">
+      <inherit name="editor_object" />
+      <displayverbs type="stringlist">
+        <value>Look at</value>
+        <value>Use</value>
+      </displayverbs>
+      <feature_usegive />
+      <use type="script">
+        UnlockExit (Exit Start to security)
+        UnlockExit (Exit Solar to security)
+      </use>
+    </object>
   </object>
   <object name="Security">
     <inherit name="editor_room" />
     <exit to="Solar Array Station">
-      <scenery />
+      <scenery type="boolean">false</scenery>
     </exit>
     <exit to="Hydroponic Biosphere">
-      <scenery />
+      <scenery type="boolean">false</scenery>
     </exit>
     <exit to="Armory">
-      <scenery />
+      <scenery type="boolean">false</scenery>
     </exit>
     <exit to="Med Bay">
-      <scenery />
+      <scenery type="boolean">false</scenery>
     </exit>
     <exit to="Living Quarters">
-      <scenery />
+      <scenery type="boolean">false</scenery>
     </exit>
     <exit to="AI Core" />
     <object name="Security Complete">
@@ -206,4 +240,9 @@
       <drop type="boolean">false</drop>
     </object>
   </object>
+  <verb>
+    <property>test</property>
+    <pattern>test</pattern>
+    <defaultexpression>"You can't test " + object.article + "."</defaultexpression>
+  </verb>
 </asl>
