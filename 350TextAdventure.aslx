@@ -121,6 +121,10 @@
       <use type="script">
         UnlockExit (Exit Start to security)
         UnlockExit (Exit Solar to security)
+        UnlockExit (Exit Biosphere to Security)
+        UnlockExit (Exit Armory to Security)
+        UnlockExit (Exit Med Bay to Security)
+        UnlockExit (Exit Living Quarters to Security)
       </use>
     </object>
   </object>
