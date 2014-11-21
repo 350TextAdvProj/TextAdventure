@@ -28,18 +28,8 @@
                   msg ("Name: Bishop<br/>Assignment: Electronic Systems Monitor on the space station Koncova.<br/>Primary Role: Ensure Optimal System Performance<br/>Clearance Level: 10<br/>Allowed Access to All Systems.<br/>Preparing Status Report.")
                   SetTimeout (3) {
                     msg ("Status Report:<br/>Station - Offline<br/>Solar Array Station - Offline<br/>Hydroponic Biosphere - Offline<br/>Communications - Offline<br/>Living Quarters - Offline<br/>Medical Bay - Offline<br/>AI Core - Offline")
-                    SetTimeout (4) {
-                      msg ("Repair droids are online.")
-                      loopvar = 1
-                      while (loopvar = 1) {
-                        msg ("Access repair droids(y/n)?")
-                        get input {
-                          if (result = "yes" or result = "y") {
-                            loopvar = 0
-                          }
-                        }
-                      }
-                    }
+                    msg ("Would you like to access repair droids(y/n)?")
+                    SRAccessDroids
                   }
                 }
               }
@@ -154,6 +144,7 @@
         <value>Use</value>
       </displayverbs>
       <feature_usegive />
+      <attr name="feature_switchable" type="boolean">false</attr>
       <use type="script"><![CDATA[
         if (IsSwitchedOn(Terminal)) {
           msg ("Please enter the password:<br/>")
@@ -170,7 +161,6 @@
           }
         }
       ]]></use>
-      <attr name="feature_switchable" type="boolean">false</attr>
     </object>
     <object name="Large Batteries">
       <inherit name="editor_object" />
@@ -354,4 +344,16 @@
     <pattern>plug in</pattern>
     <defaultexpression>"You can't plug in " + object.article + "."</defaultexpression>
   </verb>
+  <function name="SRAccessDroids">
+    get input {
+      if (IsRegexMatch ("yes|y", LCase(result))) {
+        msg ("Begining droid access protocols.")
+      }
+      else {
+        msg ("ERROR")
+        msg ("Access repair droids(y/n)?")
+        SRAccessDroids
+      }
+    }
+  </function>
 </asl>
