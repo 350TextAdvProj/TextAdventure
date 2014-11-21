@@ -25,7 +25,7 @@
               SetTimeout (2) {
                 msg ("..")
                 SetTimeout (2) {
-                  msg ("Name: Bishop<br/>Assignment: Electronic Systems Monitor on the space station Koncova.<br/>Primary Role: Ensure Optimal System Performance<br/>Clearance Level: 10<br/>Allowed Access to All Systems.<br/>Preparing Status Report.")
+                  msg ("NAME: Bishop<br/>ASSIGNMENT: Electronic Systems Monitor on the space station Koncova.<br/>PRIMARYROLE: Ensure Optimal System Performance<br/>CLEARANCELEVEL: 10<br/>Allowed Access to All Systems.<br/>Preparing Status Report.")
                   SetTimeout (3) {
                     msg ("Status Report:<br/>Station - Offline<br/>Solar Array Station - Offline<br/>Hydroponic Biosphere - Offline<br/>Communications - Offline<br/>Living Quarters - Offline<br/>Medical Bay - Offline<br/>AI Core - Offline")
                     msg ("Would you like to access repair droids(y/n)?")
@@ -348,11 +348,25 @@
     get input {
       if (IsRegexMatch ("yes|y", LCase(result))) {
         msg ("Begining droid access protocols.")
+        SRAccessRoom
       }
       else {
         msg ("ERROR")
         msg ("Access repair droids(y/n)?")
         SRAccessDroids
+      }
+    }
+  </function>
+  <function name="SRAccessRoom">
+    msg ("Please enter the room you would like to access:")
+    get input {
+      if (IsRegexMatch ("solar|array|solar array", LCase(result))) {
+        msg ("Access granted.")
+        MoveObject (player, Solar Array Station)
+      }
+      else {
+        msg ("ERROR CODE ORA-10461: ACCESS DENIED, SOLAR ARRAY STATION MUST BE ONLINE")
+        SRAccessRoom
       }
     }
   </function>
