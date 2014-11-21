@@ -6,10 +6,13 @@
     <gameid>36273a24-7575-4e61-8f7c-0bdf8d8b7fe9</gameid>
     <version>1.0</version>
     <firstpublished>2014</firstpublished>
+    <showdescriptiononenter />
+    <autodescription />
+    <attr name="autodescription_youarein_useprefix" type="boolean">false</attr>
   </game>
   <object name="Starting Room">
     <inherit name="editor_room" />
-    <exitslistprefix>You can switch to a droid in: </exitslistprefix>
+    <exitslistprefix type="string"></exitslistprefix>
     <descprefix type="string"></descprefix>
     <description>You are in a small room. lit only by the dim glow of the monitors that fill the room. There are multiple keyboards and papers scattered on the desk, indicating a workstation for the room's occupant.</description>
     <enter type="script">
@@ -38,38 +41,41 @@
         }
       }
     ]]></firstenter>
+    <beforefirstenter type="script">
+    </beforefirstenter>
     <object name="player">
       <inherit name="editor_object" />
       <inherit name="editor_player" />
       <drop />
     </object>
     <exit to="Solar Array Station">
-      <scenery type="boolean">false</scenery>
+      <scenery />
       <visible />
       <locked type="boolean">false</locked>
     </exit>
     <exit name="Exit Start to security" to="Security">
-      <scenery type="boolean">false</scenery>
+      <scenery />
       <locked />
     </exit>
     <exit name="Exit Start to Biosphere" to="Hydroponic Biosphere">
-      <scenery type="boolean">false</scenery>
+      <scenery />
       <locked />
     </exit>
     <exit name="Exit Start to Armory" to="Armory">
-      <scenery type="boolean">false</scenery>
+      <scenery />
       <locked />
     </exit>
     <exit name="Exit Start to Med Bay" to="Med Bay">
-      <scenery type="boolean">false</scenery>
+      <scenery />
       <locked />
     </exit>
     <exit name="Exit Start to Living Quarters" to="Living Quarters">
-      <scenery type="boolean">false</scenery>
+      <scenery />
       <locked />
     </exit>
     <exit name="Exit Start to AI Core" to="AI Core">
       <locked />
+      <scenery />
     </exit>
   </object>
   <object name="AI Core">
