@@ -43,6 +43,12 @@
     ]]></firstenter>
     <beforefirstenter type="script">
     </beforefirstenter>
+    <beforeenter type="script">
+      play sound ("SRMusic.mp3", false, true)
+    </beforeenter>
+    <onexit type="script">
+      stop sound
+    </onexit>
     <object name="player">
       <inherit name="editor_object" />
       <inherit name="editor_player" />
@@ -308,6 +314,13 @@
   </object>
   <object name="Living Quarters">
     <inherit name="editor_room" />
+    <beforeenter type="script">
+      play sound ("LQMusic.mp3", false, true)
+    </beforeenter>
+    <description>You can see a large and relatively pleasant area. While the other rooms in the ship have been cold work environments or displays of prestige, this room's function appears to be simple utility and comfort.</description>
+    <onexit type="script">
+      stop sound
+    </onexit>
     <exit name="Exit Living Quarters to Solar" to="Solar Array Station">
       <scenery type="boolean">false</scenery>
       <locked />
@@ -339,6 +352,64 @@
       <inventoryverbs type="stringlist" />
       <drop type="boolean">false</drop>
     </object>
+    <object name="Cat Tree">
+      <inherit name="editor_object" />
+      <inherit name="surface" />
+      <look type="script">
+        msg ("A three-tiered cat tree covered in cheap fabric and fur.")
+        if (Dead Cat.parent = Cat Tree) {
+          msg ("A dead cat lies curled up on the top platform.")
+        }
+      </look>
+      <feature_container />
+      <hidechildren type="boolean">false</hidechildren>
+      <listchildren type="boolean">false</listchildren>
+      <takedeadcat type="script">
+        AddToInventory (Dead Cat)
+      </takedeadcat>
+      <object name="Dead Cat">
+        <inherit name="editor_object" />
+        <look type="string"></look>
+        <take />
+        <takemsg>You are now carrying a dead cat in your droid's storage cubby.</takemsg>
+        <drop type="boolean">false</drop>
+      </object>
+    </object>
+    <object name="Set of Couches">
+      <inherit name="editor_object" />
+      <look type="script">
+        msg ("The couches are fluffy with well placed arm rests. The perfect napping couch.")
+      </look>
+      <takemsg>A couch is far too heavy for a droid to carry around.</takemsg>
+    </object>
+    <object name="Record Player">
+      <inherit name="editor_object" />
+      <look type="script">
+        msg ("An old record player is gathering dust. There is a translucent red 45 under the needle.")
+      </look>
+      <play type="script">
+        if (Record Player.isplaying = False) {
+          msg ("A song begins to play.")
+          stop sound
+          play sound ("LQRecordMusic.mp3", false, true)
+          set (Record Player, "isplaying", True)
+        }
+        else {
+          msg ("The record is already playing.")
+        }
+      </play>
+      <isplaying type="boolean">false</isplaying>
+      <stop type="script">
+        if (Record Player.isplaying = True) {
+          stop sound
+          set (Record Player, "isplaying", False)
+          msg ("The record stops playing.")
+        }
+        else {
+          msg ("No record is playing.")
+        }
+      </stop>
+    </object>
   </object>
   <verb>
     <property>test</property>
@@ -349,6 +420,21 @@
     <property>plugin</property>
     <pattern>plug in</pattern>
     <defaultexpression>"You can't plug in " + object.article + "."</defaultexpression>
+  </verb>
+  <verb>
+    <property>play</property>
+    <pattern>play</pattern>
+    <defaultexpression>"You can't play " + object.article + "."</defaultexpression>
+  </verb>
+  <verb>
+    <property>stop</property>
+    <pattern>stop</pattern>
+    <defaultexpression>"You can't stop " + object.article + "."</defaultexpression>
+  </verb>
+  <verb>
+    <property>takedeadcat</property>
+    <pattern>take dead cat</pattern>
+    <defaultexpression>"You can't take dead cat " + object.article + "."</defaultexpression>
   </verb>
   <function name="SRAccessDroids">
     get input {
