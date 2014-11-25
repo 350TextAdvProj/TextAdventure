@@ -111,7 +111,7 @@
     </object>
     <exit name="Exit Solar to security" to="Security">
       <scenery type="boolean">false</scenery>
-      <locked />
+      <locked type="boolean">false</locked>
       <lockmessage>You do not have control of that Droid yet.</lockmessage>
     </exit>
     <exit name="Exit Solar to Biosphere" to="Hydroponic Biosphere">
@@ -128,7 +128,7 @@
     </exit>
     <exit name="Exit Solar to Living Quarters" to="Living Quarters">
       <scenery type="boolean">false</scenery>
-      <locked />
+      <locked type="boolean">false</locked>
     </exit>
     <exit name="Exit Solar to AI Core" to="AI Core">
       <locked />
@@ -139,6 +139,9 @@
       <feature_container />
       <hidechildren type="boolean">false</hidechildren>
       <drop type="boolean">false</drop>
+      <displayverbs type="stringlist">
+        <value>Look at</value>
+      </displayverbs>
       <look type="script"><![CDATA[
         SetTimeout (1) {
           msg ("There is a desk in the middle of the room. <br/>On it sits a terminal. No power is detected. ")
@@ -155,9 +158,6 @@
         MakeObjectVisible (Sticky Note)
         msg ("Inside the drawer is a Clipboard with a sticky note on it.")
       </opendrawer>
-      <displayverbs type="stringlist">
-        <value>Look at</value>
-      </displayverbs>
       <object name="Clipboard">
         <inherit name="editor_object" />
         <look><![CDATA[On it is the ship's Manifesto and a sticky note.<br/>The Manifesto reads:<br/><br/><br/>“Members of Koncovka          03/12/2122<br/><br/>Jocelyn Beyer<br/>Matt Gallagher<br/>Fabian Gonzalez<br/>Glenn Meyer<br/>Kimberly Normandeau<br/>Henry Pabst”<br/>Robert Taffler<br/>Barbara Ross<br/>Kathleen Harris<br/>Catherine McKinnon<br/><br/>]]></look>
@@ -217,9 +217,6 @@
     <object name="Large Battery Array">
       <inherit name="editor_object" />
       <attr name="feature_switchable" type="boolean">false</attr>
-      <plugin type="script">
-        SwitchOn (Terminal)
-      </plugin>
       <look><![CDATA[The droid scans a set of very large batteries. <br/>The wires trace back to the terminal.<br/>One wire in particular seems to be unhooked from the top of one of the batteries.]]></look>
       <displayverbs type="stringlist">
         <value>Look at</value>
@@ -227,10 +224,16 @@
       <inventoryverbs type="stringlist">
         <value>Look at</value>
       </inventoryverbs>
+      <plugin type="script">
+        SwitchOn (Terminal)
+      </plugin>
     </object>
   </object>
   <object name="Security">
     <inherit name="editor_room" />
+    <description><![CDATA[The power station for the ($PLACEHOLDER DROID) is located between the doors to the security chief’s office on the left and the bathrooms to the right. Both are on the north wall. In the north-eastern portion of the room are various kinds of desk and work stations for the security staff. In the north-west part of the room are the doors to the bathroom, a row of lockers, a couch, and a chair. These two sections of the room are divided by a frosted glass partition, slightly east of the chief’s door. In the south-east corner of the room is a reception desk, which serves the primary role of monitoring internal and external communications, as well as dealing with any civilians on the station who need to talk to the security personnel. On the south wall behind the desk is a room that serves as both an interrogation room, and a quiet place for people to make long range calls off the station. The south-west corner is dominated by holding cells, some of which have been temporarily converted to storage as the crime rate on the station is quite low.<br/><br/>]]></description>
+    <alias>Security/Communications Center</alias>
+    <usedefaultprefix />
     <exit name="Exit Security to Solar" to="Solar Array Station">
       <scenery type="boolean">false</scenery>
       <locked />
@@ -261,6 +264,46 @@
       <displayverbs type="stringlist" />
       <inventoryverbs type="stringlist" />
       <drop type="boolean">false</drop>
+    </object>
+    <object name="SecOffice">
+      <inherit name="editor_room" />
+      <drop type="boolean">false</drop>
+      <feature_container />
+      <alias>Security Chief K. Normandeau's Office</alias>
+      <description>This office belongs to the Chief of Security, K. Normandeau. The room contains a desk with a computer and a chair, file cabinets, and a few personal possessions. There are pictures on the desk and a medal for exceptional service on the wall.</description>
+      <exit alias="south" to="Security">
+        <inherit name="southdirection" />
+      </exit>
+      <object name="File Cabinets">
+        <inherit name="editor_object" />
+        <inherit name="openable" />
+        <drop type="boolean">false</drop>
+        <look>A regular, run of the mill file cabinet. </look>
+        <feature_container />
+        <openscript type="script">
+          msg ("You open the file cabinet to find it empty.")
+        </openscript>
+        <closescript type="script">
+          msg ("You shut the filing cabinet closed.")
+        </closescript>
+      </object>
+      <object name="Computer Terminal">
+        <inherit name="editor_object" />
+        <look>The computer is turned on, with a blinking green terminal-entry sign in the top-left corner.</look>
+        <enterpassword type="script">
+          msg ("Whoops, this is a placeholder message because we're still implementing this puzzle.")
+        </enterpassword>
+      </object>
+      <object name="Medal">
+        <inherit name="editor_object" />
+        <look>$PLACEHOLDER MEDAL DESCRIPTION</look>
+        <take />
+        <takemsg>You place the medal in your droid's storage system.</takemsg>
+        <drop type="boolean">false</drop>
+      </object>
+    </object>
+    <object name="Bathroom">
+      <inherit name="editor_object" />
     </object>
   </object>
   <object name="Hydroponic Biosphere">
@@ -491,6 +534,11 @@
     <property>opendrawer</property>
     <pattern>open drawer</pattern>
     <defaultexpression>"You can't open drawer " + object.article + "."</defaultexpression>
+  </verb>
+  <verb>
+    <property>enterpassword</property>
+    <pattern>enter password</pattern>
+    <defaultexpression>"You can't enter password " + object.article + "."</defaultexpression>
   </verb>
   <function name="SRAccessDroids">
     get input {
