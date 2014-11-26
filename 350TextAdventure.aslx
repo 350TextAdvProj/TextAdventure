@@ -418,15 +418,28 @@
     </object>
     <object name="bed">
       <inherit name="editor_object" />
+      <displayverbs type="stringlist">
+        <value>Look at</value>
+      </displayverbs>
+      <lookunder type="script">
+        msg ("Under the bed is a scalpel.")
+        MakeObjectVisible (scalpel)
+      </lookunder>
       <object name="scalpel">
         <inherit name="editor_object" />
         <take />
+        <look>A pretty sharp scalpel. This could be useful. </look>
       </object>
     </object>
     <object name="surgical cabinet">
       <inherit name="editor_object" />
       <inherit name="container_closed" />
       <feature_container />
+      <displayverbs type="stringlist">
+        <value>Look at</value>
+        <value>Open</value>
+        <value>Close</value>
+      </displayverbs>
       <object name="blacklight bulb">
         <inherit name="editor_object" />
         <take />
@@ -434,6 +447,13 @@
     </object>
     <object name="light switch">
       <inherit name="editor_object" />
+      <inherit name="switchable" />
+      <displayverbs type="stringlist">
+        <value>Look at</value>
+      </displayverbs>
+      <look>The light switch looks like it controls the room's lights.</look>
+      <feature_switchable />
+      <switchedon />
     </object>
     <object name="Lamp">
       <inherit name="editor_object" />
@@ -588,6 +608,11 @@
     <property>enterpassword</property>
     <pattern>enter password</pattern>
     <defaultexpression>"You can't enter password " + object.article + "."</defaultexpression>
+  </verb>
+  <verb>
+    <property>lookunder</property>
+    <pattern>look under</pattern>
+    <defaultexpression>"You can't look under " + object.article + "."</defaultexpression>
   </verb>
   <function name="SRAccessDroids">
     get input {
