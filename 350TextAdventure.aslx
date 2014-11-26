@@ -474,7 +474,7 @@
             msg ("The whiteboard glows with luminescent writing. It reads:")
             SetFontSize (20)
             msg ("I've hidden the scalpel under the bed")
-            SetFontSize (9)
+            SetFontSize (12)
           }
         }
       </look>
@@ -485,13 +485,13 @@
         <value>Look at</value>
       </displayverbs>
       <lookunder type="script">
-        msg ("Under the bed is a scalpel.")
         MakeObjectVisible (scalpel)
+        msg ("Under the bed is a scalpel.")
       </lookunder>
       <object name="scalpel">
         <inherit name="editor_object" />
         <take />
-        <look>A pretty sharp scalpel. This could be useful. </look>
+        <visible type="boolean">false</visible>
       </object>
     </object>
     <object name="surgical cabinet">
