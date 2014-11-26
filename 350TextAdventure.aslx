@@ -179,44 +179,6 @@
         <scenery type="boolean">false</scenery>
         <visible type="boolean">false</visible>
       </object>
-      <object name="Terminal">
-        <inherit name="editor_object" />
-        <displayverbs type="stringlist">
-          <value>Look at</value>
-          <value>Use</value>
-        </displayverbs>
-        <feature_usegive />
-        <attr name="feature_switchable" type="boolean">false</attr>
-        <use type="script"><![CDATA[
-          if (IsSwitchedOn(Terminal)) {
-            msg ("please enter the password:<br/>")
-            get input {
-              if (result = "password") {
-                msg ("Password Correct. <br/>")
-                SetTimeout (2) {
-                  msg ("Droid initiated in Security Room")
-                  SetTimeout (1) {
-                    msg ("Solar Array System Initiated. Power has been stored.")
-                    SetTimeout (1) {
-                      msg ("<br/>Access to Security now GRANTED")
-                    }
-                  }
-                }
-              }
-              UnlockExit (Exit Start to security)
-              UnlockExit (Exit Solar to security)
-              UnlockExit (Exit Biosphere to Security)
-              UnlockExit (Exit Armory to Security)
-              UnlockExit (Exit Med Bay to Security)
-              UnlockExit (Exit Living Quarters to Security)
-              AddToInventory (Solar Array Complete)
-            }
-          }
-          else {
-            msg ("The terminal doesn't respond to any key presses. It appears to not have any source of power. ")
-          }
-        ]]></use>
-      </object>
     </object>
     <object name="Large Battery Array">
       <inherit name="editor_object" />
@@ -231,6 +193,44 @@
       <plugin type="script">
         SwitchOn (Terminal)
       </plugin>
+    </object>
+    <object name="Terminal">
+      <inherit name="editor_object" />
+      <displayverbs type="stringlist">
+        <value>Look at</value>
+        <value>Use</value>
+      </displayverbs>
+      <feature_usegive />
+      <attr name="feature_switchable" type="boolean">false</attr>
+      <use type="script"><![CDATA[
+        if (IsSwitchedOn(Terminal)) {
+          msg ("please enter the password:<br/>")
+          get input {
+            if (result = "password") {
+              msg ("Password Correct. <br/>")
+              SetTimeout (2) {
+                msg ("Droid initiated in Security Room")
+                SetTimeout (1) {
+                  msg ("Solar Array Systemrebooting. Power has been restored.")
+                  SetTimeout (1) {
+                    msg ("<br/>Access to Security now GRANTED")
+                  }
+                }
+              }
+            }
+            UnlockExit (Exit Start to security)
+            UnlockExit (Exit Solar to security)
+            UnlockExit (Exit Biosphere to Security)
+            UnlockExit (Exit Armory to Security)
+            UnlockExit (Exit Med Bay to Security)
+            UnlockExit (Exit Living Quarters to Security)
+            AddToInventory (Solar Array Complete)
+          }
+        }
+        else {
+          msg ("The terminal doesn't respond to any key presses. It appears to not have any source of power. ")
+        }
+      ]]></use>
     </object>
   </object>
   <object name="Security">
