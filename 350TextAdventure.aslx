@@ -16,6 +16,7 @@
     <descprefix type="string"></descprefix>
     <description>You are in a small room. lit only by the dim glow of the monitors that fill the room. There are multiple keyboards and papers scattered on the desk, indicating a workstation for the room's occupant.</description>
     <enter type="script">
+      AddToInventory (Check Ship Status)
     </enter>
     <firstenter type="script"><![CDATA[
       SetTimeout (4) {
@@ -83,6 +84,19 @@
       <locked />
       <scenery />
     </exit>
+    <object name="Check Ship Status">
+      <inherit name="editor_object" />
+      <visible />
+      <alt type="stringlist">
+        <value>Status</value>
+      </alt>
+      <displayverbs type="stringlist" />
+      <inventoryverbs type="stringlist" />
+      <print type="script">
+        getStatus
+      </print>
+      <take />
+    </object>
   </object>
   <object name="AI Core">
     <inherit name="editor_room" />
@@ -792,6 +806,11 @@
     <property>lookunderneath</property>
     <pattern>look underneath</pattern>
     <defaultexpression>"You can't look underneath " + object.article + "."</defaultexpression>
+  </verb>
+  <verb>
+    <property>print</property>
+    <pattern>print</pattern>
+    <defaultexpression>"You can't print " + object.article + "."</defaultexpression>
   </verb>
   <function name="SRAccessDroids">
     get input {
