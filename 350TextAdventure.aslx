@@ -402,6 +402,19 @@
     </object>
     <object name="large white board">
       <inherit name="editor_object" />
+      <look type="script">
+        if (not IsSwitchedOn(large white board)) {
+          msg ("The whiteboard has no writing on it. ")
+        }
+        else if (IsSwitchedOn(large white board)) {
+          if (not IsSwitchedOn(light switch)) {
+            msg ("The whiteboard glows with luminescent writing. It reads:")
+            SetFontSize (20)
+            msg ("I've hidden the scalpel under the bed")
+            SetFontSize (9)
+          }
+        }
+      </look>
     </object>
     <object name="bed">
       <inherit name="editor_object" />
@@ -421,6 +434,20 @@
     </object>
     <object name="light switch">
       <inherit name="editor_object" />
+    </object>
+    <object name="Lamp">
+      <inherit name="editor_object" />
+      <inherit name="switchable" />
+      <attr name="feature_switchable" type="boolean">false</attr>
+      <displayverbs type="stringlist">
+        <value>Look at</value>
+      </displayverbs>
+      <feature_usegive />
+      <useon type="scriptdictionary">
+        <item key="blacklight bulb">
+          SwitchOn (large white board)
+        </item>
+      </useon>
     </object>
   </object>
   <object name="Living Quarters">
