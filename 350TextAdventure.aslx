@@ -479,21 +479,6 @@
         }
       </look>
     </object>
-    <object name="bed">
-      <inherit name="editor_object" />
-      <displayverbs type="stringlist">
-        <value>Look at</value>
-      </displayverbs>
-      <lookunder type="script">
-        MakeObjectVisible (scalpel)
-        msg ("Under the bed is a scalpel.")
-      </lookunder>
-      <object name="scalpel">
-        <inherit name="editor_object" />
-        <take />
-        <visible type="boolean">false</visible>
-      </object>
-    </object>
     <object name="surgical cabinet">
       <inherit name="editor_object" />
       <inherit name="container_closed" />
@@ -503,6 +488,7 @@
         <value>Open</value>
         <value>Close</value>
       </displayverbs>
+      <listchildren />
       <object name="blacklight bulb">
         <inherit name="editor_object" />
         <take />
@@ -531,6 +517,62 @@
           SwitchOn (large white board)
         </item>
       </useon>
+    </object>
+    <object name="Bed">
+      <inherit name="editor_object" />
+      <inherit name="container_closed" />
+      <feature_container />
+      <listchildren />
+      <displayverbs type="stringlist">
+        <value>Look at</value>
+      </displayverbs>
+      <lookunderneath type="script">
+        HelperOpenObject (Bed)
+        msg ("Under the bed is a scalpel.")
+      </lookunderneath>
+      <listchildrenprefix>Underneath is</listchildrenprefix>
+      <object name="scalpel">
+        <inherit name="editor_object" />
+        <take />
+      </object>
+    </object>
+    <object name="Manual Override Box">
+      <inherit name="editor_object" />
+      <inherit name="container_open" />
+      <feature_usegive />
+      <useon type="scriptdictionary">
+        <item key="scalpel"><![CDATA[
+          HelperOpenObject (Manual Override Box)
+          msg ("The droid extends a small arm. ")
+          SetTimeout (1) {
+            msg ("Using the scalpel as a screwdriver it carefully and meticulously unscrews the 8 bolts that hold the front panel onto the override box.<br/>")
+          }
+          SetTimeout (1) {
+            msg ("Inside the box is a red handle and a laminated peice of paper that reads:<br/>\"MANUAL OVERRIDE - LIVING QUARTERS DRONE CONTROL\"")
+          }
+        ]]></item>
+      </useon>
+      <feature_container />
+      <isopen type="boolean">false</isopen>
+      <displayverbs type="stringlist">
+        <value>Look at</value>
+      </displayverbs>
+      <object name="Red handle">
+        <inherit name="editor_object" />
+        <displayverbs type="stringlist">
+          <value>Look at</value>
+        </displayverbs>
+        <pull type="script">
+          msg ("Access to Living Quarters now granted.")
+          UnlockExit (Exit Armory to Living Quarters)
+          UnlockExit (Exit Biosphere to Living Quarters)
+          UnlockExit (Exit Med Bay to Living Quarters)
+          UnlockExit (Exit Security to Living Quarters)
+          UnlockExit (Exit Solar to Living Quarters)
+          UnlockExit (Exit Start to Living Quarters)
+          AddToInventory (Med Bay Complete)
+        </pull>
+      </object>
     </object>
   </object>
   <object name="Living Quarters">
@@ -676,6 +718,16 @@
     <property>lookunder</property>
     <pattern>look under</pattern>
     <defaultexpression>"You can't look under " + object.article + "."</defaultexpression>
+  </verb>
+  <verb>
+    <property>lookunderpillow</property>
+    <pattern>look under pillow</pattern>
+    <defaultexpression>"You can't look under pillow " + object.article + "."</defaultexpression>
+  </verb>
+  <verb>
+    <property>lookunderneath</property>
+    <pattern>look underneath</pattern>
+    <defaultexpression>"You can't look underneath " + object.article + "."</defaultexpression>
   </verb>
   <function name="SRAccessDroids">
     get input {
