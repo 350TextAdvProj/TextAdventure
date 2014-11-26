@@ -124,7 +124,7 @@
     </exit>
     <exit name="Exit Solar to Med Bay" to="Med Bay">
       <scenery type="boolean">false</scenery>
-      <locked />
+      <locked type="boolean">false</locked>
     </exit>
     <exit name="Exit Solar to Living Quarters" to="Living Quarters">
       <scenery type="boolean">false</scenery>
@@ -465,6 +465,7 @@
     </object>
     <object name="large white board">
       <inherit name="editor_object" />
+      <inherit name="switchable" />
       <look type="script">
         if (not IsSwitchedOn(large white board)) {
           msg ("The whiteboard has no writing on it. ")
@@ -478,6 +479,7 @@
           }
         }
       </look>
+      <attr name="feature_switchable" type="boolean">false</attr>
     </object>
     <object name="surgical cabinet">
       <inherit name="editor_object" />
@@ -503,6 +505,44 @@
       <look>The light switch looks like it controls the room's lights.</look>
       <feature_switchable />
       <switchedon />
+      <turnon type="script">
+        if (ListContains(ScopeReachable(), this)) {
+          if (this.switchedon) {
+            msg (DynamicTemplate("AlreadySwitchedOn", this))
+          }
+          else {
+            if (HasString(this, "switchonmsg")) {
+              msg (this.switchonmsg)
+            }
+            else {
+              msg (DynamicTemplate("SwitchedOn", this))
+            }
+            this.switchedon = true
+          }
+        }
+        else {
+          msg (DynamicTemplate("DefaultTurnOn", this))
+        }
+      </turnon>
+      <turnoff type="script">
+        if (ListContains(ScopeReachable(), this)) {
+          if (not this.switchedon) {
+            msg (DynamicTemplate("AlreadySwitchedOff", this))
+          }
+          else {
+            if (HasString(this, "switchoffmsg")) {
+              msg (this.switchoffmsg)
+            }
+            else {
+              msg (DynamicTemplate("SwitchedOff", this))
+            }
+            this.switchedon = false
+          }
+        }
+        else {
+          msg (DynamicTemplate("DefaultTurnOff", this))
+        }
+      </turnoff>
     </object>
     <object name="Lamp">
       <inherit name="editor_object" />
