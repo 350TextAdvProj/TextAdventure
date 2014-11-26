@@ -124,7 +124,7 @@
     </exit>
     <exit name="Exit Solar to Med Bay" to="Med Bay">
       <scenery type="boolean">false</scenery>
-      <locked type="boolean">false</locked>
+      <locked />
     </exit>
     <exit name="Exit Solar to Living Quarters" to="Living Quarters">
       <scenery type="boolean">false</scenery>
@@ -795,4 +795,53 @@
       }
     }
   </function>
+  <function name="getStatus"><![CDATA[
+    msg ("<br/>Koncovka    Status Report:<br/>")
+    if (Got(Hydroponic Biosphere Complete)) {
+      if (Got(Solar Array Complete)) {
+        if (Got(Hydroponic Biosphere Complete)) {
+          if (Got(Security Complete)) {
+            if (Got(Med Bay Complete)) {
+              if (Got(Living Quarters Complete)) {
+                msg ("Station Functional - COMPLETE")
+              }
+              else {
+                msg ("Station Functional - Incomplete")
+              }
+            }
+          }
+        }
+      }
+    }
+    if (Got(Solar Array Complete)) {
+      msg ("Solar Array Station - ONLINE")
+    }
+    else {
+      msg ("Solar Array Station - Offline")
+    }
+    if (Got(Hydroponic Biosphere Complete)) {
+      msg ("Hydroponic Biosphere - ONLINE")
+    }
+    else {
+      msg ("Hydroponic Biosphere - Offline")
+    }
+    if (Got(Security Complete)) {
+      msg ("Security - ONLINE")
+    }
+    else {
+      msg ("Security - Offline")
+    }
+    if (Got(Med Bay Complete)) {
+      msg ("Medical Bay - ONLINE")
+    }
+    else {
+      msg ("Medical Bay - Offline")
+    }
+    if (Got(Living Quarters Complete)) {
+      msg ("Living Quarters - ONLINE")
+    }
+    else {
+      msg ("Living Quarters - Offline")
+    }
+  ]]></function>
 </asl>
