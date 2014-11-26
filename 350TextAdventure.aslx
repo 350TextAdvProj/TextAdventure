@@ -231,9 +231,27 @@
   </object>
   <object name="Security">
     <inherit name="editor_room" />
-    <description><![CDATA[The power station for the ($PLACEHOLDER DROID) is located between the doors to the security chief’s office on the left and the bathrooms to the right. Both are on the north wall. In the north-eastern portion of the room are various kinds of desk and work stations for the security staff. In the north-west part of the room are the doors to the bathroom, a row of lockers, a couch, and a chair. These two sections of the room are divided by a frosted glass partition, slightly east of the chief’s door. In the south-east corner of the room is a reception desk, which serves the primary role of monitoring internal and external communications, as well as dealing with any civilians on the station who need to talk to the security personnel. On the south wall behind the desk is a room that serves as both an interrogation room, and a quiet place for people to make long range calls off the station. The south-west corner is dominated by holding cells, some of which have been temporarily converted to storage as the crime rate on the station is quite low.<br/><br/>]]></description>
+    <description><![CDATA[The power station for the ($PLACEHOLDER DROID) is located between the doors to the security chief’s office on the left and the bathrooms to the right. Both are on the north wall. In the north-eastern portion of the room are various kinds of desk and work stations for the security staff. In the north-west part of the room are the doors to the bathroom, a row of lockers, a couch, and a chair. These two sections of the room are divided by a frosted glass partition, slightly east of the chief’s door. In the south-east corner of the room is a reception desk, which serves the primary role of monitoring internal and external communications, as well as dealing with any civilians on the station who need to talk to the security personnel. On the south wall behind the desk is a room that serves as both an interrogation room, and a quiet place for people to make long range calls off the station. The south-west corner is dominated by holding cells, some of which have been temporarily converted to storage as the crime rate on the station is quite low.<br/><br/>A small turret slowly swivels back and forth on the ceiling above the door to the security chief's office. A blinking red light on the side indicates its readiness to repel unwanted intruders.<br/><br/>]]></description>
     <alias>Security/Communications Center</alias>
     <usedefaultprefix />
+    <firstenter type="script"><![CDATA[
+      msg ("As you move the robot forward towards the security chief's office, the ceiling-mounted turret quickly swivels towards you.<br/>Several gunshots ring out and your visual feed from the robot quickly turns to static.")
+      SetTimeout (2) {
+        msg ("ERROR: ROBOT IS OFFLINE. PREPARING NEW REPAIR BOT.")
+        SetTimeout (2) {
+          msg ("..")
+          SetTimeout (2) {
+            msg ("..")
+            SetTimeout (2) {
+              msg ("NEW ROBOT READY. REINITIALIZING SENSORY FEEDS.")
+              SetTimeout (2) {
+                msg ("The robot's visual feed appears again, its predecessors remains already swept away by the automated cleaning systems. You need to disable that turret before you can access the security chief's office.")
+              }
+            }
+          }
+        }
+      }
+    ]]></firstenter>
     <exit name="Exit Security to Solar" to="Solar Array Station">
       <scenery type="boolean">false</scenery>
       <locked />
@@ -302,8 +320,53 @@
         <drop type="boolean">false</drop>
       </object>
     </object>
-    <object name="Bathroom">
+    <object name="Washroom">
+      <inherit name="editor_room" />
+      <look>This is a standard washroom. It contains a sink, toilet, and urinal. There is a magazine on the counter.</look>
+      <description>This is a standard washroom. It contains a sink, toilet, and urinal. There is a magazine on the counter.</description>
+      <object name="Magazine">
+        <inherit name="editor_object" />
+        <look>The magazine reads: "Space Weddings: For all your galactic bridal needs!". The feature article is "Planning the Perfect Bachelorette Party When All Your Friends Are Light-Years Away!".</look>
+        <take />
+        <drop type="boolean">false</drop>
+        <takemsg>The magazine has been added to your inventory.</takemsg>
+      </object>
+      <exit to="Security">
+        <scenery />
+      </exit>
+    </object>
+    <object name="Locker">
       <inherit name="editor_object" />
+      <inherit name="container_closed" />
+      <inherit name="container_lockable" />
+      <feature_container />
+      <nokeymessage>A lock prevents you from opening the locker.</nokeymessage>
+      <autounlock />
+      <unlockmessage>The lock falls to the ground and you open the door. Inside the locker is a jacket, a couple of books, and a bagged lunch that has long since grown fuzzy. On the inside of the door are pictures of a beautiful black cat.</unlockmessage>
+      <keycount type="int">0</keycount>
+      <look>A locked locker. The name tag on the front reads "F. Eisman".</look>
+    </object>
+    <exit to="Washroom">
+      <scenery />
+    </exit>
+    <exit to="SecOffice">
+      <scenery />
+    </exit>
+    <object name="First Desk">
+      <inherit name="editor_object" />
+      <look>This desk has been cleared of its computer or any other important equipment. On the top of the desk is a picture of a young man, surrounded by flowers and letters. A funeral announcement also lies on the desk.</look>
+    </object>
+    <object name="Second Desk">
+      <inherit name="editor_object" />
+      <look>The desk is entirely occupied by a powered-down computer terminal and several papers scattered across its surface ($WHAT ARE THESE PAPERS SHOULD WE DESCRIBE THEM?).</look>
+    </object>
+    <object name="Third Desk">
+      <inherit name="editor_object" />
+      <look>The desk is dominated by multiple monitors and a terminal. This is where the person in charge of internal security works.</look>
+    </object>
+    <object name="Fourth Desk">
+      <inherit name="editor_object" />
+      <look>The desk has a computer, the monitor tilted to one side. Judging from the several chewed pencils and oft-struck monitor, the desk's usual occupant has stress issues.</look>
     </object>
   </object>
   <object name="Hydroponic Biosphere">
