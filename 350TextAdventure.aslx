@@ -30,7 +30,7 @@
                 SetTimeout (2) {
                   msg ("NAME: Bishop<br/>ASSIGNMENT: Electronic Systems Monitor on the space station Koncova.<br/>PRIMARYROLE: Ensure Optimal System Performance<br/>CLEARANCELEVEL: 10<br/>Allowed Access to All Systems.<br/>Preparing Status Report.")
                   SetTimeout (3) {
-                    msg ("Status Report:<br/>Station - Offline<br/>Solar Array Station - Offline<br/>Hydroponic Biosphere - Offline<br/>Communications - Offline<br/>Living Quarters - Offline<br/>Medical Bay - Offline<br/>AI Core - Offline")
+                    getStatus
                     msg ("Would you like to access repair droids(y/n)?")
                     SRAccessDroids
                   }
