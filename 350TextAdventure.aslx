@@ -231,7 +231,7 @@
   </object>
   <object name="Security">
     <inherit name="editor_room" />
-    <description><![CDATA[The power station for the ($PLACEHOLDER DROID) is located between the doors to the security chief’s office on the left and the bathrooms to the right. Both are on the north wall. In the north-eastern portion of the room are various kinds of desk and work stations for the security staff. In the north-west part of the room are the doors to the bathroom, a row of lockers, a couch, and a chair. These two sections of the room are divided by a frosted glass partition, slightly east of the chief’s door. In the south-east corner of the room is a reception desk, which serves the primary role of monitoring internal and external communications, as well as dealing with any civilians on the station who need to talk to the security personnel. On the south wall behind the desk is a room that serves as both an interrogation room, and a quiet place for people to make long range calls off the station. The south-west corner is dominated by holding cells, some of which have been temporarily converted to storage as the crime rate on the station is quite low.<br/><br/>A small turret slowly swivels back and forth on the ceiling above the door to the security chief's office. A blinking red light on the side indicates its readiness to repel unwanted intruders.<br/><br/>]]></description>
+    <description><![CDATA[The power station for the ($PLACEHOLDER DROID) is located between the doors to the security chief’s office on the left and the bathrooms to the right. Both are on the north wall. <br/><br/>In the north-eastern portion of the room are various kinds of desk and work stations for the security staff. In the north-west part of the room are the doors to the bathroom, a row of lockers, a couch, and a chair. These two sections of the room are divided by a frosted glass partition, slightly east of the chief’s door. <br/><br/>In the south-east corner of the room is a reception desk, which serves the primary role of monitoring internal and external communications, as well as dealing with any civilians on the station who need to talk to the security personnel. On the south wall behind the desk is a room that serves as both an interrogation room, and a quiet place for people to make long range calls off the station. <br/><br/>The south-west corner is dominated by holding cells, some of which have been temporarily converted to storage as the crime rate on the station is quite low.<br/><br/>A small turret slowly swivels back and forth on the ceiling above the door to the security chief's office. A blinking red light on the side indicates its readiness to repel unwanted intruders.<br/><br/>]]></description>
     <alias>Security/Communications Center</alias>
     <usedefaultprefix />
     <firstenter type="script"><![CDATA[
@@ -283,11 +283,11 @@
       <inventoryverbs type="stringlist" />
       <drop type="boolean">false</drop>
     </object>
-    <object name="SecOffice">
+    <object name="Security Chief's Office">
       <inherit name="editor_room" />
       <drop type="boolean">false</drop>
       <feature_container />
-      <alias>Security Chief K. Normandeau's Office</alias>
+      <alias>Security Chief's Office</alias>
       <description>This office belongs to the Chief of Security, K. Normandeau. The room contains a desk with a computer and a chair, file cabinets, and a few personal possessions. There are pictures on the desk and a medal for exceptional service on the wall.</description>
       <exit alias="south" to="Security">
         <inherit name="southdirection" />
@@ -349,8 +349,10 @@
     <exit to="Washroom">
       <scenery />
     </exit>
-    <exit to="SecOffice">
-      <scenery />
+    <exit name="SecurityToSecOffice" to="Security Chief's Office">
+      <scenery type="boolean">false</scenery>
+      <locked />
+      <lockmessage>The turret above the door is still active. You won't make the same mistake again.</lockmessage>
     </exit>
     <object name="First Desk">
       <inherit name="editor_object" />
@@ -362,7 +364,25 @@
     </object>
     <object name="Third Desk">
       <inherit name="editor_object" />
-      <look>The desk is dominated by multiple monitors and a terminal. This is where the person in charge of internal security works.</look>
+      <inherit name="surface" />
+      <look>The desk is dominated by multiple monitors and a {object:SecComputerTerminal}. This is where the person in charge of internal security works.</look>
+      <feature_container />
+      <hidechildren />
+      <object name="SecComputerTerminal">
+        <inherit name="editor_object" />
+        <alias>Computer Terminal</alias>
+        <look type="script">
+          msg ("The computer is displaying a login screen with the message: \"SYSTEM LOCKED. OVERRIDE CODE REQUIRED.\"")
+          msg ("The ($PLACEHOLDER DROID) has the ability to systems. You may be able to hack this terminal and shut off the turret in the room. Hack the terminal?")
+          get input {
+            if (IsRegexMatch ("y|yes", LCase(result))) {
+              msg ("BEGINNING HACKING PROTOCOLS.")
+            }
+            else {
+            }
+          }
+        </look>
+      </object>
     </object>
     <object name="Fourth Desk">
       <inherit name="editor_object" />
@@ -466,6 +486,7 @@
     <object name="large white board">
       <inherit name="editor_object" />
       <inherit name="switchable" />
+      <attr name="feature_switchable" type="boolean">false</attr>
       <look type="script">
         if (not IsSwitchedOn(large white board)) {
           msg ("The whiteboard has no writing on it. ")
@@ -479,7 +500,6 @@
           }
         }
       </look>
-      <attr name="feature_switchable" type="boolean">false</attr>
     </object>
     <object name="surgical cabinet">
       <inherit name="editor_object" />
@@ -566,11 +586,11 @@
       <displayverbs type="stringlist">
         <value>Look at</value>
       </displayverbs>
+      <listchildrenprefix>Underneath is</listchildrenprefix>
       <lookunderneath type="script">
         HelperOpenObject (Bed)
         msg ("Under the bed is a scalpel.")
       </lookunderneath>
-      <listchildrenprefix>Underneath is</listchildrenprefix>
       <object name="scalpel">
         <inherit name="editor_object" />
         <take />
@@ -580,6 +600,11 @@
       <inherit name="editor_object" />
       <inherit name="container_open" />
       <feature_usegive />
+      <feature_container />
+      <isopen type="boolean">false</isopen>
+      <displayverbs type="stringlist">
+        <value>Look at</value>
+      </displayverbs>
       <useon type="scriptdictionary">
         <item key="scalpel"><![CDATA[
           HelperOpenObject (Manual Override Box)
@@ -592,11 +617,6 @@
           }
         ]]></item>
       </useon>
-      <feature_container />
-      <isopen type="boolean">false</isopen>
-      <displayverbs type="stringlist">
-        <value>Look at</value>
-      </displayverbs>
       <object name="Red handle">
         <inherit name="editor_object" />
         <displayverbs type="stringlist">
