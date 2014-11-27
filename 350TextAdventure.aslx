@@ -401,7 +401,7 @@
           get input {
             if (IsRegexMatch ("y|yes", LCase(result))) {
               msg ("BEGINNING HACKING PROTOCOLS.")
-              SecPuz1(1)
+              SecPuz1(3)
             }
             else {
             }
@@ -906,17 +906,65 @@
   <function name="updateStatus">
   </function>
   <function name="SecPuz1" parameters="remaining" type="boolean">
-    msg ("PLEASE ENTER LEVEL 1 SECURITY BYPASS.")
-    msg ("REMAINING ATTEMPTS:" + remaining)
-    msg ("ENTER BYPASS CODE:")
-    get input {
-      if (IsRegexMatch("quest", LCase(result))) {
-        msg ("CORRECT")
-        SecPuz2 (3)
+    if (remaining = 0) {
+      msg ("YOU HAVE RUN OUT OF BYPASS ATTEMPTS. GOODBYE.")
+    }
+    else {
+      msg ("PLEASE ENTER LEVEL 1 SECURITY BYPASS.")
+      msg ("REMAINING ATTEMPTS:" + remaining)
+      msg ("PASSWORD HINT: tesqu")
+      msg ("ENTER BYPASS CODE:")
+      get input {
+        if (IsRegexMatch("quest", LCase(result))) {
+          msg ("CORRECT")
+          SecPuz2 (3)
+        }
+        else {
+          msg ("ERROR. INCORRECT BYPASS CODE.")
+          SecPuz1 (remaining-1)
+        }
       }
-      else {
-        msg ("ERROR. INCORRECT BYPASS CODE.")
-        SecPuz1 (remaining-1)
+    }
+  </function>
+  <function name="SecPuz2" parameters="remaining">
+    if (remaining = 0) {
+      msg ("YOU HAVE RUN OUT OF BYPASS ATTEMPTS. GOODBYE.")
+    }
+    else {
+      msg ("PLEASE ENTER LEVEL 2 SECURITY BYPASS.")
+      msg ("REMAINING ATTEMPTS:" + remaining)
+      msg ("PASSWORD HINT: llroshcya")
+      msg ("ENTER BYPASS CODE:")
+      get input {
+        if (IsRegexMatch("scholarly", LCase(result))) {
+          msg ("CORRECT")
+          SecPuz3 (3)
+        }
+        else {
+          msg ("ERROR. INCORRECT BYPASS CODE.")
+          SecPuz2 (remaining-1)
+        }
+      }
+    }
+  </function>
+  <function name="SecPuz3" parameters="remaining">
+    if (remaining = 0) {
+      msg ("YOU HAVE RUN OUT OF BYPASS ATTEMPTS. GOODBYE.")
+    }
+    else {
+      msg ("PLEASE ENTER LEVEL 3 SECURITY BYPASS.")
+      msg ("REMAINING ATTEMPTS:" + remaining)
+      msg ("PASSWORD HINT: ogodllsuti")
+      msg ("ENTER BYPASS CODE:")
+      get input {
+        if (IsRegexMatch("ludologist", LCase(result))) {
+          msg ("CORRECT")
+          msg ("$(ZHU LI! DO THE THING TO TURN OFF THE TURRET HERE!)")
+        }
+        else {
+          msg ("ERROR. INCORRECT BYPASS CODE.")
+          SecPuz3 (remaining-1)
+        }
       }
     }
   </function>
