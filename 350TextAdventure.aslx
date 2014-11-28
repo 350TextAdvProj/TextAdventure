@@ -401,7 +401,7 @@
           get input {
             if (IsRegexMatch ("y|yes", LCase(result))) {
               msg ("BEGINNING HACKING PROTOCOLS.")
-              SecPuz1(3)
+              SecPuz1 (3)
             }
             else {
             }
@@ -673,7 +673,7 @@
   </object>
   <object name="Living Quarters">
     <inherit name="editor_room" />
-    <description>You can see a large and relatively pleasant area. While the other rooms in the ship have been cold work environments or displays of prestige, this room's function appears to be simple utility and comfort.</description>
+    <description><![CDATA[The living quarters is a large and relatively pleasant area. While the other rooms in the ship have been cold work environments or displays of prestige, this room’s function appears to be simple utility and comfort. <br/><br/>Two couches create a nook on the right side of the room. Behind them in the corner there is a well worn cat tree. The couches are facing towards a small television, game console and in the corner, a cabinet style record player. To the right of the t.v. there is a long corridor of bedroom doors.]]></description>
     <beforeenter type="script">
       play sound ("LQMusic.mp3", false, true)
     </beforeenter>
@@ -722,6 +722,9 @@
         if (Dead Cat.parent = Cat Tree) {
           msg ("A dead cat lies curled up on the top platform.")
         }
+        else if (Got(Dead Cat)) {
+          msg ("An impression is left where the cat used to lie.")
+        }
       </look>
       <takedeadcat type="script">
         AddToInventory (Dead Cat)
@@ -732,6 +735,20 @@
         <take />
         <takemsg>You are now carrying a dead cat in your droid's storage cubby.</takemsg>
         <drop type="boolean">false</drop>
+        <feature_usegive />
+        <selfuseon type="scriptdictionary">
+          <item key="Corridor">
+            msg ("On a whim you take a hair from the dead cat and try it on the locked bedroom's DNA scanner. A soft buzzing sound and sharp *click* are heard as the bedroom's door unlocks.")
+            SetTimeout (3) {
+              msg ("The robot surveys the area. You see someone in the bed. A bio-scan shows no signs of life. Realizing that the cat was likely this crew member's pet, you lay the cat down in the bed with them.")
+              MakeObjectInvisible (Dead Cat)
+              set (Check Ship Status, "Living Quarters Complete", True)
+              SetTimeout (2) {
+                msg ("The living quaraters have been fully investigated. There are no signs of life.")
+              }
+            }
+          </item>
+        </selfuseon>
       </object>
     </object>
     <object name="Set of Couches">
@@ -768,6 +785,29 @@
           msg ("No record is playing.")
         }
       </stop>
+    </object>
+    <object name="Corridor">
+      <attr name="feature_container" type="boolean">false</attr>
+      <look><![CDATA[A long corridor allowing access to several bedroom doors.<br/><br/>{if Check Ship Status.Living Quarters Complete=True: All the doors down the corridor are open.}<br/><br/>{if Check Ship Status.Living Quarters Complete=False: Several doors down the corridor lie open, but the one nearest the robot is closed. A small DNA scanner sits on the wall to the right of the door at belly-button height.}]]></look>
+    </object>
+    <object name="Small TV">
+      <inherit name="editor_object" />
+      <inherit name="switchable" />
+      <look>A blocky, 11" TV.</look>
+      <feature_switchable />
+      <switchonmsg>The roboto turns on the TV. Only static appears.</switchonmsg>
+      <switchoffmsg>The TV screen once again turns black.</switchoffmsg>
+    </object>
+    <object name="Game Console">
+      <inherit name="editor_object" />
+      <inherit name="switchable" />
+      <look>A well used game console. What first appeared to be a shadow was a colossal crack down the middle.</look>
+      <feature_switchable />
+      <switchonmsg>The power button on the console clicks, but nothing happens.</switchonmsg>
+      <switchoffmsg>The power button on the console clicks, but nothing happens.</switchoffmsg>
+      <onswitchon type="script">
+        SwitchOff (Game Console)
+      </onswitchon>
     </object>
   </object>
   <verb>
