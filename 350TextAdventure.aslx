@@ -113,17 +113,21 @@
     <exit name="Exit Solar to Biosphere" to="Hydroponic Biosphere">
       <scenery type="boolean">false</scenery>
       <locked />
+      <lockmessage>You do not have control of that Droid yet.</lockmessage>
     </exit>
     <exit name="Exit Solar to Med Bay" to="Med Bay">
       <scenery type="boolean">false</scenery>
       <locked />
+      <lockmessage>You do not have control of that Droid yet.</lockmessage>
     </exit>
     <exit name="Exit Solar to Living Quarters" to="Living Quarters">
       <scenery type="boolean">false</scenery>
       <locked />
+      <lockmessage>You do not have control of that Droid yet.</lockmessage>
     </exit>
     <exit name="Exit Solar to AI Core" to="AI Core">
       <locked />
+      <lockmessage>You do not have control of that Droid yet.</lockmessage>
     </exit>
     <object name="Desk">
       <inherit name="editor_object" />
@@ -144,31 +148,41 @@
         SetTimeout (2) {
           msg ("Initial scans detect unknown objects in the drawer under the desk. ")
         }
+        MakeObjectVisible (Drawer)
       ]]></look>
       <opendrawer type="script">
-        MakeObjectVisible (Clipboard)
-        MakeObjectVisible (Sticky Note)
-        msg ("Inside the drawer is a Clipboard with a sticky note on it.")
       </opendrawer>
-      <object name="Clipboard">
+      <object name="Drawer">
         <inherit name="editor_object" />
-        <scenery type="boolean">false</scenery>
+        <inherit name="container_closed" />
         <visible type="boolean">false</visible>
-        <displayverbs type="stringlist">
-          <value>Look at</value>
-        </displayverbs>
-        <look type="script"><![CDATA[
-          msg ("On it is the ship's Manifesto and a sticky note.<br/>The Manifesto reads:<br/><br/>")
-          picture ("Ship Manifest.png")
-        ]]></look>
-      </object>
-      <object name="Sticky Note">
-        <inherit name="editor_object" />
-        <take />
-        <drop type="boolean">false</drop>
-        <look><![CDATA[The sticky note reads   <br/><br/>“Remember to change the Terminal passcode. <br/>‘password’ does not meet security requirements”<br/>]]></look>
-        <scenery type="boolean">false</scenery>
-        <visible type="boolean">false</visible>
+        <feature_container />
+        <onopen type="script">
+          MakeObjectVisible (Clipboard)
+          MakeObjectVisible (Sticky Note)
+          msg ("Inside the drawer is a Clipboard with a sticky note on it.")
+        </onopen>
+        <object name="Clipboard">
+          <inherit name="editor_object" />
+          <scenery type="boolean">false</scenery>
+          <visible type="boolean">false</visible>
+          <displayverbs type="stringlist">
+            <value>Look at</value>
+          </displayverbs>
+          <look type="script"><![CDATA[
+            msg ("On it is the ship's Manifest and a sticky note.<br/>The Manifest reads:<br/><br/>")
+            picture ("Ship Manifest.png")
+          ]]></look>
+          <take />
+        </object>
+        <object name="Sticky Note">
+          <inherit name="editor_object" />
+          <take />
+          <drop type="boolean">false</drop>
+          <look><![CDATA[The sticky note reads   <br/><br/>“Remember to change the Terminal passcode. <br/>‘password’ does not meet security requirements”<br/>]]></look>
+          <scenery type="boolean">false</scenery>
+          <visible type="boolean">false</visible>
+        </object>
       </object>
     </object>
     <object name="Large Battery Array">
