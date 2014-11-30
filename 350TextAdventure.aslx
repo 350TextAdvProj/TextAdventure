@@ -162,12 +162,14 @@
           MakeObjectVisible (Sticky Note)
           msg ("Inside the drawer is a Clipboard with a sticky note on it.")
         </onopen>
+        <look>Initial scans detect unknown objects in the drawer under the desk. </look>
         <object name="Clipboard">
           <inherit name="editor_object" />
           <scenery type="boolean">false</scenery>
           <visible type="boolean">false</visible>
           <displayverbs type="stringlist">
             <value>Look at</value>
+            <value>Take</value>
           </displayverbs>
           <look type="script"><![CDATA[
             msg ("On it is the ship's Manifest and a sticky note.<br/>The Manifest reads:<br/><br/>")
@@ -216,9 +218,18 @@
               SetTimeout (2) {
                 msg ("Droid initiated in Security Room")
                 SetTimeout (1) {
-                  msg ("Solar Array System rebooting. Power has been restored.")
+                  msg ("Solar Array System rebooting.")
                   SetTimeout (1) {
-                    msg ("<br/>Access to Security now GRANTED")
+                    msg ("<br/>Access to all droids GRANTED.")
+                  }
+                  SetTimeout (1) {
+                    msg ("<br/>Solar Array Station now Online, Assessing backup power useage throughout the station.")
+                  }
+                  SetTimeout (1) {
+                    msg ("<br/>...")
+                  }
+                  SetTimeout (1) {
+                    msg ("\" A chart pops up on the screen. It shows that all systems are drawing power, however the chart also shows that one of the crew quarters, Living Quarters 7, was one of the only areas that had been using back up power and oxygen. That area is still locked as oxygen is not yet online. \"")
                   }
                 }
               }
@@ -234,6 +245,7 @@
           msg ("The terminal doesn't respond to any key presses. It appears to not have any source of power. ")
         }
       ]]></use>
+      <look>An old Terminal, used for operating the station. Looks like it will need power before it is operational.</look>
     </object>
   </object>
   <object name="Security">
@@ -487,9 +499,15 @@
         <value>Close</value>
       </displayverbs>
       <listchildren />
+      <look>Initial scans of the sergical cabinet indicate that there are objects inside. </look>
       <object name="blacklight bulb">
         <inherit name="editor_object" />
         <take />
+        <look>It is not an ordinary lightbulb.</look>
+      </object>
+      <object name="Spray bottle">
+        <inherit name="editor_object" />
+        <look>A spray bottle with some sort of solution in it. The label reads "Luminol."</look>
       </object>
     </object>
     <object name="light switch">
@@ -589,7 +607,7 @@
             msg ("Using the scalpel as a screwdriver it carefully and meticulously unscrews the 8 bolts that hold the front panel onto the override box.<br/>")
           }
           SetTimeout (1) {
-            msg ("Inside the box is a red handle and a laminated peice of paper that reads:<br/>\"MANUAL OVERRIDE - LIVING QUARTERS DRONE CONTROL\"")
+            msg ("Inside the box is a red handle and a laminated peice of paper that reads:<br/>\"MANUAL OVERRIDE - LIFE SUPPORT SYSTEMS POWER\"")
           }
         ]]></item>
       </useon>
@@ -599,13 +617,7 @@
           <value>Look at</value>
         </displayverbs>
         <pull type="script">
-          msg ("Access to Living Quarters now granted.")
-          UnlockExit (Exit Armory to Living Quarters)
-          UnlockExit (Exit Biosphere to Living Quarters)
-          UnlockExit (Exit Med Bay to Living Quarters)
-          UnlockExit (Exit Security to Living Quarters)
-          UnlockExit (Exit Solar to Living Quarters)
-          UnlockExit (Exit Start to Living Quarters)
+          msg ("Life Support power re-established. ")
           AddToInventory (Med Bay Complete)
           SetObjectFlagOn (Check Ship Status, "Med Bay Complete")
         </pull>
@@ -617,9 +629,6 @@
         <value>Look at</value>
       </displayverbs>
       <look>A Large Reinforced Door. It has been welded shut.</look>
-    </object>
-    <object name="Spray bottle">
-      <inherit name="editor_object" />
     </object>
   </object>
   <object name="Living Quarters">
