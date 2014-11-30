@@ -60,30 +60,6 @@
       <visible />
       <locked type="boolean">false</locked>
     </exit>
-    <exit name="Exit Start to security" to="Security">
-      <scenery />
-      <locked />
-    </exit>
-    <exit name="Exit Start to Biosphere" to="Hydroponic Biosphere">
-      <scenery />
-      <locked />
-    </exit>
-    <exit name="Exit Start to Armory" to="Armory">
-      <scenery />
-      <locked />
-    </exit>
-    <exit name="Exit Start to Med Bay" to="Med Bay">
-      <scenery />
-      <locked />
-    </exit>
-    <exit name="Exit Start to Living Quarters" to="Living Quarters">
-      <scenery />
-      <locked />
-    </exit>
-    <exit name="Exit Start to AI Core" to="AI Core">
-      <locked />
-      <scenery />
-    </exit>
     <object name="Check Ship Status">
       <inherit name="editor_object" />
       <visible />
@@ -131,24 +107,20 @@
     </object>
     <exit name="Exit Solar to security" to="Security">
       <scenery type="boolean">false</scenery>
-      <locked type="boolean">false</locked>
+      <locked />
       <lockmessage>You do not have control of that Droid yet.</lockmessage>
     </exit>
     <exit name="Exit Solar to Biosphere" to="Hydroponic Biosphere">
       <scenery type="boolean">false</scenery>
       <locked />
     </exit>
-    <exit name="Exit Solar to Armory" to="Armory">
+    <exit name="Exit Solar to Med Bay" to="Med Bay">
       <scenery type="boolean">false</scenery>
       <locked />
     </exit>
-    <exit name="Exit Solar to Med Bay" to="Med Bay">
-      <scenery type="boolean">false</scenery>
-      <locked type="boolean">false</locked>
-    </exit>
     <exit name="Exit Solar to Living Quarters" to="Living Quarters">
       <scenery type="boolean">false</scenery>
-      <locked type="boolean">false</locked>
+      <locked />
     </exit>
     <exit name="Exit Solar to AI Core" to="AI Core">
       <locked />
@@ -237,14 +209,11 @@
                 }
               }
             }
-            UnlockExit (Exit Start to security)
-            UnlockExit (Exit Solar to security)
-            UnlockExit (Exit Biosphere to Security)
-            UnlockExit (Exit Armory to Security)
-            UnlockExit (Exit Med Bay to Security)
-            UnlockExit (Exit Living Quarters to Security)
-            AddToInventory (Solar Array Complete)
+            else {
+              msg ("Incorrect password. Terminal shutting down.")
+            }
             SetObjectFlagOn (Check Ship Status, "Solar Array Station Complete")
+            unlockExits
           }
         }
         else {
@@ -282,10 +251,6 @@
       <locked />
     </exit>
     <exit name="Exit Security to Biosphere" to="Hydroponic Biosphere">
-      <scenery type="boolean">false</scenery>
-      <locked />
-    </exit>
-    <exit name="Exit Security to Armory" to="Armory">
       <scenery type="boolean">false</scenery>
       <locked />
     </exit>
@@ -333,10 +298,10 @@
       <object name="Computer Terminal">
         <inherit name="editor_object" />
         <look>The computer is turned on, with a blinking green terminal-entry sign in the top-left corner.</look>
+        <feature_usegive />
         <enterpassword type="script">
           msg ("Whoops, this is a placeholder message because we're still implementing this puzzle.")
         </enterpassword>
-        <feature_usegive />
         <use type="script">
           msg ("You may be able to signal the all-clear from this terminal and get security back online,")
           msg ("Send all-clear signal?")
@@ -436,10 +401,6 @@
       <scenery type="boolean">false</scenery>
       <locked />
     </exit>
-    <exit name="Exit Biosphere to Armory" to="Armory">
-      <scenery type="boolean">false</scenery>
-      <locked />
-    </exit>
     <exit name="Exit Biosphere to Med Bay" to="Med Bay">
       <scenery type="boolean">false</scenery>
       <locked />
@@ -455,38 +416,6 @@
       <inherit name="editor_object" />
     </object>
   </object>
-  <object name="Armory">
-    <inherit name="editor_room" />
-    <exit name="Exit Armory to Solar" to="Solar Array Station">
-      <scenery type="boolean">false</scenery>
-      <locked />
-    </exit>
-    <exit name="Exit Armory to Security" to="Security">
-      <scenery type="boolean">false</scenery>
-      <locked />
-    </exit>
-    <exit name="Exit Armory to Biosphere" to="Hydroponic Biosphere">
-      <scenery type="boolean">false</scenery>
-      <locked />
-    </exit>
-    <exit name="Exit Armory to Med Bay" to="Med Bay">
-      <scenery type="boolean">false</scenery>
-      <locked />
-    </exit>
-    <exit name="Exit Armory to Living Quarters" to="Living Quarters">
-      <scenery type="boolean">false</scenery>
-      <locked />
-    </exit>
-    <exit name="Exit Armory to AI Core" to="AI Core">
-      <locked />
-    </exit>
-    <object name="Armory Complete">
-      <inherit name="editor_object" />
-      <visible type="boolean">false</visible>
-      <scenery />
-      <drop type="boolean">false</drop>
-    </object>
-  </object>
   <object name="Med Bay">
     <inherit name="editor_room" />
     <exit name="Exit Med Bay to Solar" to="Solar Array Station">
@@ -498,10 +427,6 @@
       <locked />
     </exit>
     <exit name="Exit Med Bay to Biosphere" to="Hydroponic Biosphere">
-      <scenery type="boolean">false</scenery>
-      <locked />
-    </exit>
-    <exit name="Exit Med Bay to Armory" to="Armory">
       <scenery type="boolean">false</scenery>
       <locked />
     </exit>
@@ -701,10 +626,6 @@
       <locked />
     </exit>
     <exit name="Exit Living Quarters to Biosphere" to="Hydroponic Biosphere">
-      <scenery type="boolean">false</scenery>
-      <locked />
-    </exit>
-    <exit name="Exit Living Quarters to Armory" to="Armory">
       <scenery type="boolean">false</scenery>
       <locked />
     </exit>
@@ -1021,5 +942,27 @@
         }
       }
     }
+  </function>
+  <function name="unlockExits">
+    UnlockExit (Exit Biosphere to Living Quarters)
+    UnlockExit (Exit Biosphere to Med Bay)
+    UnlockExit (Exit Biosphere to Security)
+    UnlockExit (Exit Biosphere to Solar)
+    UnlockExit (Exit Living Quarters to Biosphere)
+    UnlockExit (Exit Living Quarters to Med Bay)
+    UnlockExit (Exit Living Quarters to Security)
+    UnlockExit (Exit Living Quarters to Solar)
+    UnlockExit (Exit Med Bay to Biosphere)
+    UnlockExit (Exit Med Bay to Living Quarters)
+    UnlockExit (Exit Med Bay to Security)
+    UnlockExit (Exit Med Bay to Solar)
+    UnlockExit (Exit Security to Biosphere)
+    UnlockExit (Exit Security to Living Quarters)
+    UnlockExit (Exit Security to Med Bay)
+    UnlockExit (Exit Security to Solar)
+    UnlockExit (Exit Solar to Biosphere)
+    UnlockExit (Exit Solar to Living Quarters)
+    UnlockExit (Exit Solar to Med Bay)
+    UnlockExit (Exit Solar to security)
   </function>
 </asl>
