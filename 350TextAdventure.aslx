@@ -60,30 +60,6 @@
       <visible />
       <locked type="boolean">false</locked>
     </exit>
-    <exit name="Exit Start to security" to="Security">
-      <scenery />
-      <locked />
-    </exit>
-    <exit name="Exit Start to Biosphere" to="Hydroponic Biosphere">
-      <scenery />
-      <locked />
-    </exit>
-    <exit name="Exit Start to Armory" to="Armory">
-      <scenery />
-      <locked />
-    </exit>
-    <exit name="Exit Start to Med Bay" to="Med Bay">
-      <scenery />
-      <locked />
-    </exit>
-    <exit name="Exit Start to Living Quarters" to="Living Quarters">
-      <scenery />
-      <locked />
-    </exit>
-    <exit name="Exit Start to AI Core" to="AI Core">
-      <locked />
-      <scenery />
-    </exit>
     <object name="Check Ship Status">
       <inherit name="editor_object" />
       <visible />
@@ -131,27 +107,27 @@
     </object>
     <exit name="Exit Solar to security" to="Security">
       <scenery type="boolean">false</scenery>
-      <locked type="boolean">false</locked>
+      <locked />
       <lockmessage>You do not have control of that Droid yet.</lockmessage>
     </exit>
     <exit name="Exit Solar to Biosphere" to="Hydroponic Biosphere">
       <scenery type="boolean">false</scenery>
       <locked />
-    </exit>
-    <exit name="Exit Solar to Armory" to="Armory">
-      <scenery type="boolean">false</scenery>
-      <locked />
+      <lockmessage>You do not have control of that Droid yet.</lockmessage>
     </exit>
     <exit name="Exit Solar to Med Bay" to="Med Bay">
       <scenery type="boolean">false</scenery>
-      <locked type="boolean">false</locked>
+      <locked />
+      <lockmessage>You do not have control of that Droid yet.</lockmessage>
     </exit>
     <exit name="Exit Solar to Living Quarters" to="Living Quarters">
       <scenery type="boolean">false</scenery>
-      <locked type="boolean">false</locked>
+      <locked />
+      <lockmessage>You do not have control of that Droid yet.</lockmessage>
     </exit>
     <exit name="Exit Solar to AI Core" to="AI Core">
       <locked />
+      <lockmessage>You do not have control of that Droid yet.</lockmessage>
     </exit>
     <object name="Desk">
       <inherit name="editor_object" />
@@ -172,31 +148,43 @@
         SetTimeout (2) {
           msg ("Initial scans detect unknown objects in the drawer under the desk. ")
         }
+        MakeObjectVisible (Drawer)
       ]]></look>
       <opendrawer type="script">
-        MakeObjectVisible (Clipboard)
-        MakeObjectVisible (Sticky Note)
-        msg ("Inside the drawer is a Clipboard with a sticky note on it.")
       </opendrawer>
-      <object name="Clipboard">
+      <object name="Drawer">
         <inherit name="editor_object" />
-        <scenery type="boolean">false</scenery>
+        <inherit name="container_closed" />
         <visible type="boolean">false</visible>
-        <displayverbs type="stringlist">
-          <value>Look at</value>
-        </displayverbs>
-        <look type="script"><![CDATA[
-          msg ("On it is the ship's Manifesto and a sticky note.<br/>The Manifesto reads:<br/><br/>")
-          picture ("Ship Manifest.png")
-        ]]></look>
-      </object>
-      <object name="Sticky Note">
-        <inherit name="editor_object" />
-        <take />
-        <drop type="boolean">false</drop>
-        <look><![CDATA[The sticky note reads   <br/><br/>“Remember to change the Terminal passcode. <br/>‘password’ does not meet security requirements”<br/>]]></look>
-        <scenery type="boolean">false</scenery>
-        <visible type="boolean">false</visible>
+        <feature_container />
+        <onopen type="script">
+          MakeObjectVisible (Clipboard)
+          MakeObjectVisible (Sticky Note)
+          msg ("Inside the drawer is a Clipboard with a sticky note on it.")
+        </onopen>
+        <look>Initial scans detect unknown objects in the drawer under the desk. </look>
+        <object name="Clipboard">
+          <inherit name="editor_object" />
+          <scenery type="boolean">false</scenery>
+          <visible type="boolean">false</visible>
+          <displayverbs type="stringlist">
+            <value>Look at</value>
+            <value>Take</value>
+          </displayverbs>
+          <look type="script"><![CDATA[
+            msg ("On it is the ship's Manifest and a sticky note.<br/>The Manifest reads:<br/><br/>")
+            picture ("Ship Manifest.png")
+          ]]></look>
+          <take />
+        </object>
+        <object name="Sticky Note">
+          <inherit name="editor_object" />
+          <take />
+          <drop type="boolean">false</drop>
+          <look><![CDATA[The sticky note reads   <br/><br/>“Remember to change the Terminal passcode. <br/>‘password’ does not meet security requirements”<br/>]]></look>
+          <scenery type="boolean">false</scenery>
+          <visible type="boolean">false</visible>
+        </object>
       </object>
     </object>
     <object name="Large Battery Array">
@@ -230,27 +218,34 @@
               SetTimeout (2) {
                 msg ("Droid initiated in Security Room")
                 SetTimeout (1) {
-                  msg ("Solar Array System rebooting. Power has been restored.")
+                  msg ("Solar Array System rebooting.")
                   SetTimeout (1) {
-                    msg ("<br/>Access to Security now GRANTED")
+                    msg ("<br/>Access to all droids GRANTED.")
+                  }
+                  SetTimeout (1) {
+                    msg ("<br/>Solar Array Station now Online, Assessing backup power useage throughout the station.")
+                  }
+                  SetTimeout (1) {
+                    msg ("<br/>...")
+                  }
+                  SetTimeout (1) {
+                    msg ("\" A chart pops up on the screen. It shows that all systems are drawing power, however the chart also shows that one of the crew quarters, Living Quarters 7, was one of the only areas that had been using back up power and oxygen. That area is still locked as oxygen is not yet online. \"")
                   }
                 }
               }
             }
-            UnlockExit (Exit Start to security)
-            UnlockExit (Exit Solar to security)
-            UnlockExit (Exit Biosphere to Security)
-            UnlockExit (Exit Armory to Security)
-            UnlockExit (Exit Med Bay to Security)
-            UnlockExit (Exit Living Quarters to Security)
-            AddToInventory (Solar Array Complete)
+            else {
+              msg ("Incorrect password. Terminal shutting down.")
+            }
             SetObjectFlagOn (Check Ship Status, "Solar Array Station Complete")
+            unlockExits
           }
         }
         else {
           msg ("The terminal doesn't respond to any key presses. It appears to not have any source of power. ")
         }
       ]]></use>
+      <look>An old Terminal, used for operating the station. Looks like it will need power before it is operational.</look>
     </object>
   </object>
   <object name="Security">
@@ -284,10 +279,6 @@
       <locked />
     </exit>
     <exit name="Exit Security to Biosphere" to="Hydroponic Biosphere">
-      <scenery type="boolean">false</scenery>
-      <locked />
-    </exit>
-    <exit name="Exit Security to Armory" to="Armory">
       <scenery type="boolean">false</scenery>
       <locked />
     </exit>
@@ -444,10 +435,6 @@
       <scenery type="boolean">false</scenery>
       <locked />
     </exit>
-    <exit name="Exit Biosphere to Armory" to="Armory">
-      <scenery type="boolean">false</scenery>
-      <locked />
-    </exit>
     <exit name="Exit Biosphere to Med Bay" to="Med Bay">
       <scenery type="boolean">false</scenery>
       <locked />
@@ -463,38 +450,6 @@
       <inherit name="editor_object" />
     </object>
   </object>
-  <object name="Armory">
-    <inherit name="editor_room" />
-    <exit name="Exit Armory to Solar" to="Solar Array Station">
-      <scenery type="boolean">false</scenery>
-      <locked />
-    </exit>
-    <exit name="Exit Armory to Security" to="Security">
-      <scenery type="boolean">false</scenery>
-      <locked />
-    </exit>
-    <exit name="Exit Armory to Biosphere" to="Hydroponic Biosphere">
-      <scenery type="boolean">false</scenery>
-      <locked />
-    </exit>
-    <exit name="Exit Armory to Med Bay" to="Med Bay">
-      <scenery type="boolean">false</scenery>
-      <locked />
-    </exit>
-    <exit name="Exit Armory to Living Quarters" to="Living Quarters">
-      <scenery type="boolean">false</scenery>
-      <locked />
-    </exit>
-    <exit name="Exit Armory to AI Core" to="AI Core">
-      <locked />
-    </exit>
-    <object name="Armory Complete">
-      <inherit name="editor_object" />
-      <visible type="boolean">false</visible>
-      <scenery />
-      <drop type="boolean">false</drop>
-    </object>
-  </object>
   <object name="Med Bay">
     <inherit name="editor_room" />
     <exit name="Exit Med Bay to Solar" to="Solar Array Station">
@@ -506,10 +461,6 @@
       <locked />
     </exit>
     <exit name="Exit Med Bay to Biosphere" to="Hydroponic Biosphere">
-      <scenery type="boolean">false</scenery>
-      <locked />
-    </exit>
-    <exit name="Exit Med Bay to Armory" to="Armory">
       <scenery type="boolean">false</scenery>
       <locked />
     </exit>
@@ -556,9 +507,15 @@
         <value>Close</value>
       </displayverbs>
       <listchildren />
+      <look>Initial scans of the sergical cabinet indicate that there are objects inside. </look>
       <object name="blacklight bulb">
         <inherit name="editor_object" />
         <take />
+        <look>It is not an ordinary lightbulb.</look>
+      </object>
+      <object name="Spray bottle">
+        <inherit name="editor_object" />
+        <look>A spray bottle with some sort of solution in it. The label reads "Luminol."</look>
       </object>
     </object>
     <object name="light switch">
@@ -658,7 +615,7 @@
             msg ("Using the scalpel as a screwdriver it carefully and meticulously unscrews the 8 bolts that hold the front panel onto the override box.<br/>")
           }
           SetTimeout (1) {
-            msg ("Inside the box is a red handle and a laminated peice of paper that reads:<br/>\"MANUAL OVERRIDE - LIVING QUARTERS DRONE CONTROL\"")
+            msg ("Inside the box is a red handle and a laminated peice of paper that reads:<br/>\"MANUAL OVERRIDE - LIFE SUPPORT SYSTEMS POWER\"")
           }
         ]]></item>
       </useon>
@@ -668,13 +625,7 @@
           <value>Look at</value>
         </displayverbs>
         <pull type="script">
-          msg ("Access to Living Quarters now granted.")
-          UnlockExit (Exit Armory to Living Quarters)
-          UnlockExit (Exit Biosphere to Living Quarters)
-          UnlockExit (Exit Med Bay to Living Quarters)
-          UnlockExit (Exit Security to Living Quarters)
-          UnlockExit (Exit Solar to Living Quarters)
-          UnlockExit (Exit Start to Living Quarters)
+          msg ("Life Support power re-established. ")
           AddToInventory (Med Bay Complete)
           SetObjectFlagOn (Check Ship Status, "Med Bay Complete")
         </pull>
@@ -686,9 +637,6 @@
         <value>Look at</value>
       </displayverbs>
       <look>A Large Reinforced Door. It has been welded shut.</look>
-    </object>
-    <object name="Spray bottle">
-      <inherit name="editor_object" />
     </object>
   </object>
   <object name="Living Quarters">
@@ -709,10 +657,6 @@
       <locked />
     </exit>
     <exit name="Exit Living Quarters to Biosphere" to="Hydroponic Biosphere">
-      <scenery type="boolean">false</scenery>
-      <locked />
-    </exit>
-    <exit name="Exit Living Quarters to Armory" to="Armory">
       <scenery type="boolean">false</scenery>
       <locked />
     </exit>
@@ -1029,5 +973,27 @@
         }
       }
     }
+  </function>
+  <function name="unlockExits">
+    UnlockExit (Exit Biosphere to Living Quarters)
+    UnlockExit (Exit Biosphere to Med Bay)
+    UnlockExit (Exit Biosphere to Security)
+    UnlockExit (Exit Biosphere to Solar)
+    UnlockExit (Exit Living Quarters to Biosphere)
+    UnlockExit (Exit Living Quarters to Med Bay)
+    UnlockExit (Exit Living Quarters to Security)
+    UnlockExit (Exit Living Quarters to Solar)
+    UnlockExit (Exit Med Bay to Biosphere)
+    UnlockExit (Exit Med Bay to Living Quarters)
+    UnlockExit (Exit Med Bay to Security)
+    UnlockExit (Exit Med Bay to Solar)
+    UnlockExit (Exit Security to Biosphere)
+    UnlockExit (Exit Security to Living Quarters)
+    UnlockExit (Exit Security to Med Bay)
+    UnlockExit (Exit Security to Solar)
+    UnlockExit (Exit Solar to Biosphere)
+    UnlockExit (Exit Solar to Living Quarters)
+    UnlockExit (Exit Solar to Med Bay)
+    UnlockExit (Exit Solar to security)
   </function>
 </asl>
