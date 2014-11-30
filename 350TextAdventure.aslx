@@ -255,22 +255,24 @@
   </object>
   <object name="Security">
     <inherit name="editor_room" />
-    <description><![CDATA[The power station for the ($PLACEHOLDER DROID) is located between the doors to the security chief’s office on the left and the bathrooms to the right. Both are on the north wall. <br/><br/>In the north-eastern portion of the room are various kinds of desk and work stations for the security staff. In the north-west part of the room are the doors to the bathroom, a row of lockers, a couch, and a chair. These two sections of the room are divided by a frosted glass partition, slightly east of the chief’s door. <br/><br/>In the south-east corner of the room is a reception desk, which serves the primary role of monitoring internal and external communications, as well as dealing with any civilians on the station who need to talk to the security personnel. On the south wall behind the desk is a room that serves as both an interrogation room, and a quiet place for people to make long range calls off the station. <br/><br/>The south-west corner is dominated by holding cells, some of which have been temporarily converted to storage as the crime rate on the station is quite low.<br/><br/>{if Security.turret_online=True: A small turret slowly swivels back and forth on the ceiling above the door to the security chief's office. A blinking red light on the side indicates its readiness to repel unwanted intruders. }<br/><br/>{if Security.turret_online=False:A small turret points inward towards the room. You would guess it was never functioning if you hadn't turned it off. A steady green light shines on the side.}]]></description>
-    <alias>Security/Communications Center</alias>
+    <description><![CDATA[The power station for the Rukh droid is located between the doors to the security chief’s office on the left and the bathrooms to the right. Both are on the north wall. <br/><br/>In the north-eastern portion of the room are various kinds of desk and work stations for the security staff. In the north-west part of the room are the doors to the bathroom, a row of lockers, a couch, and a chair. These two sections of the room are divided by a frosted glass partition, slightly east of the chief’s door. <br/><br/>In the south-east corner of the room is a reception desk, which serves the primary role of monitoring internal and external communications, as well as dealing with any civilians on the station who need to talk to the security personnel. On the south wall behind the desk is a room that serves as both an interrogation room, and a quiet place for people to make long range calls off the station. <br/><br/>The south-west corner is dominated by holding cells, some of which have been temporarily converted to storage as the crime rate on the station is quite low.<br/><br/>{if Security.turret_online=True: A small turret slowly swivels back and forth on the ceiling above the door to the security chief's office. A blinking red light on the side indicates its readiness to repel unwanted intruders. }<br/><br/>{if Security.turret_online=False:A small turret points inward towards the room. You would guess it was never functioning if you hadn't turned it off. A steady green light shines on the side.}]]></description>
+    <alias>Security</alias>
     <usedefaultprefix />
     <turret_online />
     <firstenter type="script"><![CDATA[
-      msg ("As you move the robot forward towards the security chief's office, the ceiling-mounted turret quickly swivels towards you.<br/>Several gunshots ring out and your visual feed from the robot quickly turns to static.")
-      SetTimeout (2) {
-        msg ("ERROR: ROBOT IS OFFLINE. PREPARING NEW REPAIR BOT.")
-        SetTimeout (2) {
-          msg ("..")
-          SetTimeout (2) {
+      SetTimeout (3) {
+        msg ("As you move the robot forward towards the security chief's office, the ceiling-mounted turret quickly swivels towards you.<br/>Several gunshots ring out and your visual feed from the robot quickly turns to static.")
+        SetTimeout (3) {
+          msg ("ERROR: ROBOT IS OFFLINE. PREPARING NEW REPAIR BOT.")
+          SetTimeout (3) {
             msg ("..")
-            SetTimeout (2) {
-              msg ("NEW ROBOT READY. REINITIALIZING SENSORY FEEDS.")
-              SetTimeout (2) {
-                msg ("The robot's visual feed appears again, its predecessors remains already swept away by the automated cleaning systems. You need to disable that turret before you can access the security chief's office.")
+            SetTimeout (3) {
+              msg ("..")
+              SetTimeout (3) {
+                msg ("NEW ROBOT READY. REINITIALIZING SENSORY FEEDS.")
+                SetTimeout (3) {
+                  msg ("The robot's visual feed appears again, its predecessors remains already swept away by the automated cleaning systems. You need to disable that turret before you can access the security chief's office.")
+                }
               }
             }
           }
@@ -333,9 +335,6 @@
       <object name="Computer Terminal">
         <inherit name="editor_object" />
         <look>The computer is turned on, with a blinking green terminal-entry sign in the top-left corner.</look>
-        <enterpassword type="script">
-          msg ("Whoops, this is a placeholder message because we're still implementing this puzzle.")
-        </enterpassword>
         <feature_usegive />
         <use type="script">
           msg ("You may be able to signal the all-clear from this terminal and get security back online,")
@@ -385,7 +384,8 @@
     <exit to="Washroom">
       <scenery />
     </exit>
-    <exit name="SecurityToSecOffice" to="Security Chief's Office">
+    <exit name="SecurityToSecOffice" alias="north" to="Security Chief's Office">
+      <inherit name="northdirection" />
       <scenery type="boolean">false</scenery>
       <locked />
       <lockmessage>The turret above the door is still active. You won't make the same mistake again.</lockmessage>
@@ -396,7 +396,7 @@
     </object>
     <object name="Second Desk">
       <inherit name="editor_object" />
-      <look>The desk is entirely occupied by a powered-down computer terminal and several papers scattered across its surface ($WHAT ARE THESE PAPERS SHOULD WE DESCRIBE THEM?).</look>
+      <look>The desk is entirely occupied by a powered-down computer terminal and several uninteresting papers scattered across its surface.</look>
     </object>
     <object name="Third Desk">
       <inherit name="editor_object" />
@@ -425,6 +425,14 @@
       <inherit name="editor_object" />
       <look>The desk has a computer, the monitor tilted to one side. Judging from the several chewed pencils and oft-struck monitor, the desk's usual occupant has stress issues.</look>
     </object>
+    <object name="Group of Desks">
+      <inherit name="editor_object" />
+      <inherit name="container_open" />
+      <attr name="feature_container" type="boolean">false</attr>
+    </object>
+    <verb>
+      <pattern type="simplepattern"></pattern>
+    </verb>
   </object>
   <object name="Hydroponic Biosphere">
     <inherit name="editor_room" />
