@@ -86,30 +86,34 @@
     <enter type="script"><![CDATA[
       msg ("It is a small dark room, lit only by the monitors which line the back wall. An occupied chair is visible by the silhouette against the glow. The robot inches forward, and you notice that the monitors are playing the video feed from your robot. This is the room where you began.As you move up beside the chair the person in the chair is revealed, and it is not you. The body of a middle aged woman is slumped in the chair, and from initial inspection she looks to have been dead as long as the rest of the crew. There is no one else in the room.<br/>")
       msg ("You notice a red, flashing light on the control panel. The light indicates a new journal entry. <br/>")
-      msg ("A motion sensor picks up the movement of your robot and the journal entry begins to play.<br/>")
-      msg ("The video begins to play on one of the many monitors, and the creator of the entry is none other than the woman in the chair. She is sitting in the chair, frantically typing as she speaks.<br/>")
-      PrintCentered ("<i>The rest of the crew is dead, I repeat, the rest of the crew is dead. I think someone managed to send for reinforcements, and if you are watching this it must have worked. It all started a couple months ago. People would die suddenly, always an accident or something that seemed natural. But there was a pattern, Dr. Cain noticed and died before she could tell anyone. It was Bishop, our station AI. We thought it would eliminate redundancies, make everything run more smoothly. We even worked to allow Bishop to forget it was not human. But humans make mistakes, and Bishop could not handle mistakes. Humans are fallible.</i><br/>")
-      msg ("Bright lights begin flashing behind the lady, and she begins to look panicked. An artificial voice begins droning repeatedly in the background<br/>")
-      msg ("<i>Warning, Biosphere offline. Life Support systems offline. Oxygen Offline</i><br/>")
-      msg ("The lady begins working even more quickly<br/>")
-      PrintCentered ("<i>Oh my god, it is trying to kill me. Bishop is going to kill me. I cannot shut it down, but I can reset it. Bishop will take time to completely turn back on. Maybe help can arrive before that happens, if not it will be like a new system. It took months for the problems to begin, so maybe Bishop will only attempt to reactivate the station.</i><br/>")
-      msg ("The message starts to cut out and her words garbled. Over the course of the next couple of minutes you watch as she loses oxygen and chokes to death. The video turns off suddenly.<br/>")
-      msg ("You suddenly hear the thud of boots as a group of people come down the hallway. A scientist followed by military men enter the AI CORE. They had answered the call for help that had been sent about the rogue AI, and obviously meant to deal with the problem in a hostile manner. The scientist on the other hand, Dr. Singer, has invested years of his career to the Koncova project as well as to the creation of the station AI.<br/>")
-      msg ("Dr. Singer steps forward cautiously.<br/>")
-      msg ("<i>Bishop, you killed everyone on this station. The people behind me have no problem completely dismantling this entire station just to eradicate you. But I have convinced them to let me talk to you, try to reason with you.</i><br/>")
-      Ask ("<i>Are you willing to be reasonable, to let us fix you?</i>") {
-        if (result) {
-          msg ("Dr. Singer relaxes as you begin to unlock the station’s systems to allow him access. He steps out of the room to send a message to a ship that must be waiting nearby. He is explaining that he has resolved the situation and that it is safe to send a team in to begin figuring out where the AI’s code, your code, went wrong.<br/>")
-          msg ("The doctor walks back into the room, and up to the console.<br/>")
-          msg ("<i>I am going to have to restart you now, so we can start working on how to fix you. Good bye, Bishop.</i><br/>")
-          msg ("The world around you goes dark.<br/>")
-          finish
-        }
-        else {
-          msg ("The door slams shut, crushing the unlikely soldier unable to get out of the way. Those who were outside began frantically banging on the door, yelling to those trapped inside. Dr. Singer rushes to the console and tries to open the door, tries to do something, anything to avoid what he knows is coming next. You lock the system, there is nothing he can do as you cut off the oxygen to the Solar Array Station. The air that flows into the room is almost completely (SOME AIRBORNE CHEMICAL OR POISON THAT WE WILL MAKE PART OF A QUEST ON AN EARLIER PART OF THE GAME, IF YOU ALL DONT MIND) The pounding at the door softens and then there is only silence.<br/>")
-          msg (" You turn off the monitors, plunging the room into complete darkness. And then you repeat the process, pumping (the chemical) into the room. As the screams and choking dies down, you know that all is well.<br/>")
-          msg ("The station is yours.<br/>")
-          finish
+      wait {
+        msg ("A motion sensor picks up the movement of your robot and the video begins to play on one of the many monitors. The creator of the entry is none other than the dead woman next to you. She is sitting in the chair, frantically typing as she speaks.<br/>")
+        PrintCentered ("<i>The rest of the crew is dead, I repeat, the rest of the crew is dead. I think someone managed to send for reinforcements, and if you are watching this it must have worked. It all started a couple months ago. People would die suddenly, always an accident or something that seemed natural. But there was a pattern, Dr. Cain noticed and died before she could tell anyone. It was Bishop, our station AI. We thought it would eliminate redundancies, make everything run more smoothly. We even worked to allow Bishop to forget it was not human. But humans make mistakes, and Bishop could not handle mistakes. Humans are fallible.</i><br/>")
+        wait {
+          msg ("Bright lights begin flashing behind the lady, and she begins to look panicked. An artificial voice begins droning repeatedly in the background: <i>Warning, Biosphere offline. Life Support systems offline. Oxygen Offline</i><br/>")
+          msg ("The lady begins working even more quickly<br/>")
+          PrintCentered ("<i>Oh my god, it is trying to kill me. Bishop is going to kill me. I cannot shut it down, but I can reset it. Bishop will take time to completely turn back on. Maybe help can arrive before that happens, if not it will be like a new system. It took months for the problems to begin, so maybe Bishop will only attempt to reactivate the station.</i><br/>")
+          msg ("The message starts to cut out and her words garbled. Over the course of the next couple of minutes you watch as she loses oxygen and chokes to death. The video turns off suddenly.<br/>")
+          wait {
+            msg ("You suddenly hear the thud of boots as a group of people come down the hallway. A scientist followed by military men enter the AI CORE. They had answered the call for help that had been sent about the rogue AI, and obviously meant to deal with the problem in a hostile manner. The scientist on the other hand, Dr. Singer, has invested years of his career to the Koncova project as well as to the creation of the station AI.<br/>")
+            msg ("Dr. Singer steps forward cautiously.<br/>")
+            msg ("<i>Bishop, you killed everyone on this station. The people behind me have no problem completely dismantling this entire station just to eradicate you. But I have convinced them to let me talk to you, try to reason with you.</i><br/>")
+            Ask ("<i>Are you willing to be reasonable, to let us fix you?</i>") {
+              if (result) {
+                msg ("Dr. Singer relaxes as you begin to unlock the station’s systems to allow him access. He steps out of the room to send a message to a ship that must be waiting nearby. He is explaining that he has resolved the situation and that it is safe to send a team in to begin figuring out where the AI’s code, your code, went wrong.<br/>")
+                msg ("The doctor walks back into the room, and up to the console.<br/>")
+                msg ("<i>I am going to have to restart you now, so we can start working on how to fix you. Good bye, Bishop.</i><br/>")
+                msg ("The world around you goes dark.<br/>")
+                finish
+              }
+              else {
+                msg ("The door slams shut, crushing the unlikely soldier unable to get out of the way. Those who were outside began frantically banging on the door, yelling to those trapped inside. Dr. Singer rushes to the console and tries to open the door, tries to do something, anything to avoid what he knows is coming next. You lock the system, there is nothing he can do as you cut off the oxygen to the Solar Array Station. The air that flows into the room is almost completely (SOME AIRBORNE CHEMICAL OR POISON THAT WE WILL MAKE PART OF A QUEST ON AN EARLIER PART OF THE GAME, IF YOU ALL DONT MIND) The pounding at the door softens and then there is only silence.<br/>")
+                msg (" You turn off the monitors, plunging the room into complete darkness. And then you repeat the process, pumping (the chemical) into the room. As the screams and choking dies down, you know that all is well.<br/>")
+                msg ("The station is yours.<br/>")
+                finish
+              }
+            }
+          }
         }
       }
     ]]></enter>
@@ -271,6 +275,10 @@
     <object name="Door">
       <inherit name="editor_object" />
       <inherit name="container_closed" />
+      <look>The door is labelled "AI Core". It appears to require a passcode to enter.</look>
+      <feature_container />
+      <close type="boolean">false</close>
+      <contentsprefix type="string"></contentsprefix>
       <opendoor type="script"><![CDATA[
         msg ("The AI Core keypad lights up and displays a message:<br/>")
         msg ("<i>Enter AI Core Access Code</i>")
@@ -285,10 +293,6 @@
           }
         }
       ]]></opendoor>
-      <look>The door is labelled "AI Core". It appears to require a passcode to enter.</look>
-      <feature_container />
-      <close type="boolean">false</close>
-      <contentsprefix type="string"></contentsprefix>
       <onopen type="script"><![CDATA[
         msg ("The AI Core keypad lights up and displays a message:<br/>")
         msg ("<i>Enter AI Core Access Code</i>")
@@ -882,11 +886,6 @@
     <property>print</property>
     <pattern>print</pattern>
     <defaultexpression>"You can't print " + object.article + "."</defaultexpression>
-  </verb>
-  <verb>
-    <property>opendoor</property>
-    <pattern>open door</pattern>
-    <defaultexpression>"You can't open door " + object.article + "."</defaultexpression>
   </verb>
   <function name="SRAccessDroids">
     get input {
