@@ -107,7 +107,7 @@
     </object>
     <exit name="Exit Solar to security" to="Security">
       <scenery type="boolean">false</scenery>
-      <locked />
+      <locked type="boolean">false</locked>
       <lockmessage>You do not have control of that Droid yet.</lockmessage>
     </exit>
     <exit name="Exit Solar to Biosphere" to="Hydroponic Biosphere">
@@ -157,12 +157,12 @@
         <inherit name="container_closed" />
         <visible type="boolean">false</visible>
         <feature_container />
+        <look>Initial scans detect unknown objects in the drawer under the desk. </look>
         <onopen type="script">
           MakeObjectVisible (Clipboard)
           MakeObjectVisible (Sticky Note)
           msg ("Inside the drawer is a Clipboard with a sticky note on it.")
         </onopen>
-        <look>Initial scans detect unknown objects in the drawer under the desk. </look>
         <object name="Clipboard">
           <inherit name="editor_object" />
           <scenery type="boolean">false</scenery>
@@ -171,11 +171,11 @@
             <value>Look at</value>
             <value>Take</value>
           </displayverbs>
+          <take />
           <look type="script"><![CDATA[
             msg ("On it is the ship's Manifest and a sticky note.<br/>The Manifest reads:<br/><br/>")
             picture ("Ship Manifest.png")
           ]]></look>
-          <take />
         </object>
         <object name="Sticky Note">
           <inherit name="editor_object" />
@@ -209,6 +209,7 @@
       </displayverbs>
       <feature_usegive />
       <attr name="feature_switchable" type="boolean">false</attr>
+      <look>An old Terminal, used for operating the station. Looks like it will need power before it is operational.</look>
       <use type="script"><![CDATA[
         if (IsSwitchedOn(Terminal)) {
           msg ("please enter the password:<br/>")
@@ -245,7 +246,6 @@
           msg ("The terminal doesn't respond to any key presses. It appears to not have any source of power. ")
         }
       ]]></use>
-      <look>An old Terminal, used for operating the station. Looks like it will need power before it is operational.</look>
     </object>
   </object>
   <object name="Security">
@@ -314,7 +314,19 @@
         <inherit name="editor_object" />
         <inherit name="openable" />
         <drop type="boolean">false</drop>
-        <look>A regular, run of the mill file cabinet. </look>
+        <look type="script">
+          msg ("You find the records for all the security personnel.")
+          msg ("The file for T. Ayas sticks out about the others.")
+          msg ("Would you like to look at the file?")
+          get input {
+            if (IsRegexMatch("yes|y", LCase(result))) {
+              msg ("$PLACEHOLDER PERSONNEL FILE TEXT")
+            }
+            else {
+              msg ("You close the file cabinet.")
+            }
+          }
+        </look>
         <feature_container />
         <openscript type="script">
           msg ("You open the file cabinet to find it empty.")
@@ -340,7 +352,7 @@
       </object>
       <object name="Medal">
         <inherit name="editor_object" />
-        <look>$PLACEHOLDER MEDAL DESCRIPTION</look>
+        <look>This medal commemorates 25 years of exemplary service.</look>
         <take />
         <takemsg>You place the medal in your droid's storage system.</takemsg>
         <drop type="boolean">false</drop>
@@ -370,7 +382,15 @@
       <autounlock />
       <unlockmessage>The lock falls to the ground and you open the door. Inside the locker is a jacket, a couple of books, and a bagged lunch that has long since grown fuzzy. On the inside of the door are pictures of a beautiful black cat.</unlockmessage>
       <keycount type="int">0</keycount>
-      <look>A locked locker. The name tag on the front reads "F. Eisman".</look>
+      <look type="script">
+        if (not Locker.isopen) {
+          msg ("A closed locker. The nametag on the front reads \"N. Passant\".")
+        }
+        else if (Locker.isopen) {
+          msg ("An open locker. Inside is a jacket, a couple of books, and a bagged lunch that has long since grown fuzzy. On the inside of the door are pictures of a beautiful black cat. One of the books contains handwritten notes on how to maintain and upgrade an AI.")
+        }
+      </look>
+      <locked type="boolean">false</locked>
     </object>
     <exit to="Washroom">
       <scenery />
@@ -416,14 +436,69 @@
       <inherit name="editor_object" />
       <look>The desk has a computer, the monitor tilted to one side. Judging from the several chewed pencils and oft-struck monitor, the desk's usual occupant has stress issues.</look>
     </object>
-    <object name="Group of Desks">
+    <object name="Reception Desk">
       <inherit name="editor_object" />
-      <inherit name="container_open" />
-      <attr name="feature_container" type="boolean">false</attr>
+      <look><![CDATA[This is the reception desk for Station Security, though it doubles as the communication centre of the Koncova as well. The desk is a curved L-shape and blocks entrance to the room from the door to the adjacent hallway. This creates a separate sitting area for the non-security members of the station. Staff are able to enter from a secure door by the lockers. <br/><br/>The desk has three workstations. The first is for the Security Reception. The second is for internal communications. The third is dedicated to external communications.]]></look>
     </object>
-    <verb>
-      <pattern type="simplepattern"></pattern>
-    </verb>
+    <object name="First Workstation">
+      <inherit name="editor_object" />
+      <scenery />
+      <look>This portion of the desk has a computer that is connected to the security network. It has files regarding current arrests, who has been held and for how long, as well as the criminal records and backgrounds of anyone on board the station. There are also several drawers.</look>
+    </object>
+    <object name="Second Workstation">
+      <inherit name="editor_object" />
+      <look>There is a computer and chair, along with a small placard that reads "Internal Communication". The computer is on and the account is already lgged in. The page is opened to a message from Dr. Cain to Chief of Security. The doctor is asking the security chief to reconsider her response to his theory behind the accidents on the station.</look>
+      <scenery />
+    </object>
+    <object name="Third Workstation">
+      <inherit name="editor_object" />
+      <scenery />
+      <look>On the top of the desk is a sign up sheet for extended off-station calls. The top of the form say “These spots are reserved for personal calls only, and we recommend they be used only to contact family or friends. Calls can last a maximum of 45 minutes. Any dropped calls are not our fault, and a dropped call is no reason to run over your time limit”.</look>
+    </object>
+    <object name="Drawers">
+      <inherit name="editor_object" />
+      <feature_container />
+      <look type="script">
+        msg ("The first two drawers contain nothing of interest. The third drawer requires an access code to open.")
+        msg ("Would you like to try accessing the closed drawer?")
+        get input {
+          if (IsRegexMatch("yes|y", LCase(result))) {
+            SecDrawerPuz (3)
+          }
+        }
+      </look>
+      <scenery />
+    </object>
+    <object name="Interrogation Room">
+      <inherit name="editor_room" />
+      <description>The interrogation room is nearly empty, with the floor and walls covered in white tiles. There is a table with two chairs in teh middle of the room. On one wall is a screen, and on the opposite wall a barely visible lever.</description>
+      <object name="Lever">
+        <inherit name="editor_object" />
+        <inherit name="switchable" />
+        <feature_switchable />
+        <onswitchoff type="script">
+          msg ("The couch retracts back into the wall, hidden from sight.")
+        </onswitchoff>
+        <look>A metal lever jutting out of the wall.</look>
+        <pull type="script">
+          if (IsSwitchedOn(Lever)) {
+            SwitchOff (Lever)
+          }
+          else if (not IsSwitchedOn(Lever)) {
+            SwitchOn (Lever)
+          }
+        </pull>
+        <onswitchon type="script">
+          msg ("A couch slowly emerges from the wall. On one arm of the couch is a small keypad, as well as buttons to turn on the screen, dim lights, etc. .")
+        </onswitchon>
+      </object>
+      <exit alias="north" to="Security">
+        <inherit name="northdirection" />
+      </exit>
+    </object>
+    <exit alias="south" to="Interrogation Room">
+      <inherit name="southdirection" />
+    </exit>
   </object>
   <object name="Hydroponic Biosphere">
     <inherit name="editor_room" />
@@ -916,10 +991,10 @@
     else {
       msg ("PLEASE ENTER LEVEL 1 SECURITY BYPASS.")
       msg ("REMAINING ATTEMPTS:" + remaining)
-      msg ("PASSWORD HINT: tesqu")
+      msg ("PASSWORD HINT: tetsrur")
       msg ("ENTER BYPASS CODE:")
       get input {
-        if (IsRegexMatch("quest", LCase(result))) {
+        if (IsRegexMatch("turrets", LCase(result))) {
           msg ("CORRECT")
           SecPuz2 (3)
         }
@@ -937,10 +1012,10 @@
     else {
       msg ("PLEASE ENTER LEVEL 2 SECURITY BYPASS.")
       msg ("REMAINING ATTEMPTS:" + remaining)
-      msg ("PASSWORD HINT: llroshcya")
+      msg ("PASSWORD HINT: goniel")
       msg ("ENTER BYPASS CODE:")
       get input {
-        if (IsRegexMatch("scholarly", LCase(result))) {
+        if (IsRegexMatch("legion", LCase(result))) {
           msg ("CORRECT")
           SecPuz3 (3)
         }
@@ -958,12 +1033,11 @@
     else {
       msg ("PLEASE ENTER LEVEL 3 SECURITY BYPASS.")
       msg ("REMAINING ATTEMPTS:" + remaining)
-      msg ("PASSWORD HINT: ogodllsuti")
+      msg ("PASSWORD HINT: tastuanor")
       msg ("ENTER BYPASS CODE:")
       get input {
-        if (IsRegexMatch("ludologist", LCase(result))) {
-          msg ("CORRECT")
-          msg ("$(ZHU LI! DO THE THING TO TURN OFF THE TURRET HERE!)")
+        if (IsRegexMatch("astronaut", LCase(result))) {
+          msg ("CORRECT. TURRET DISABLED.")
           set (Security, "turret_online", False)
           UnlockExit (SecurityToSecOffice)
         }
@@ -995,5 +1069,26 @@
     UnlockExit (Exit Solar to Living Quarters)
     UnlockExit (Exit Solar to Med Bay)
     UnlockExit (Exit Solar to security)
+  </function>
+  <function name="SecDrawerPuz" parameters="remaining">
+    if (remaining = 0) {
+      msg ("YOU HAVE RUN OUT OF BYPASS ATTEMPTS. GOODBYE.")
+    }
+    else {
+      msg ("PLEASE ENTER LEVEL 1 SECURITY BYPASS.")
+      msg ("REMAINING ATTEMPTS:" + remaining)
+      msg ("PASSWORD HINT: ddegwin")
+      msg ("ENTER BYPASS CODE:")
+      get input {
+        if (IsRegexMatch("wedding", LCase(result))) {
+          msg ("CORRECT")
+          msg ("Inside you find a personal diary with a black leather cover. You open the diary to the last page. It reads \"I have been retracing Kirk's steps over the last couple of days, and I think I know what killed him. It was the AI. Security Chief Normandeau does not believe me, she even told me to stop digging. But I can't, not now that my best friend is dead.\"")
+        }
+        else {
+          msg ("ERROR. INCORRECT BYPASS CODE.")
+          SecDrawerPuz (remaining-1)
+        }
+      }
+    }
   </function>
 </asl>
