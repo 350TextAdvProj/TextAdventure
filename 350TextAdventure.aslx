@@ -1156,10 +1156,19 @@
                 wait {
                   msg ("<Note 2><br/><br/>hey :)<br/><br/>Thought you thought I was paranoid with the whole “notes on paper” thing. Took a look at the report I take it?<br/><br/>shush. the growth is not slowing down. reported it to upstairs but they seemed pleased about it. already put in my transfer.<br/><br/>How did that go?<br/><br/>they said there were no ships leaving until after the showcase... <br/><br/>Yeah. I got the same response. We should figure out a countermeasure just in case.<br/>")
                   wait {
-                    msg ("<Note 3> <br/><br/>Orange, Red and White mixed in equal portions seemed to hinder it. I think adding some Green might slow the process to something controllable.<br/><br/>i like your shorthand :) is it me or is the atmosphere a bit heavy?<br/><br/>I sent a request upstairs. They said the A.I. has everything under control and that its just the “excitement of the reveal.” They also forbid me from doing further testing.<br/>better to ask for forgiveness than for permission ;)<br/>")
+                    msg ("<Note 3> <br/><br/>Red and White mixed in equal portions seemed to hinder it. I think adding some Green might slow the process to something controllable.<br/><br/>i like your shorthand :) is it me or is the atmosphere a bit heavy?<br/><br/>I sent a request upstairs. They said the A.I. has everything under control and that its just the “excitement of the reveal.” They also forbid me from doing further testing.<br/>better to ask for forgiveness than for permission ;)<br/>")
                   }
                 }
               ]]></read>
+              <look type="script"><![CDATA[
+                msg ("<Note 1><br/><br/>I don’t know what the bigwigs are thinking. I have a bad feeling about this.<br/><br/>worried the terminal’s being tapped ?<br/><br/>It wouldn’t surprise me. I know the A.I. system is state of the art but there is something that creeps me out about being reminded to brush my teeth by a machine.<br/><br/>you are just being paranoid :) what the heck I’ll play along... whats on your mind?<br/><br/>I’m worried about Koschei. I’m glad it was successful but maybe its too successful. All I ask is that you take a look at the growth reports when you can.<br/>lol you are crazy. I’ll look but only cause I like you :)<br/>")
+                wait {
+                  msg ("<Note 2><br/><br/>hey :)<br/><br/>Thought you thought I was paranoid with the whole “notes on paper” thing. Took a look at the report I take it?<br/><br/>shush. the growth is not slowing down. reported it to upstairs but they seemed pleased about it. already put in my transfer.<br/><br/>How did that go?<br/><br/>they said there were no ships leaving until after the showcase... <br/><br/>Yeah. I got the same response. We should figure out a countermeasure just in case.<br/>")
+                  wait {
+                    msg ("<Note 3> <br/><br/>Red and White mixed in equal portions seemed to hinder it. I think adding some Green might slow the process to something controllable.<br/><br/>i like your shorthand :) is it me or is the atmosphere a bit heavy?<br/><br/>I sent a request upstairs. They said the A.I. has everything under control and that its just the “excitement of the reveal.” They also forbid me from doing further testing.<br/>better to ask for forgiveness than for permission ;)<br/>")
+                  }
+                }
+              ]]></look>
             </object>
           </object>
         </object>
@@ -1355,13 +1364,13 @@
   <object name="Living Quarters">
     <inherit name="editor_room" />
     <description>You are in the kitchen of the living quarters. The room is dominated by a counters, stoves and ten Konigs engaged in preparing the evening meal. A robot glides into the room from the doors to the rest of the living quarters, carrying plates piled high with uneaten food. As you watch another takes fresh plates out of the room.</description>
+    <alias>Living Quarters Kitchen</alias>
     <beforeenter type="script">
       play sound ("LQMusic.mp3", false, true)
     </beforeenter>
     <onexit type="script">
       stop sound
     </onexit>
-    <alias>Living Quarters Kitchen</alias>
     <beforefirstenter type="script">
       msg ("König  - Online")
     </beforefirstenter>
@@ -1392,13 +1401,13 @@
     <object name="Fridge">
       <inherit name="editor_object" />
       <inherit name="openable" />
+      <feature_container />
       <look type="script">
         msg ("Two large stainless steel fridges sit at the back of the room. They, like the rest of the kitchen, completely spotless and unmarred by fingerprints and other marks of frequent use.")
         if (Fridge.isopen) {
           msg ("The fridge is almost completely full of food.")
         }
       </look>
-      <feature_container />
       <openscript type="script">
         msg ("You open the fridge.")
         HelperOpenObject (Fridge)
@@ -1535,10 +1544,10 @@
         <object name="Doors">
           <inherit name="editor_object" />
           <scenery />
+          <attr name="feature_usegive" type="boolean">false</attr>
           <look type="script">
             msg ("You check each of the bedroom doors. They all seem to be locked. A DNA scanner is mounted to the right of each door.")
           </look>
-          <attr name="feature_usegive" type="boolean">false</attr>
         </object>
         <exit alias="south" to="AI Core">
           <inherit name="southdirection" />
