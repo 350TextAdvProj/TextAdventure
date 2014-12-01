@@ -564,6 +564,12 @@
   </object>
   <object name="Hydroponic Biosphere">
     <inherit name="editor_room" />
+    <description>Around you, you find a dissection table with a stand holding different medical utensils. To your north there is a whiteboard and several bright rectangular monitors. On the right side of the east wall you see a single reinforced door next to a large desk. To the west you see two doors. To your south, you notice a large rectangular mirror beginning about a meter from the floor and ending about a meter from the ceiling of the room. A few circular lamps hang over the operating table, illuminating the room with their antiseptic white light.</description>
+    <beforeenter type="script">
+    </beforeenter>
+    <beforefirstenter type="script">
+      msg ("For a moment all you can see is a wall of red. Red that quickly clusters into darker and lighter areas as the camera of your new temporary tool activates. Briskly fading words describe the systems of the mechanical body, visible for only a moment before the shapes in the room before you come into focus. A high pitched buzz interrupts your concentration, indicating that the microphones in your droid are now active.")
+    </beforefirstenter>
     <exit name="Exit Biosphere to Solar" to="Solar Array Station">
       <scenery type="boolean">false</scenery>
       <locked />
@@ -582,6 +588,584 @@
     </exit>
     <object name="Hydroponic Biosphere Complete">
       <inherit name="editor_object" />
+    </object>
+    <object name="Reinforced Door1">
+      <inherit name="editor_object" />
+      <inherit name="container_closed" />
+      <inherit name="container_lockable" />
+      <alias>Reinforced Door</alias>
+      <feature_container />
+      <close type="boolean">false</close>
+      <lockmessage>The door is ocked.</lockmessage>
+      <keycount type="int">0</keycount>
+    </object>
+    <object name="Holding Area">
+      <inherit name="editor_room" />
+      <description>You enter a large room with several tables. On them there are glass bells covering what look like withered tree saplings. The walls are bare sans a large ventillation vent. A few tables are clustered together in the corner of the room.</description>
+      <exit to="Hydroponic Biosphere" />
+    </object>
+    <object name="Supply Room">
+      <inherit name="editor_room" />
+      <description>The room is full of locked glass shelves of carefully labelled vials. In front of one of the shelves there is a chair and shattered glass. In the middle of the room there is a large machine with slits to insert vials. You dub it a “chemical mixing device”. </description>
+      <exit to="Hydroponic Biosphere" />
+      <object name="Glass">
+        <inherit name="editor_object" />
+        <look>Shattered, jagged, broken. Seven years of bad luck.</look>
+      </object>
+      <object name="Shelf">
+        <inherit name="editor_object" />
+        <inherit name="container_open" />
+        <look>The shelf is a mess. Looks like some of the vials might be missing. There are a few left within reach however.</look>
+        <feature_container />
+        <open type="boolean">false</open>
+        <close type="boolean">false</close>
+        <hidechildren />
+        <object name="Vials">
+          <inherit name="editor_object" />
+          <look>62 Chlorhexidihydro... It’s red. There are also white, yellow, green, orange and purple chemicals. These could be useful.</look>
+          <take />
+          <takemsg>You take the vials.</takemsg>
+        </object>
+      </object>
+      <object name="Chemical Mixing Device">
+        <inherit name="editor_object" />
+        <look type="script"><![CDATA[
+          msg ("The machine has three slots to place vials of chemicals in. <br/>")
+        ]]></look>
+        <feature_usegive />
+        <use type="script">
+          if (Got(Vials)) {
+            msg ("What would you like to mix? Available chemicals are: red, white, yellow, green, orange, and purple")
+            get input {
+              if (result = "red") {
+                msg ("Please choose another chemical. Available chemicals are: white, yellow, green, orange, and purple")
+                get input {
+                  if (result = "white") {
+                    msg ("Please choose another chemical. Available chemicals are: yellow, green, orange, and purple")
+                    get input {
+                      if (result = "green") {
+                        msg ("The chemicals run through the system which then spits out a vial full of black liquid. You pick it up.")
+                        AddToInventory (Black Chemical)
+                      }
+                      else if (result = "yellow" or result = "orange" or result = "purple") {
+                        msg ("The chemicals run through the system which then spits out a vial full of white liquid. You pick it up.")
+                        AddToInventory (White Chemical)
+                      }
+                      else {
+                        msg ("Chemical not recognized. Please start again.")
+                        AddToInventory (White Chemical)
+                      }
+                    }
+                  }
+                  else if (result = "green") {
+                    msg ("Please choose another chemical. Available chemicals are: white, yellow, orange, and purple")
+                    get input {
+                      if (result = "white") {
+                        msg ("The chemicals run through the system which then spits out a vial full of black liquid. You pick it up.")
+                        AddToInventory (Black Chemical)
+                      }
+                      else if (result = "yellow" or result = "orange" or result = "purple") {
+                        msg ("The chemicals run through the system which then spits out a vial full of white liquid. You pick it up.")
+                        AddToInventory (White Chemical)
+                      }
+                      else {
+                        msg ("Chemical not recognized. Please start again.")
+                      }
+                    }
+                  }
+                  else if (result = "yellow") {
+                    msg ("Please choose another chemical. Available chemicals are: white, green, orange, and purple")
+                    get input {
+                      if (result = "green" or result = "orange" or result = "purple" or result = "white") {
+                        msg ("The chemicals run through the system which then spits out a vial full of white liquid. You pick it up.")
+                        AddToInventory (White Chemical)
+                      }
+                      else {
+                        msg ("Chemical not recognized. Please start again.")
+                      }
+                    }
+                  }
+                  else if (result = "orange") {
+                    msg ("Please choose another chemical. Available chemicals are: white, yellow, green, and purple")
+                    get input {
+                      if (result = "green" or result = "yellow" or result = "purple" or result = "white") {
+                        msg ("The chemicals run through the system which then spits out a vial full of white liquid. You pick it up.")
+                      }
+                      else {
+                        msg ("Chemical not recognized. Please start again.")
+                      }
+                    }
+                  }
+                  else if (result = "purple") {
+                    msg ("Please choose another chemical. Available chemicals are: white, yellow, green, and orange")
+                    get input {
+                      if (result = "green" or result = "orange" or result = "yellow" or result = "white") {
+                        msg ("The chemicals run through the system which then spits out a vial full of white liquid. You pick it up.")
+                        AddToInventory (White Chemical)
+                      }
+                      else {
+                        msg ("Chemical not recognized. Please start again.")
+                      }
+                    }
+                  }
+                  else {
+                    msg ("Chemical not recognized. Please start again.")
+                  }
+                }
+              }
+              else if (result = "white") {
+                msg ("Please choose another chemical. Available chemicals are: white, yellow, green, orange, and purple")
+                get input {
+                  if (result = "red") {
+                    msg ("Please choose another chemical. Available chemicals are: yellow, green, orange, and purple")
+                    get input {
+                      if (result = "green") {
+                        msg ("The chemicals run through the system which then spits out a vial full of black liquid. You pick it up.")
+                        AddToInventory (Black Chemical)
+                      }
+                      else if (result = "yellow" or result = "orange" or result = "purple") {
+                        msg ("The chemicals run through the system which then spits out a vial full of white liquid. You pick it up.")
+                        AddToInventory (White Chemical)
+                      }
+                      else {
+                        msg ("Chemical not recognized. Please start again.")
+                        AddToInventory (White Chemical)
+                      }
+                    }
+                  }
+                  else if (result = "green") {
+                    msg ("Please choose another chemical. Available chemicals are: red, yellow, orange, and purple")
+                    get input {
+                      if (result = "red") {
+                        msg ("The chemicals run through the system which then spits out a vial full of black liquid. You pick it up.")
+                        AddToInventory (Black Chemical)
+                      }
+                      else if (result = "yellow" or result = "orange" or result = "purple") {
+                        msg ("The chemicals run through the system which then spits out a vial full of white liquid. You pick it up.")
+                        AddToInventory (White Chemical)
+                      }
+                      else {
+                        msg ("Chemical not recognized. Please start again.")
+                      }
+                    }
+                  }
+                  else if (result = "yellow") {
+                    msg ("Please choose another chemical. Available chemicals are: red, green, orange, and purple")
+                    get input {
+                      if (result = "green" or result = "orange" or result = "purple" or result = "red") {
+                        msg ("The chemicals run through the system which then spits out a vial full of white liquid. You pick it up.")
+                        AddToInventory (White Chemical)
+                      }
+                      else {
+                        msg ("Chemical not recognized. Please start again.")
+                      }
+                    }
+                  }
+                  else if (result = "orange") {
+                    msg ("Please choose another chemical. Available chemicals are: red, yellow, green, and purple")
+                    get input {
+                      if (result = "green" or result = "yellow" or result = "purple" or result = "red") {
+                        msg ("The chemicals run through the system which then spits out a vial full of white liquid. You pick it up.")
+                      }
+                      else {
+                        msg ("Chemical not recognized. Please start again.")
+                      }
+                    }
+                  }
+                  else if (result = "purple") {
+                    msg ("Please choose another chemical. Available chemicals are: red, yellow, green, and orange")
+                    get input {
+                      if (result = "green" or result = "orange" or result = "yellow" or result = "red") {
+                        msg ("The chemicals run through the system which then spits out a vial full of white liquid. You pick it up.")
+                        AddToInventory (White Chemical)
+                      }
+                      else {
+                        msg ("Chemical not recognized. Please start again.")
+                      }
+                    }
+                  }
+                  else {
+                    msg ("Chemical not recognized. Please start again.")
+                  }
+                }
+              }
+              else if (result = "green") {
+                msg ("Please choose another chemical. Available chemicals are: white, yellow, red, orange, and purple")
+                get input {
+                  if (result = "white") {
+                    msg ("Please choose another chemical. Available chemicals are: yellow, red, orange, and purple")
+                    get input {
+                      if (result = "red") {
+                        msg ("The chemicals run through the system which then spits out a vial full of black liquid. You pick it up.")
+                        AddToInventory (Black Chemical)
+                      }
+                      else if (result = "yellow" or result = "orange" or result = "purple") {
+                        msg ("The chemicals run through the system which then spits out a vial full of white liquid. You pick it up.")
+                        AddToInventory (White Chemical)
+                      }
+                      else {
+                        msg ("Chemical not recognized. Please start again.")
+                        AddToInventory (White Chemical)
+                      }
+                    }
+                  }
+                  else if (result = "red") {
+                    msg ("Please choose another chemical. Available chemicals are: white, yellow, orange, and purple")
+                    get input {
+                      if (result = "white") {
+                        msg ("The chemicals run through the system which then spits out a vial full of black liquid. You pick it up.")
+                        AddToInventory (Black Chemical)
+                      }
+                      else if (result = "yellow" or result = "orange" or result = "purple") {
+                        msg ("The chemicals run through the system which then spits out a vial full of white liquid. You pick it up.")
+                        AddToInventory (White Chemical)
+                      }
+                      else {
+                        msg ("Chemical not recognized. Please start again.")
+                      }
+                    }
+                  }
+                  else if (result = "yellow") {
+                    msg ("Please choose another chemical. Available chemicals are: white, red, orange, and purple")
+                    get input {
+                      if (result = "red" or result = "orange" or result = "purple" or result = "white") {
+                        msg ("The chemicals run through the system which then spits out a vial full of white liquid. You pick it up.")
+                        AddToInventory (White Chemical)
+                      }
+                      else {
+                        msg ("Chemical not recognized. Please start again.")
+                      }
+                    }
+                  }
+                  else if (result = "orange") {
+                    msg ("Please choose another chemical. Available chemicals are: white, yellow, red, and purple")
+                    get input {
+                      if (result = "red" or result = "yellow" or result = "purple" or result = "white") {
+                        msg ("The chemicals run through the system which then spits out a vial full of white liquid. You pick it up.")
+                      }
+                      else {
+                        msg ("Chemical not recognized. Please start again.")
+                      }
+                    }
+                  }
+                  else if (result = "purple") {
+                    msg ("Please choose another chemical. Available chemicals are: white, yellow, red, and orange")
+                    get input {
+                      if (result = "red" or result = "orange" or result = "yellow" or result = "white") {
+                        msg ("The chemicals run through the system which then spits out a vial full of white liquid. You pick it up.")
+                        AddToInventory (White Chemical)
+                      }
+                      else {
+                        msg ("Chemical not recognized. Please start again.")
+                      }
+                    }
+                  }
+                  else {
+                    msg ("Chemical not recognized. Please start again.")
+                  }
+                }
+              }
+              else if (result = "yellow") {
+                msg ("Please choose another chemical. Available chemicals are: red, white, green, orange, and purple")
+                get input {
+                  if (result = "white") {
+                    msg ("Please choose another chemical. Available chemicals are: red, green, orange, and purple")
+                    get input {
+                      if (result = "green" or result = "red" or result = "orange" or result = "purple") {
+                        msg ("The chemicals run through the system which then spits out a vial full of white liquid. You pick it up.")
+                        AddToInventory (White Chemical)
+                      }
+                      else {
+                        msg ("Chemical not recognized. Please start again.")
+                        AddToInventory (White Chemical)
+                      }
+                    }
+                  }
+                  else if (result = "green") {
+                    msg ("Please choose another chemical. Available chemicals are: red, white, orange, and purple")
+                    get input {
+                      if (result = "red" or result = "white" or result = "orange" or result = "purple") {
+                        msg ("The chemicals run through the system which then spits out a vial full of white liquid. You pick it up.")
+                        AddToInventory (White Chemical)
+                      }
+                      else {
+                        msg ("Chemical not recognized. Please start again.")
+                      }
+                    }
+                  }
+                  else if (result = "red") {
+                    msg ("Please choose another chemical. Available chemicals are: white, green, orange, and purple")
+                    get input {
+                      if (result = "green" or result = "orange" or result = "purple" or result = "white") {
+                        msg ("The chemicals run through the system which then spits out a vial full of white liquid. You pick it up.")
+                        AddToInventory (White Chemical)
+                      }
+                      else {
+                        msg ("Chemical not recognized. Please start again.")
+                      }
+                    }
+                  }
+                  else if (result = "orange") {
+                    msg ("Please choose another chemical. Available chemicals are: red, white, green, and purple")
+                    get input {
+                      if (result = "green" or result = "red" or result = "purple" or result = "white") {
+                        msg ("The chemicals run through the system which then spits out a vial full of white liquid. You pick it up.")
+                      }
+                      else {
+                        msg ("Chemical not recognized. Please start again.")
+                      }
+                    }
+                  }
+                  else if (result = "purple") {
+                    msg ("Please choose another chemical. Available chemicals are: red, white, green, and orange")
+                    get input {
+                      if (result = "green" or result = "orange" or result = "red" or result = "white") {
+                        msg ("The chemicals run through the system which then spits out a vial full of white liquid. You pick it up.")
+                        AddToInventory (White Chemical)
+                      }
+                      else {
+                        msg ("Chemical not recognized. Please start again.")
+                      }
+                    }
+                  }
+                  else {
+                    msg ("Chemical not recognized. Please start again.")
+                  }
+                }
+              }
+              else if (result = "orange") {
+                msg ("Please choose another chemical. Available chemicals are: red, white, green, yellow, and purple")
+                get input {
+                  if (result = "white") {
+                    msg ("Please choose another chemical. Available chemicals are: red, green, yellow, and purple")
+                    get input {
+                      if (result = "green" or result = "red" or result = "yellow" or result = "purple") {
+                        msg ("The chemicals run through the system which then spits out a vial full of white liquid. You pick it up.")
+                        AddToInventory (White Chemical)
+                      }
+                      else {
+                        msg ("Chemical not recognized. Please start again.")
+                        AddToInventory (White Chemical)
+                      }
+                    }
+                  }
+                  else if (result = "green") {
+                    msg ("Please choose another chemical. Available chemicals are: red, white, yellow, and purple")
+                    get input {
+                      if (result = "red" or result = "white" or result = "yellow" or result = "purple") {
+                        msg ("The chemicals run through the system which then spits out a vial full of white liquid. You pick it up.")
+                        AddToInventory (White Chemical)
+                      }
+                      else {
+                        msg ("Chemical not recognized. Please start again.")
+                      }
+                    }
+                  }
+                  else if (result = "red") {
+                    msg ("Please choose another chemical. Available chemicals are: white, green, yellow, and purple")
+                    get input {
+                      if (result = "green" or result = "yellow" or result = "purple" or result = "white") {
+                        msg ("The chemicals run through the system which then spits out a vial full of white liquid. You pick it up.")
+                        AddToInventory (White Chemical)
+                      }
+                      else {
+                        msg ("Chemical not recognized. Please start again.")
+                      }
+                    }
+                  }
+                  else if (result = "yellow") {
+                    msg ("Please choose another chemical. Available chemicals are: red, white, green, and purple")
+                    get input {
+                      if (result = "green" or result = "red" or result = "purple" or result = "white") {
+                        msg ("The chemicals run through the system which then spits out a vial full of white liquid. You pick it up.")
+                      }
+                      else {
+                        msg ("Chemical not recognized. Please start again.")
+                      }
+                    }
+                  }
+                  else if (result = "purple") {
+                    msg ("Please choose another chemical. Available chemicals are: red, white, green, and yellow")
+                    get input {
+                      if (result = "green" or result = "yellow" or result = "red" or result = "white") {
+                        msg ("The chemicals run through the system which then spits out a vial full of white liquid. You pick it up.")
+                        AddToInventory (White Chemical)
+                      }
+                      else {
+                        msg ("Chemical not recognized. Please start again.")
+                      }
+                    }
+                  }
+                  else {
+                    msg ("Chemical not recognized. Please start again.")
+                  }
+                }
+              }
+              else if (result = "purple") {
+                msg ("Please choose another chemical. Available chemicals are: red, white, green, orange, and yellow")
+                get input {
+                  if (result = "white") {
+                    msg ("Please choose another chemical. Available chemicals are: red, green, orange, and yellow")
+                    get input {
+                      if (result = "green" or result = "red" or result = "orange" or result = "yellow") {
+                        msg ("The chemicals run through the system which then spits out a vial full of white liquid. You pick it up.")
+                        AddToInventory (White Chemical)
+                      }
+                      else {
+                        msg ("Chemical not recognized. Please start again.")
+                        AddToInventory (White Chemical)
+                      }
+                    }
+                  }
+                  else if (result = "green") {
+                    msg ("Please choose another chemical. Available chemicals are: red, white, orange, and yellow")
+                    get input {
+                      if (result = "red" or result = "white" or result = "orange" or result = "yellow") {
+                        msg ("The chemicals run through the system which then spits out a vial full of white liquid. You pick it up.")
+                        AddToInventory (White Chemical)
+                      }
+                      else {
+                        msg ("Chemical not recognized. Please start again.")
+                      }
+                    }
+                  }
+                  else if (result = "red") {
+                    msg ("Please choose another chemical. Available chemicals are: white, green, orange, and yellow")
+                    get input {
+                      if (result = "green" or result = "orange" or result = "yellow" or result = "white") {
+                        msg ("The chemicals run through the system which then spits out a vial full of white liquid. You pick it up.")
+                        AddToInventory (White Chemical)
+                      }
+                      else {
+                        msg ("Chemical not recognized. Please start again.")
+                      }
+                    }
+                  }
+                  else if (result = "orange") {
+                    msg ("Please choose another chemical. Available chemicals are: red, white, green, and yellow")
+                    get input {
+                      if (result = "green" or result = "red" or result = "yellow" or result = "white") {
+                        msg ("The chemicals run through the system which then spits out a vial full of white liquid. You pick it up.")
+                      }
+                      else {
+                        msg ("Chemical not recognized. Please start again.")
+                      }
+                    }
+                  }
+                  else if (result = "purple") {
+                    msg ("Please choose another chemical. Available chemicals are: red, white, green, and orange")
+                    get input {
+                      if (result = "green" or result = "orange" or result = "red" or result = "white") {
+                        msg ("The chemicals run through the system which then spits out a vial full of white liquid. You pick it up.")
+                        AddToInventory (White Chemical)
+                      }
+                      else {
+                        msg ("Chemical not recognized. Please start again.")
+                      }
+                    }
+                  }
+                  else {
+                    msg ("Chemical not recognized. Please start again.")
+                  }
+                }
+              }
+              else {
+                msg ("Chemical not recognized. Please start again.")
+              }
+            }
+          }
+          else {
+            msg ("You don't have any chemicals to mix.")
+          }
+        </use>
+      </object>
+      <object name="Black Chemical">
+        <inherit name="editor_object" />
+        <visible />
+        <look>A vial containing a thick, black liquid.</look>
+        <scenery />
+        <drop type="boolean">false</drop>
+      </object>
+      <object name="White Chemical">
+        <inherit name="editor_object" />
+        <look>A vial containing a milky white chemical.</look>
+        <visible />
+        <scenery />
+        <take type="boolean">false</take>
+        <drop type="boolean">false</drop>
+      </object>
+    </object>
+    <exit to="Holding Area" />
+    <exit to="Supply Room" />
+    <verb>
+      <defaulttext>There are two doors on the west wall. A rectangular plate on the one on the right reads "supplies", while the one on the left reads "holding area".</defaulttext>
+      <pattern>Look West</pattern>
+      <property>lookwest</property>
+    </verb>
+    <verb>
+      <pattern>Look East</pattern>
+      <property>lookeast</property>
+      <defaulttext>There is a single reinforced door on the right side of the wall. Next to it is a large desk.</defaulttext>
+    </verb>
+    <object name="Desk1">
+      <inherit name="editor_object" />
+      <inherit name="container_open" />
+      <alias>Desk</alias>
+      <look>The desk is large and spans most of the east wall. Three monitors, equidistant from each other, peak from among a mound of reports and papers. Underneath the desk you see several drawers.</look>
+      <feature_container />
+      <open type="boolean">false</open>
+      <close type="boolean">false</close>
+      <hidechildren />
+      <object name="Drawers">
+        <inherit name="editor_object" />
+        <inherit name="container_open" />
+        <look>There are six drawers, each sporting a keypad in its middle. Four of the drawers look as if someone tried to forcefully open them, their keypads smashed beyond recognition. Of the remaining two, one is undamaged, and the other one is open.</look>
+        <feature_container />
+        <open type="boolean">false</open>
+        <close type="boolean">false</close>
+        <hidechildren />
+        <object name="Closed Drawer">
+          <inherit name="editor_object" />
+          <inherit name="container_closed" />
+          <inherit name="container_lockable" />
+          <look>There is a keypad and a small monitor on it.</look>
+          <feature_container />
+          <open type="boolean">false</open>
+          <autounlock type="boolean">false</autounlock>
+          <autoopen type="boolean">false</autoopen>
+          <nokeymessage>You do not have the access code.</nokeymessage>
+          <close type="boolean">false</close>
+        </object>
+        <object name="Open Drawer">
+          <inherit name="editor_object" />
+          <inherit name="container_open" />
+          <look>It’s chock full of reports and papers. A clipboard sits conspicuously atop it.</look>
+          <feature_container />
+          <open type="boolean">false</open>
+          <close type="boolean">false</close>
+          <hidechildren />
+          <object name="Clipboard1">
+            <inherit name="editor_object" />
+            <inherit name="surface" />
+            <alias>Clipboard</alias>
+            <look>There are several sheets of paper in it. Most of it consists of nondescript equations for biological system engineering. There are a few scribbled notes on it that call your attention.</look>
+            <feature_container />
+            <hidechildren />
+            <object name="Notes">
+              <inherit name="editor_object" />
+              <read type="script"><![CDATA[
+                msg ("<Note 1><br/><br/>I don’t know what the bigwigs are thinking. I have a bad feeling about this.<br/><br/>worried the terminal’s being tapped ?<br/><br/>It wouldn’t surprise me. I know the A.I. system is state of the art but there is something that creeps me out about being reminded to brush my teeth by a machine.<br/><br/>you are just being paranoid :) what the heck I’ll play along... whats on your mind?<br/><br/>I’m worried about Koschei. I’m glad it was successful but maybe its too successful. All I ask is that you take a look at the growth reports when you can.<br/>lol you are crazy. I’ll look but only cause I like you :)<br/>")
+                wait {
+                  msg ("<Note 2><br/><br/>hey :)<br/><br/>Thought you thought I was paranoid with the whole “notes on paper” thing. Took a look at the report I take it?<br/><br/>shush. the growth is not slowing down. reported it to upstairs but they seemed pleased about it. already put in my transfer.<br/><br/>How did that go?<br/><br/>they said there were no ships leaving until after the showcase... <br/><br/>Yeah. I got the same response. We should figure out a countermeasure just in case.<br/>")
+                  wait {
+                    msg ("<Note 3> <br/><br/>Orange, Red and White mixed in equal portions seemed to hinder it. I think adding some Green might slow the process to something controllable.<br/><br/>i like your shorthand :) is it me or is the atmosphere a bit heavy?<br/><br/>I sent a request upstairs. They said the A.I. has everything under control and that its just the “excitement of the reveal.” They also forbid me from doing further testing.<br/>better to ask for forgiveness than for permission ;)<br/>")
+                  }
+                }
+              ]]></read>
+            </object>
+          </object>
+        </object>
+      </object>
     </object>
   </object>
   <object name="Med Bay">
