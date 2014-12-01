@@ -136,7 +136,7 @@
   <object name="Solar Array Station">
     <inherit name="editor_room" />
     <descprefix>Control of droid initiated in</descprefix>
-    <objectslistprefix>Droid detects</objectslistprefix>
+    <objectslistprefix>The droid detects</objectslistprefix>
     <exitslistprefix>You can switch to a droid in: </exitslistprefix>
     <description><![CDATA[“The robot boots up and surveys the area. In the center of the room there is a u-shaped desk. Water dripping from the roof has left an ugly stain on top and one of the drawers appears to be partly open. No human life is present. There is a green glow to the room and you realize it’s coming from the viscous liquid contained in the glass cylinders at the far end of the room. Capped with metal at the top and bottom, they appear to be batteries. There is a warning label stuck to the front of one, labelling it a highly corrosive material. A computer terminal is tucked away in the corner.”<br/>]]></description>
     <beforefirstenter type="script">
@@ -151,7 +151,7 @@
     </object>
     <exit name="Exit Solar to security" to="Security">
       <scenery type="boolean">false</scenery>
-      <locked type="boolean">false</locked>
+      <locked />
       <lockmessage>You do not have control of that Droid yet.</lockmessage>
     </exit>
     <exit name="Exit Solar to Biosphere" to="Hydroponic Biosphere">
@@ -161,7 +161,7 @@
     </exit>
     <exit name="Exit Solar to Med Bay" to="Med Bay">
       <scenery type="boolean">false</scenery>
-      <locked />
+      <locked type="boolean">false</locked>
       <lockmessage>You do not have control of that Droid yet.</lockmessage>
     </exit>
     <exit name="Exit Solar to Living Quarters" to="Living Quarters">
@@ -1177,6 +1177,8 @@
   </object>
   <object name="Med Bay">
     <inherit name="editor_room" />
+    <description><![CDATA[As your sensors activate a white room slowly comes into view. The contours of an operating table and a few other objects slowly make themselves visible. Finally, the optical sensors of your new metallic body finish booting and the room around you takes a final and clear shape. It is a large white room with long halogen running lights above. To the north of you there is a whiteboard. Behind you, to the south, a single bed with a chart, presumably to write symptoms and results. Next to the bed, a diagnostics unit covered with lights, an instrument stand, and a drawer. To your east you see a yellow reinforced door with the marking “02”. Finally, on the west wall, you see several posters covering the wall.<br/>]]></description>
+    <objectslistprefix>The droid detects</objectslistprefix>
     <exit name="Exit Med Bay to Solar" to="Solar Array Station">
       <scenery type="boolean">false</scenery>
       <locked />
@@ -1201,46 +1203,7 @@
       <inventoryverbs type="stringlist" />
       <drop type="boolean">false</drop>
     </object>
-    <object name="large white board">
-      <inherit name="editor_object" />
-      <inherit name="switchable" />
-      <attr name="feature_switchable" type="boolean">false</attr>
-      <look type="script">
-        if (not IsSwitchedOn(large white board)) {
-          msg ("The whiteboard has no writing on it. ")
-        }
-        else if (IsSwitchedOn(large white board)) {
-          if (not IsSwitchedOn(light switch)) {
-            msg ("The whiteboard glows with luminescent writing. It reads:")
-            SetFontSize (20)
-            msg ("I've hidden the scalpel under the bed")
-            SetFontSize (12)
-          }
-        }
-      </look>
-    </object>
-    <object name="surgical cabinet">
-      <inherit name="editor_object" />
-      <inherit name="container_closed" />
-      <feature_container />
-      <displayverbs type="stringlist">
-        <value>Look at</value>
-        <value>Open</value>
-        <value>Close</value>
-      </displayverbs>
-      <listchildren />
-      <look>Initial scans of the sergical cabinet indicate that there are objects inside. </look>
-      <object name="blacklight bulb">
-        <inherit name="editor_object" />
-        <take />
-        <look>It is not an ordinary lightbulb.</look>
-      </object>
-      <object name="Spray bottle">
-        <inherit name="editor_object" />
-        <look>A spray bottle with some sort of solution in it. The label reads "Luminol."</look>
-      </object>
-    </object>
-    <object name="light switch">
+    <object name="Light Switch">
       <inherit name="editor_object" />
       <inherit name="switchable" />
       <displayverbs type="stringlist">
@@ -1287,6 +1250,10 @@
           msg (DynamicTemplate("DefaultTurnOff", this))
         }
       </turnoff>
+      <onswitchoff type="script">
+        SetObjectFlagOn (Large White Board, "puzzle 3")
+        msg ("The lights in the room are now off.")
+      </onswitchoff>
     </object>
     <object name="Lamp">
       <inherit name="editor_object" />
@@ -1296,11 +1263,8 @@
         <value>Look at</value>
       </displayverbs>
       <feature_usegive />
-      <useon type="scriptdictionary">
-        <item key="blacklight bulb">
-          SwitchOn (large white board)
-        </item>
-      </useon>
+      <useon type="scriptdictionary" />
+      <look>A regular looking desk lamp. The bulb is srtangely missing.</look>
     </object>
     <object name="Bed">
       <inherit name="editor_object" />
@@ -1315,42 +1279,10 @@
         HelperOpenObject (Bed)
         msg ("Under the bed is a scalpel.")
       </lookunderneath>
+      <look>It looks comfortable given the circumstances. It seems designed for a pleasant stay. There are blankets and a pillow in it.</look>
       <object name="scalpel">
         <inherit name="editor_object" />
         <take />
-      </object>
-    </object>
-    <object name="Manual Override Box">
-      <inherit name="editor_object" />
-      <inherit name="container_open" />
-      <feature_usegive />
-      <feature_container />
-      <isopen type="boolean">false</isopen>
-      <displayverbs type="stringlist">
-        <value>Look at</value>
-      </displayverbs>
-      <useon type="scriptdictionary">
-        <item key="scalpel"><![CDATA[
-          HelperOpenObject (Manual Override Box)
-          msg ("The droid extends a small arm. ")
-          SetTimeout (1) {
-            msg ("Using the scalpel as a screwdriver it carefully and meticulously unscrews the 8 bolts that hold the front panel onto the override box.<br/>")
-          }
-          SetTimeout (1) {
-            msg ("Inside the box is a red handle and a laminated peice of paper that reads:<br/>\"MANUAL OVERRIDE - LIFE SUPPORT SYSTEMS POWER\"")
-          }
-        ]]></item>
-      </useon>
-      <object name="Red handle">
-        <inherit name="editor_object" />
-        <displayverbs type="stringlist">
-          <value>Look at</value>
-        </displayverbs>
-        <pull type="script">
-          msg ("Life Support power re-established. ")
-          AddToInventory (Med Bay Complete)
-          SetObjectFlagOn (Check Ship Status, "Med Bay Complete")
-        </pull>
       </object>
     </object>
     <object name="Reinforced Door">
@@ -1358,7 +1290,141 @@
       <displayverbs type="stringlist">
         <value>Look at</value>
       </displayverbs>
-      <look>A Large Reinforced Door. It has been welded shut.</look>
+      <look><![CDATA[It is a standard secure door, presumably to enforce quarantine on reluctant patients. It is marked “02” with long white letters. It has been welded shut.<br/>]]></look>
+    </object>
+    <object name="Large White Board">
+      <inherit name="editor_object" />
+      <attr name="puzzle 1" type="boolean">false</attr>
+      <attr name="puzzle 2" type="boolean">false</attr>
+      <attr name="puzzle 3" type="boolean">false</attr>
+      <look type="script"><![CDATA[
+        msg ("Underneath it there are a couple markers and writing devices. The whiteboard is blank.")
+        if (GetBoolean(Large White Board, "puzzle 1")) {
+          if (GetBoolean(Large White Board, "puzzle 2")) {
+            if (GetBoolean(Large White Board, "puzzle 3")) {
+              msg ("With the lights out, the ominous purple glow of the blacklight illuminates the Luminol on the whiteboard, exposing a message. It looks like the message was written in blood. It reads:<br/>")
+              SetFontSize (15)
+              SetFontName ("Impact, Charcoal, sans-serif")
+              msg ("Don’t trust it. Use the scalpel under the bed.")
+              SetFontSize (12)
+              SetFontName ("Georgia, serif")
+            }
+          }
+        }
+      ]]></look>
+      <displayverbs type="stringlist">
+        <value>Look at</value>
+      </displayverbs>
+    </object>
+    <object name="Poster">
+      <inherit name="editor_object" />
+      <inherit name="container_open" />
+      <look>“Come experience the final frontier! Experience life without limits while making the ultimate career move!” It looks like a standard advertising poster. The words are placed above a depiction of a space station.</look>
+      <feature_container />
+      <open type="boolean">false</open>
+      <close type="boolean">false</close>
+      <isopen type="boolean">false</isopen>
+      <remove type="script">
+        HelperOpenObject (Poster)
+        msg ("There is a panel beneath the poster. It is screwed securely to the wall.")
+      </remove>
+      <onopen type="script">
+        MakeObjectVisible (Manual Override Box)
+      </onopen>
+      <displayverbs type="stringlist">
+        <value>Look at</value>
+      </displayverbs>
+      <object name="Manual Override Box">
+        <inherit name="editor_object" />
+        <inherit name="container_open" />
+        <feature_usegive />
+        <feature_container />
+        <isopen type="boolean">false</isopen>
+        <displayverbs type="stringlist">
+          <value>Look at</value>
+        </displayverbs>
+        <useon type="scriptdictionary">
+          <item key="scalpel"><![CDATA[
+            HelperOpenObject (Manual Override Box)
+            msg ("The droid extends a small arm. ")
+            SetTimeout (1) {
+              msg ("Using the scalpel as a screwdriver it carefully and meticulously unscrews the 8 bolts that hold the front panel onto the override box.<br/>")
+            }
+            SetTimeout (1) {
+              msg ("Inside the box is a red handle and a laminated peice of paper that reads:<br/>\"MANUAL OVERRIDE - LIFE SUPPORT SYSTEMS POWER\"")
+            }
+          ]]></item>
+        </useon>
+        <visible type="boolean">false</visible>
+        <alias>Panel</alias>
+        <look>A panel with screws securely holding it in place. </look>
+        <object name="Red handle">
+          <inherit name="editor_object" />
+          <displayverbs type="stringlist">
+            <value>Look at</value>
+          </displayverbs>
+          <pull type="script">
+            SetObjectFlagOn (Check Ship Status, "Med Bay Complete")
+            msg ("Life Support power re-established. ")
+            AddToInventory (Med Bay Complete)
+          </pull>
+        </object>
+      </object>
+    </object>
+    <object name="Diagnostic Equipment">
+      <inherit name="editor_object" />
+      <inherit name="container_open" />
+      <look>It consists of a complicated looking stand with a scanning device and a monitor. There is a drawer underneath the monitor with surgical equipment.</look>
+      <feature_container />
+      <isopen />
+      <listchildren />
+      <hidechildren type="boolean">false</hidechildren>
+      <open type="boolean">false</open>
+      <close type="boolean">false</close>
+      <displayverbs type="stringlist">
+        <value>Look at</value>
+        <value>Open</value>
+        <value>Close</value>
+      </displayverbs>
+      <object name="Med Bay Drawer">
+        <inherit name="editor_object" />
+        <inherit name="container_open" />
+        <alias>Drawer</alias>
+        <feature_container />
+        <isopen type="boolean">false</isopen>
+        <listchildren />
+        <openmsg>There are several medical supplies in it:, some gauss, a bottle with a spray labelled “luminol”, some sutures, and a blacklight bulb.</openmsg>
+        <look>There are several medical supplies in it:, some gauss, a bottle with a spray labelled “luminol”, some sutures, and a blacklight bulb.</look>
+        <displayverbs type="stringlist">
+          <value>Look at</value>
+          <value>Open</value>
+          <value>Close</value>
+        </displayverbs>
+        <object name="blacklight bulb">
+          <inherit name="editor_object" />
+          <take />
+          <look>It is not an ordinary lightbulb.</look>
+          <feature_usegive />
+          <selfuseon type="scriptdictionary">
+            <item key="Lamp">
+              SetObjectFlagOn (Large White Board, "puzzle 1")
+              msg ("The lamp illuminates with an eery puple light.")
+            </item>
+          </selfuseon>
+        </object>
+        <object name="Spray bottle">
+          <inherit name="editor_object" />
+          <look>A spray bottle with some sort of solution in it. The label reads "Luminol."</look>
+          <feature_usegive />
+          <selfuseon type="scriptdictionary">
+            <item key="Large White Board">
+              SetObjectFlagOn (Large White Board, "puzzle 2")
+              msg ("The luminol is sprayed all over the whiteboard.")
+            </item>
+          </selfuseon>
+          <take />
+        </object>
+      </object>
     </object>
   </object>
   <object name="Living Quarters">
@@ -1604,6 +1670,7 @@
       <inherit name="container_closed" />
       <feature_container />
       <close type="boolean">false</close>
+      <look>The door is labelled "AI Core". It appears to require a passcode to enter.</look>
       <onopen type="script"><![CDATA[
         msg ("The AI Core keypad lights up and displays a message:<br/>")
         msg ("<i>Enter AI Core Access Code</i>")
@@ -1619,7 +1686,6 @@
           }
         }
       ]]></onopen>
-      <look>The door is labelled "AI Core". It appears to require a passcode to enter.</look>
     </object>
   </object>
   <verb>
@@ -1686,6 +1752,11 @@
     <property>requestfood</property>
     <pattern>request food</pattern>
     <defaultexpression>"You can't request food " + object.article + "."</defaultexpression>
+  </verb>
+  <verb>
+    <property>remove</property>
+    <pattern>remove</pattern>
+    <defaultexpression>"You can't remove " + object.article + "."</defaultexpression>
   </verb>
   <function name="SRAccessDroids">
     get input {
