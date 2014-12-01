@@ -1528,8 +1528,10 @@
         <look>This is the door to the north sleeping quarters. Through the window you can see a chaotic hallway. The doors to the individual chambers have been flung open and their occupants lay in the hallway. You cannot know why they locked themselves in.</look>
       </exit>
       <object name="Corridor">
+        <inherit name="editor_room" />
         <attr name="feature_container" type="boolean">false</attr>
         <look><![CDATA[A long hallway with two rooms on either side. The nametags on the doors mark who each of the sleeping chambers belong to: M. Galligher, N. Passant, H. Pabst, and K. Anders.<br/><br/>At the end of the hall is the entrance to the AI Core.]]></look>
+        <description><![CDATA[A long hallway with two rooms on either side. The nametags on the doors mark who each of the sleeping chambers belong to: M. Galligher, N. Passant, H. Pabst, and K. Anders.<br/><br/>At the end of the hall is the entrance to the AI Core.]]></description>
         <object name="Doors">
           <inherit name="editor_object" />
           <scenery />
