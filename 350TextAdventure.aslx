@@ -1830,6 +1830,17 @@
     else {
       msg ("Living Quarters           - Offline")
     }
+    if (GetBoolean(Check Ship Status, "Solar Array Station Complete")) {
+      if (GetBoolean(Check Ship Status, "Biosphere Complete")) {
+        if (GetBoolean(Check Ship Status, "Security Complete")) {
+          if (GetBoolean(Check Ship Status, "Med Bay Complete")) {
+            if (GetBoolean(Check Ship Status, "Living Quarters Complete")) {
+              msg ("<br/>ACCESS TO AI CORE NOW GRANTED")
+            }
+          }
+        }
+      }
+    }
   ]]></function>
   <function name="updateStatus">
   </function>
