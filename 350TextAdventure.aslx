@@ -2,13 +2,42 @@
 <asl version="550">
   <include ref="English.aslx" />
   <include ref="Core.aslx" />
-  <game name="350TextAdventure">
+  <game name="Bishop">
+    <inherit name="theme_novella" />
     <gameid>36273a24-7575-4e61-8f7c-0bdf8d8b7fe9</gameid>
     <version>1.0</version>
     <firstpublished>2014</firstpublished>
     <showdescriptiononenter />
     <autodescription />
     <attr name="autodescription_youarein_useprefix" type="boolean">false</attr>
+    <defaultbackground>Black</defaultbackground>
+    <defaultforeground>Green</defaultforeground>
+    <defaultlinkforeground>DarkGreen</defaultlinkforeground>
+    <defaultfont>courier</defaultfont>
+    <menuhoverforeground>White</menuhoverforeground>
+    <cover>TempCoverArt.png</cover>
+    <gridmap type="boolean">false</gridmap>
+    <category>Sci-Fi</category>
+    <feature_pictureframe />
+    <attr name="autodescription_description" type="int">2</attr>
+    <attr name="autodescription_youcansee" type="int">4</attr>
+    <showpanes type="boolean">false</showpanes>
+    <showborder type="boolean">false</showborder>
+    <showlocation type="boolean">false</showlocation>
+    <setcustomwidth type="boolean">false</setcustomwidth>
+    <setcustompadding />
+    <backgroundimage>Nostromo-Dark.jpg</backgroundimage>
+    <setbackgroundopacity />
+    <backgroundopacity type="double">0.8</backgroundopacity>
+    <showcommandbar />
+    <autodescription_youcansee_newline />
+    <autodescription_youcango_newline />
+    <autodescription_description_newline />
+    <command_newline />
+    <autodescription_youarein_newline />
+    <defaultfontsize type="int">14</defaultfontsize>
+    <custompaddingbottom type="int">0</custompaddingbottom>
+    <custompaddingleft type="int">20</custompaddingleft>
     <object name="Black Chemical">
       <inherit name="editor_object" />
       <visible />
@@ -35,7 +64,7 @@
     </enter>
     <firstenter type="script"><![CDATA[
       SetTimeout (4) {
-        msg ("As if sensing your presence, a monitor turns on and text appears:<br/>\"Welcome to the Koncovka, Bishop.\"")
+        msg ("<br/><br/>As if sensing your presence, a monitor turns on and text appears:<br/>\"Welcome to the Koncovka, Bishop.\"")
         SetTimeout (3) {
           msg ("Accessing personal file...")
           SetTimeout (1) {
