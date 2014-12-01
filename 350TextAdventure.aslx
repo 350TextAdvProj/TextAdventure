@@ -272,43 +272,6 @@
         }
       ]]></use>
     </object>
-    <object name="Door">
-      <inherit name="editor_object" />
-      <inherit name="container_closed" />
-      <look>The door is labelled "AI Core". It appears to require a passcode to enter.</look>
-      <feature_container />
-      <close type="boolean">false</close>
-      <contentsprefix type="string"></contentsprefix>
-      <opendoor type="script"><![CDATA[
-        msg ("The AI Core keypad lights up and displays a message:<br/>")
-        msg ("<i>Enter AI Core Access Code</i>")
-        get input {
-          if (result = "password") {
-            msg ("The door audibly unlocks and swings open. You direct the robot to move forward into the room.<br/>")
-            MoveObject (player, AI Core)
-          }
-          else {
-            msg ("<i>Access code denied</i><br/>")
-            msg ("You may have to look around the station to find the code for this room.<br/>")
-          }
-        }
-      ]]></opendoor>
-      <onopen type="script"><![CDATA[
-        msg ("The AI Core keypad lights up and displays a message:<br/>")
-        msg ("<i>Enter AI Core Access Code</i>")
-        get input {
-          if (result = "password") {
-            msg ("The door audibly unlocks and swings open. You direct the robot to move forward into the room.<br/>")
-            MoveObject (player, AI Core)
-          }
-          else {
-            msg ("<i>Access code denied</i><br/>")
-            msg ("You may have to look around the station to find the code for this room.<br/>")
-            HelperCloseObject (Door)
-          }
-        }
-      ]]></onopen>
-    </object>
   </object>
   <object name="Security">
     <inherit name="editor_room" />
@@ -376,6 +339,7 @@
         <inherit name="editor_object" />
         <inherit name="openable" />
         <drop type="boolean">false</drop>
+        <feature_container />
         <look type="script">
           msg ("You find the records for all the security personnel.")
           msg ("The file for T. Ayas sticks out about the others.")
@@ -389,7 +353,6 @@
             }
           }
         </look>
-        <feature_container />
         <openscript type="script">
           msg ("You open the file cabinet to find it empty.")
         </openscript>
@@ -444,6 +407,7 @@
       <autounlock />
       <unlockmessage>The lock falls to the ground and you open the door. Inside the locker is a jacket, a couple of books, and a bagged lunch that has long since grown fuzzy. On the inside of the door are pictures of a beautiful black cat.</unlockmessage>
       <keycount type="int">0</keycount>
+      <locked type="boolean">false</locked>
       <look type="script">
         if (not Locker.isopen) {
           msg ("A closed locker. The nametag on the front reads \"N. Passant\".")
@@ -452,7 +416,6 @@
           msg ("An open locker. Inside is a jacket, a couple of books, and a bagged lunch that has long since grown fuzzy. On the inside of the door are pictures of a beautiful black cat. One of the books contains handwritten notes on how to maintain and upgrade an AI.")
         }
       </look>
-      <locked type="boolean">false</locked>
     </object>
     <exit to="Washroom">
       <scenery />
@@ -517,20 +480,6 @@
       <scenery />
       <look>On the top of the desk is a sign up sheet for extended off-station calls. The top of the form say “These spots are reserved for personal calls only, and we recommend they be used only to contact family or friends. Calls can last a maximum of 45 minutes. Any dropped calls are not our fault, and a dropped call is no reason to run over your time limit”.</look>
     </object>
-    <object name="Drawers">
-      <inherit name="editor_object" />
-      <feature_container />
-      <look type="script">
-        msg ("The first two drawers contain nothing of interest. The third drawer requires an access code to open.")
-        msg ("Would you like to try accessing the closed drawer?")
-        get input {
-          if (IsRegexMatch("yes|y", LCase(result))) {
-            SecDrawerPuz (3)
-          }
-        }
-      </look>
-      <scenery />
-    </object>
     <object name="Interrogation Room">
       <inherit name="editor_room" />
       <description>The interrogation room is nearly empty, with the floor and walls covered in white tiles. There is a table with two chairs in teh middle of the room. On one wall is a screen, and on the opposite wall a barely visible lever.</description>
@@ -538,10 +487,10 @@
         <inherit name="editor_object" />
         <inherit name="switchable" />
         <feature_switchable />
+        <look>A metal lever jutting out of the wall.</look>
         <onswitchoff type="script">
           msg ("The couch retracts back into the wall, hidden from sight.")
         </onswitchoff>
-        <look>A metal lever jutting out of the wall.</look>
         <pull type="script">
           if (IsSwitchedOn(Lever)) {
             SwitchOff (Lever)
@@ -603,6 +552,58 @@
       <inherit name="editor_room" />
       <description>You enter a large room with several tables. On them there are glass bells covering what look like withered tree saplings. The walls are bare sans a large ventillation vent. A few tables are clustered together in the corner of the room.</description>
       <exit to="Hydroponic Biosphere" />
+      <object name="Glass Bells">
+        <inherit name="editor_object" />
+        <look>The glass bells rest atop labelled stands. Most of the labels read “failure”. The bells themselves are filled with what look like dried out twigs. It looks like one of the bells is missing. The label on its stand reads “Koschei”.</look>
+      </object>
+      <object name="Tables">
+        <inherit name="editor_object" />
+        <look>The tables are messily piled up and reach the ceiling of the room. Above them there is a Square hatch. It’s open.</look>
+        <climb type="script">
+          MoveObject (player, Biodome)
+        </climb>
+      </object>
+      <object name="Biodome">
+        <inherit name="editor_room" />
+        <description><![CDATA[The light of myriad stars above filtering through the trees are the first thing you notice. The area you find yourself in appears to be covered by a large dome that serves as a window into the vastness of space. There are tree branches pressing against the dome in several places, and several areas seem to be completely covered by the folliage. Your droid’s sensors detect an atmosphere incredibly rich in oxygen. The floor of this area seems to be almost completely covered by large, thick roots that flow from a gigantic tree in the middle of the dome. Beyond the tree, in one of the corners of the dome, you see a large sign <sign reads whatever the name of the next area is>.]]></description>
+        <exit to="Holding Area" />
+        <object name="Tree">
+          <inherit name="editor_object" />
+          <look>A massive, overgrown tree sits in the center of the room. It's gnarled roots prevent you from moving any further.</look>
+          <feature_usegive />
+          <useon type="scriptdictionary">
+            <item key="Black Chemical">
+              msg ("The roots covering the door under the sign shrivel and wither, finally turning to a fine dust. ")
+              MakeObjectInvisible (Tree)
+              MakeObjectVisible (Tree1)
+              RemoveObject (Vials)
+            </item>
+            <item key="White Chemical">
+              msg ("Nothing of interest happens.")
+              RemoveObject (White Chemical)
+            </item>
+          </useon>
+        </object>
+        <object name="Tree1">
+          <inherit name="editor_object" />
+          <alias>Tree</alias>
+          <look>The tree is dead and its roots have crumbled. You should now be able to pass.</look>
+        </object>
+        <object name="Door1">
+          <inherit name="editor_object" />
+          <inherit name="container_open" />
+          <alias>Door</alias>
+          <attr name="feature_container" type="boolean">false</attr>
+          <look type="script">
+            if (ListContains(ScopeVisible(), Tree)) {
+              msg ("A mass of gnarled roots are preventing you from reaching the door.")
+            }
+            else {
+              msg ("You're now able to reach the door.")
+            }
+          </look>
+        </object>
+      </object>
     </object>
     <object name="Supply Room">
       <inherit name="editor_room" />
@@ -629,10 +630,10 @@
       </object>
       <object name="Chemical Mixing Device">
         <inherit name="editor_object" />
+        <feature_usegive />
         <look type="script"><![CDATA[
           msg ("The machine has three slots to place vials of chemicals in. <br/>")
         ]]></look>
-        <feature_usegive />
         <use type="script">
           if (Got(Vials)) {
             msg ("What would you like to mix? Available chemicals are: red, white, yellow, green, orange, and purple")
@@ -1484,6 +1485,43 @@
       <onswitchon type="script">
         SwitchOff (Game Console)
       </onswitchon>
+    </object>
+    <object name="Door">
+      <inherit name="editor_object" />
+      <inherit name="container_closed" />
+      <look>The door is labelled "AI Core". It appears to require a passcode to enter.</look>
+      <feature_container />
+      <close type="boolean">false</close>
+      <contentsprefix type="string"></contentsprefix>
+      <opendoor type="script"><![CDATA[
+        msg ("The AI Core keypad lights up and displays a message:<br/>")
+        msg ("<i>Enter AI Core Access Code</i>")
+        get input {
+          if (result = "password") {
+            msg ("The door audibly unlocks and swings open. You direct the robot to move forward into the room.<br/>")
+            MoveObject (player, AI Core)
+          }
+          else {
+            msg ("<i>Access code denied</i><br/>")
+            msg ("You may have to look around the station to find the code for this room.<br/>")
+          }
+        }
+      ]]></opendoor>
+      <onopen type="script"><![CDATA[
+        msg ("The AI Core keypad lights up and displays a message:<br/>")
+        msg ("<i>Enter AI Core Access Code</i>")
+        get input {
+          if (result = "password") {
+            msg ("The door audibly unlocks and swings open. You direct the robot to move forward into the room.<br/>")
+            MoveObject (player, AI Core)
+          }
+          else {
+            msg ("<i>Access code denied</i><br/>")
+            msg ("You may have to look around the station to find the code for this room.<br/>")
+            HelperCloseObject (Door)
+          }
+        }
+      ]]></onopen>
     </object>
   </object>
   <verb>
