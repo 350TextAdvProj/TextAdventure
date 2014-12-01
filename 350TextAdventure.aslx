@@ -1599,6 +1599,28 @@
     <exit alias="east" to="Common Room">
       <inherit name="eastdirection" />
     </exit>
+    <object name="Door">
+      <inherit name="editor_object" />
+      <inherit name="container_closed" />
+      <feature_container />
+      <close type="boolean">false</close>
+      <onopen type="script"><![CDATA[
+        msg ("The AI Core keypad lights up and displays a message:<br/>")
+        msg ("<i>Enter AI Core Access Code</i>")
+        get input {
+          if (result = "password") {
+            msg ("The door audibly unlocks and swings open. You direct the robot to move forward into the room.<br/>")
+            MoveObject (player, AI Core)
+          }
+          else {
+            msg ("<i>Access code denied</i>")
+            msg ("You may have to look around the station to find the code for this room.<br/>")
+            HelperCloseObject (Door)
+          }
+        }
+      ]]></onopen>
+      <look>The door is labelled "AI Core". It appears to require a passcode to enter.</look>
+    </object>
   </object>
   <verb>
     <property>test</property>
