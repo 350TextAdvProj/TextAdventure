@@ -9,6 +9,21 @@
     <showdescriptiononenter />
     <autodescription />
     <attr name="autodescription_youarein_useprefix" type="boolean">false</attr>
+    <object name="Black Chemical">
+      <inherit name="editor_object" />
+      <visible />
+      <look>A vial containing a thick, black liquid.</look>
+      <scenery type="boolean">false</scenery>
+      <drop />
+    </object>
+    <object name="White Chemical">
+      <inherit name="editor_object" />
+      <look>A vial containing a milky white chemical.</look>
+      <visible />
+      <scenery type="boolean">false</scenery>
+      <take type="boolean">false</take>
+      <drop />
+    </object>
   </game>
   <object name="Starting Room">
     <inherit name="editor_room" />
@@ -1079,21 +1094,6 @@
             msg ("You don't have any chemicals to mix.")
           }
         </use>
-      </object>
-      <object name="Black Chemical">
-        <inherit name="editor_object" />
-        <visible />
-        <look>A vial containing a thick, black liquid.</look>
-        <scenery />
-        <drop type="boolean">false</drop>
-      </object>
-      <object name="White Chemical">
-        <inherit name="editor_object" />
-        <look>A vial containing a milky white chemical.</look>
-        <visible />
-        <scenery />
-        <take type="boolean">false</take>
-        <drop type="boolean">false</drop>
       </object>
     </object>
     <exit to="Holding Area" />
