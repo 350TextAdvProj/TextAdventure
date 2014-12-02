@@ -190,12 +190,12 @@
     </exit>
     <exit name="Exit Solar to Med Bay" to="Med Bay">
       <scenery type="boolean">false</scenery>
-      <locked type="boolean">false</locked>
+      <locked />
       <lockmessage>You do not have control of that Droid yet.</lockmessage>
     </exit>
     <exit name="Exit Solar to Living Quarters" to="Living Quarters">
       <scenery type="boolean">false</scenery>
-      <locked type="boolean">false</locked>
+      <locked />
       <lockmessage>You do not have control of that Droid yet.</lockmessage>
     </exit>
     <object name="Desk">
@@ -232,6 +232,11 @@
           MakeObjectVisible (Sticky Note)
           msg ("Inside the drawer is a Clipboard with a sticky note on it.")
         </onopen>
+        <displayverbs type="stringlist">
+          <value>Look at</value>
+          <value>Open</value>
+          <value>Close</value>
+        </displayverbs>
         <object name="Clipboard">
           <inherit name="editor_object" />
           <scenery type="boolean">false</scenery>
@@ -278,7 +283,7 @@
       </displayverbs>
       <feature_usegive />
       <attr name="feature_switchable" type="boolean">false</attr>
-      <look type="string"></look>
+      <look>A computer with seemingly no power. There must be a way to enable this.</look>
       <use type="script"><![CDATA[
         if (IsSwitchedOn(Terminal)) {
           msg ("please enter the password:<br/>")
@@ -1292,8 +1297,8 @@
         <value>Look at</value>
       </displayverbs>
       <feature_usegive />
-      <useon type="scriptdictionary" />
       <look>A regular looking desk lamp. The bulb is srtangely missing.</look>
+      <useon type="scriptdictionary" />
     </object>
     <object name="Bed">
       <inherit name="editor_object" />
@@ -1304,11 +1309,11 @@
         <value>Look at</value>
       </displayverbs>
       <listchildrenprefix>Underneath is</listchildrenprefix>
+      <look>It looks comfortable given the circumstances. It seems designed for a pleasant stay. There are blankets and a pillow in it.</look>
       <lookunderneath type="script">
         HelperOpenObject (Bed)
         msg ("Under the bed is a scalpel.")
       </lookunderneath>
-      <look>It looks comfortable given the circumstances. It seems designed for a pleasant stay. There are blankets and a pillow in it.</look>
       <object name="scalpel">
         <inherit name="editor_object" />
         <take />
@@ -1326,6 +1331,9 @@
       <attr name="puzzle 1" type="boolean">false</attr>
       <attr name="puzzle 2" type="boolean">false</attr>
       <attr name="puzzle 3" type="boolean">false</attr>
+      <displayverbs type="stringlist">
+        <value>Look at</value>
+      </displayverbs>
       <look type="script"><![CDATA[
         msg ("Underneath it there are a couple markers and writing devices. The whiteboard is blank.")
         if (GetBoolean(Large White Board, "puzzle 1")) {
@@ -1341,9 +1349,6 @@
           }
         }
       ]]></look>
-      <displayverbs type="stringlist">
-        <value>Look at</value>
-      </displayverbs>
     </object>
     <object name="Poster">
       <inherit name="editor_object" />
@@ -1353,6 +1358,9 @@
       <open type="boolean">false</open>
       <close type="boolean">false</close>
       <isopen type="boolean">false</isopen>
+      <displayverbs type="stringlist">
+        <value>Look at</value>
+      </displayverbs>
       <remove type="script">
         HelperOpenObject (Poster)
         msg ("There is a panel beneath the poster. It is screwed securely to the wall.")
@@ -1360,9 +1368,6 @@
       <onopen type="script">
         MakeObjectVisible (Manual Override Box)
       </onopen>
-      <displayverbs type="stringlist">
-        <value>Look at</value>
-      </displayverbs>
       <object name="Manual Override Box">
         <inherit name="editor_object" />
         <inherit name="container_open" />
@@ -1372,6 +1377,9 @@
         <displayverbs type="stringlist">
           <value>Look at</value>
         </displayverbs>
+        <visible type="boolean">false</visible>
+        <alias>Panel</alias>
+        <look>A panel with screws securely holding it in place. </look>
         <useon type="scriptdictionary">
           <item key="scalpel"><![CDATA[
             HelperOpenObject (Manual Override Box)
@@ -1384,9 +1392,6 @@
             }
           ]]></item>
         </useon>
-        <visible type="boolean">false</visible>
-        <alias>Panel</alias>
-        <look>A panel with screws securely holding it in place. </look>
         <object name="Red handle">
           <inherit name="editor_object" />
           <displayverbs type="stringlist">
@@ -1445,13 +1450,13 @@
           <inherit name="editor_object" />
           <look>A spray bottle with some sort of solution in it. The label reads "Luminol."</look>
           <feature_usegive />
+          <take />
           <selfuseon type="scriptdictionary">
             <item key="Large White Board">
               SetObjectFlagOn (Large White Board, "puzzle 2")
               msg ("The luminol is sprayed all over the whiteboard.")
             </item>
           </selfuseon>
-          <take />
         </object>
       </object>
     </object>
