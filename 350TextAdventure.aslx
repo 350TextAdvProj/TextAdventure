@@ -511,7 +511,7 @@
         <feature_usegive />
         <use type="script">
           msg ("The computer is displaying a login screen with the message: \"SYSTEM LOCKED. OVERRIDE CODE REQUIRED.\"")
-          msg ("The ($PLACEHOLDER DROID) has the ability to systems. You may be able to hack this terminal and shut off the turret in the room. Hack the terminal?")
+          msg ("The Rukh droid has the ability to systems. You may be able to hack this terminal and shut off the turret in the room. Hack the terminal?")
           get input {
             if (IsRegexMatch ("y|yes", LCase(result))) {
               msg ("BEGINNING HACKING PROTOCOLS.")
