@@ -58,7 +58,7 @@
     <inherit name="editor_room" />
     <exitslistprefix type="string"></exitslistprefix>
     <descprefix type="string"></descprefix>
-    <description>You are in a small room. lit only by the dim glow of the monitors that fill the room. There are multiple keyboards and papers scattered on the desk, indicating a workstation for the room's occupant.</description>
+    <description>You are in a small room, lit only by the dim glow of the monitors that fill the room. There are multiple keyboards and papers scattered on the desk, indicating a workstation for the room's occupant.</description>
     <enter type="script">
       AddToInventory (Check Ship Status)
     </enter>
@@ -119,10 +119,10 @@
       <attr name="Med Bay Complete" type="boolean">false</attr>
       <attr name="Living Quarters Complete" type="boolean">false</attr>
       <attr name="Security Complete" type="boolean">false</attr>
+      <scenery />
       <print type="script">
         getStatus
       </print>
-      <scenery />
       <check type="script">
         getStatus
       </check>
@@ -232,16 +232,16 @@
         <visible type="boolean">false</visible>
         <feature_container />
         <look>Initial scans detect unknown objects in the drawer under the desk. </look>
-        <onopen type="script">
-          MakeObjectVisible (Clipboard)
-          MakeObjectVisible (Sticky Note)
-          msg ("Inside the drawer is a Clipboard with a sticky note on it.")
-        </onopen>
         <displayverbs type="stringlist">
           <value>Look at</value>
           <value>Open</value>
           <value>Close</value>
         </displayverbs>
+        <onopen type="script">
+          MakeObjectVisible (Clipboard)
+          MakeObjectVisible (Sticky Note)
+          msg ("Inside the drawer is a Clipboard with a sticky note on it.")
+        </onopen>
         <object name="Clipboard">
           <inherit name="editor_object" />
           <scenery type="boolean">false</scenery>
@@ -276,15 +276,15 @@
       <inventoryverbs type="stringlist">
         <value>Look at</value>
       </inventoryverbs>
-      <plugin type="script">
-        SwitchOn (Terminal)
-        msg ("The terminal looks like it has power now.")
-      </plugin>
       <alt type="stringlist">
         <value>wires</value>
         <value>batteries</value>
         <value>battery</value>
       </alt>
+      <plugin type="script">
+        SwitchOn (Terminal)
+        msg ("The terminal looks like it has power now.")
+      </plugin>
     </object>
     <object name="Terminal">
       <inherit name="editor_object" />
@@ -601,6 +601,8 @@
     </exit>
     <object name="Hydroponic Biosphere Complete">
       <inherit name="editor_object" />
+      <visible type="boolean">false</visible>
+      <scenery />
     </object>
     <object name="Reinforced Door1">
       <inherit name="editor_object" />
@@ -1352,6 +1354,9 @@
       <displayverbs type="stringlist">
         <value>Look at</value>
       </displayverbs>
+      <alt type="stringlist">
+        <value>whiteboard</value>
+      </alt>
       <look type="script"><![CDATA[
         msg ("Underneath it there are a couple markers and writing devices. The whiteboard is blank.")
         if (GetBoolean(Large White Board, "puzzle 1")) {
@@ -1369,9 +1374,6 @@
           }
         }
       ]]></look>
-      <alt type="stringlist">
-        <value>whiteboard</value>
-      </alt>
     </object>
     <object name="Poster">
       <inherit name="editor_object" />
@@ -1403,6 +1405,9 @@
         <visible type="boolean">false</visible>
         <alias>Panel</alias>
         <look>A panel with screws securely holding it in place. </look>
+        <alt type="stringlist">
+          <value>Panel</value>
+        </alt>
         <useon type="scriptdictionary">
           <item key="scalpel"><![CDATA[
             HelperOpenObject (Manual Override Box)
@@ -1415,22 +1420,19 @@
             }
           ]]></item>
         </useon>
-        <alt type="stringlist">
-          <value>Panel</value>
-        </alt>
         <object name="Red handle">
           <inherit name="editor_object" />
           <displayverbs type="stringlist">
             <value>Look at</value>
           </displayverbs>
+          <alt type="stringlist">
+            <value>Handle</value>
+          </alt>
           <pull type="script">
             SetObjectFlagOn (Check Ship Status, "Med Bay Complete")
             msg ("Life Support power re-established. ")
             AddToInventory (Med Bay Complete)
           </pull>
-          <alt type="stringlist">
-            <value>Handle</value>
-          </alt>
         </object>
       </object>
     </object>
@@ -1474,32 +1476,32 @@
           <take />
           <look>It is not an ordinary lightbulb.</look>
           <feature_usegive />
+          <alt type="stringlist">
+            <value>bulb</value>
+            <value>blacklight</value>
+          </alt>
           <selfuseon type="scriptdictionary">
             <item key="Lamp">
               SetObjectFlagOn (Large White Board, "puzzle 1")
               msg ("The lamp illuminates with an eery puple light.")
             </item>
           </selfuseon>
-          <alt type="stringlist">
-            <value>bulb</value>
-            <value>blacklight</value>
-          </alt>
         </object>
         <object name="Spray bottle">
           <inherit name="editor_object" />
           <look>A spray bottle with some sort of solution in it. The label reads "Luminol."</look>
           <feature_usegive />
           <take />
+          <alt type="stringlist">
+            <value>Bottle</value>
+            <value>Luminol</value>
+          </alt>
           <selfuseon type="scriptdictionary">
             <item key="Large White Board">
               SetObjectFlagOn (Large White Board, "puzzle 2")
               msg ("The luminol is sprayed all over the whiteboard.")
             </item>
           </selfuseon>
-          <alt type="stringlist">
-            <value>Bottle</value>
-            <value>Luminol</value>
-          </alt>
         </object>
       </object>
     </object>
