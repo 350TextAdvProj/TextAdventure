@@ -507,7 +507,9 @@
       <object name="SecComputerTerminal">
         <inherit name="editor_object" />
         <alias>Computer Terminal</alias>
-        <look type="script">
+        <look>The computer is turned on, with a blinking green terminal-entry sign in the top-left corner below a "SYSTEM LOCKED" message.</look>
+        <feature_usegive />
+        <use type="script">
           msg ("The computer is displaying a login screen with the message: \"SYSTEM LOCKED. OVERRIDE CODE REQUIRED.\"")
           msg ("The ($PLACEHOLDER DROID) has the ability to systems. You may be able to hack this terminal and shut off the turret in the room. Hack the terminal?")
           get input {
@@ -518,7 +520,7 @@
             else {
             }
           }
-        </look>
+        </use>
       </object>
     </object>
     <object name="Fourth Desk">
