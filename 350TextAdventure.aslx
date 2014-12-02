@@ -64,7 +64,7 @@
     </enter>
     <firstenter type="script"><![CDATA[
       SetTimeout (4) {
-        msg ("<br/><br/>As if sensing your presence, a monitor turns on and text appears:<br/>\"Welcome to the Koncovka, Bishop.\"")
+        msg ("<br/>As if sensing your presence, a monitor turns on and text appears:<br/>\"Welcome to the Koncovka, Bishop.\"")
         SetTimeout (3) {
           msg ("Accessing personal file...")
           SetTimeout (1) {
@@ -76,7 +76,7 @@
                   msg ("NAME: Bishop<br/>ASSIGNMENT: Electronic Systems Monitor on the space station Koncovka.<br/>PRIMARYROLE: Ensure Optimal System Performance<br/>CLEARANCELEVEL: 10<br/>Allowed Access to All Systems.<br/>Preparing Status Report.")
                   SetTimeout (3) {
                     getStatus
-                    msg ("Would you like to access repair droids(y/n)?")
+                    msg ("<br/>[Note] At any point the command - print status - will querry the above information.<br/><br/>Would you like to access repair droids(y/n)?")
                     SRAccessDroids
                   }
                 }
@@ -109,6 +109,7 @@
       <visible />
       <alt type="stringlist">
         <value>Status</value>
+        <value>ship status</value>
       </alt>
       <displayverbs type="stringlist" />
       <inventoryverbs type="stringlist" />
@@ -121,6 +122,10 @@
       <print type="script">
         getStatus
       </print>
+      <scenery />
+      <check type="script">
+        getStatus
+      </check>
     </object>
   </object>
   <object name="AI Core">
@@ -273,7 +278,13 @@
       </inventoryverbs>
       <plugin type="script">
         SwitchOn (Terminal)
+        msg ("The terminal looks like it has power now.")
       </plugin>
+      <alt type="stringlist">
+        <value>wires</value>
+        <value>batteries</value>
+        <value>battery</value>
+      </alt>
     </object>
     <object name="Terminal">
       <inherit name="editor_object" />
@@ -283,7 +294,14 @@
       </displayverbs>
       <feature_usegive />
       <attr name="feature_switchable" type="boolean">false</attr>
-      <look>A computer with seemingly no power. There must be a way to enable this.</look>
+      <look type="script">
+        if (not IsSwitchedOn(Terminal)) {
+          msg ("A computer with seemingly no power. There must be a way to enable this.")
+        }
+        else {
+          msg ("A computer terminal. Plugging in the batteries has restored power. Looks like the terminal can be used now.")
+        }
+      </look>
       <use type="script"><![CDATA[
         if (IsSwitchedOn(Terminal)) {
           msg ("please enter the password:<br/>")
@@ -295,9 +313,6 @@
                 SetTimeout (1) {
                   msg ("Solar Array System rebooting.")
                   SetTimeout (1) {
-                    msg ("<br/>Access to all droids GRANTED.")
-                  }
-                  SetTimeout (1) {
                     msg ("<br/>Solar Array Station now Online, Assessing backup power useage throughout the station.")
                   }
                   SetTimeout (1) {
@@ -305,6 +320,9 @@
                   }
                   SetTimeout (1) {
                     msg ("\" A chart pops up on the screen. It shows that all systems are drawing power, however the chart also shows that one of the crew quarters, Living Quarters 7, was one of the only areas that had been using back up power and oxygen. That area is still locked as oxygen is not yet online. \"")
+                  }
+                  SetTimeout (1) {
+                    msg ("<br/>Access to all droids GRANTED.")
                   }
                 }
               }
@@ -1310,10 +1328,10 @@
       </displayverbs>
       <listchildrenprefix>Underneath is</listchildrenprefix>
       <look>It looks comfortable given the circumstances. It seems designed for a pleasant stay. There are blankets and a pillow in it.</look>
-      <lookunderneath type="script">
+      <lookunder type="script">
         HelperOpenObject (Bed)
         msg ("Under the bed is a scalpel.")
-      </lookunderneath>
+      </lookunder>
       <object name="scalpel">
         <inherit name="editor_object" />
         <take />
@@ -1340,15 +1358,20 @@
           if (GetBoolean(Large White Board, "puzzle 2")) {
             if (GetBoolean(Large White Board, "puzzle 3")) {
               msg ("With the lights out, the ominous purple glow of the blacklight illuminates the Luminol on the whiteboard, exposing a message. It looks like the message was written in blood. It reads:<br/>")
-              SetFontSize (15)
+              SetFontSize (17)
               SetFontName ("Impact, Charcoal, sans-serif")
+              SetForegroundColour ("DarkRed")
               msg ("Don’t trust it. Use the scalpel under the bed.")
-              SetFontSize (12)
-              SetFontName ("Georgia, serif")
+              SetFontSize (14)
+              SetFontName ("Courier")
+              SetForegroundColour ("Green")
             }
           }
         }
       ]]></look>
+      <alt type="stringlist">
+        <value>whiteboard</value>
+      </alt>
     </object>
     <object name="Poster">
       <inherit name="editor_object" />
@@ -1392,6 +1415,9 @@
             }
           ]]></item>
         </useon>
+        <alt type="stringlist">
+          <value>Panel</value>
+        </alt>
         <object name="Red handle">
           <inherit name="editor_object" />
           <displayverbs type="stringlist">
@@ -1402,6 +1428,9 @@
             msg ("Life Support power re-established. ")
             AddToInventory (Med Bay Complete)
           </pull>
+          <alt type="stringlist">
+            <value>Handle</value>
+          </alt>
         </object>
       </object>
     </object>
@@ -1420,10 +1449,13 @@
         <value>Open</value>
         <value>Close</value>
       </displayverbs>
+      <alt type="stringlist">
+        <value>Equipment</value>
+      </alt>
       <object name="Med Bay Drawer">
         <inherit name="editor_object" />
         <inherit name="container_open" />
-        <alias>Drawer</alias>
+        <alias>Equipment Drawer</alias>
         <feature_container />
         <isopen type="boolean">false</isopen>
         <listchildren />
@@ -1434,6 +1466,9 @@
           <value>Open</value>
           <value>Close</value>
         </displayverbs>
+        <alt type="stringlist">
+          <value>Drawer</value>
+        </alt>
         <object name="blacklight bulb">
           <inherit name="editor_object" />
           <take />
@@ -1445,6 +1480,10 @@
               msg ("The lamp illuminates with an eery puple light.")
             </item>
           </selfuseon>
+          <alt type="stringlist">
+            <value>bulb</value>
+            <value>blacklight</value>
+          </alt>
         </object>
         <object name="Spray bottle">
           <inherit name="editor_object" />
@@ -1457,6 +1496,10 @@
               msg ("The luminol is sprayed all over the whiteboard.")
             </item>
           </selfuseon>
+          <alt type="stringlist">
+            <value>Bottle</value>
+            <value>Luminol</value>
+          </alt>
         </object>
       </object>
     </object>
@@ -1791,6 +1834,11 @@
     <property>remove</property>
     <pattern>remove</pattern>
     <defaultexpression>"You can't remove " + object.article + "."</defaultexpression>
+  </verb>
+  <verb>
+    <property>check</property>
+    <pattern>check</pattern>
+    <defaultexpression>"You can't check " + object.article + "."</defaultexpression>
   </verb>
   <function name="SRAccessDroids">
     get input {
