@@ -322,7 +322,10 @@
                     msg ("\" A chart pops up on the screen. It shows that all systems are drawing power, however the chart also shows that one of the crew quarters, Living Quarters 7, was one of the only areas that had been using back up power and oxygen. That area is still locked as oxygen is not yet online. \"")
                   }
                   SetTimeout (1) {
-                    msg ("<br/>Access to all droids GRANTED.")
+                    msg ("<br/>Access to all droids GRANTED.<br/>Living Quarters still inaccessible.")
+                    unlockExits
+                    SetObjectFlagOn (Check Ship Status, "Solar Array Station Complete")
+                    checkStatus
                   }
                 }
               }
@@ -330,8 +333,6 @@
             else {
               msg ("Incorrect password. Terminal shutting down.")
             }
-            SetObjectFlagOn (Check Ship Status, "Solar Array Station Complete")
-            unlockExits
           }
         }
         else {
@@ -1876,12 +1877,10 @@
       if (GetBoolean(Check Ship Status, "Biosphere Complete")) {
         if (GetBoolean(Check Ship Status, "Security Complete")) {
           if (GetBoolean(Check Ship Status, "Med Bay Complete")) {
-            if (GetBoolean(Check Ship Status, "Living Quarters Complete")) {
-              msg ("Station Functional        - COMPLETE")
-            }
-            else {
-              msg ("Station Functional         - Incomplete")
-            }
+            msg ("Station Functional        - COMPLETE")
+          }
+          else {
+            msg ("Station Functional         - Incomplete")
           }
         }
       }
@@ -1910,19 +1909,11 @@
     else {
       msg ("Medical Bay                - Offline")
     }
-    if (GetBoolean(Check Ship Status, "Living Quarters Complete")) {
-      msg ("Living Quarters           - ONLINE")
-    }
-    else {
-      msg ("Living Quarters           - Offline")
-    }
     if (GetBoolean(Check Ship Status, "Solar Array Station Complete")) {
       if (GetBoolean(Check Ship Status, "Biosphere Complete")) {
         if (GetBoolean(Check Ship Status, "Security Complete")) {
           if (GetBoolean(Check Ship Status, "Med Bay Complete")) {
-            if (GetBoolean(Check Ship Status, "Living Quarters Complete")) {
-              msg ("<br/>ACCESS TO AI CORE NOW GRANTED")
-            }
+            msg ("<br/>ACCESS TO LIVING QUARTERS NOW GRANTED")
           }
         }
       }
@@ -1995,7 +1986,6 @@
     }
   </function>
   <function name="unlockExits">
-    UnlockExit (Exit Biosphere to Living Quarters)
     UnlockExit (Exit Biosphere to Med Bay)
     UnlockExit (Exit Biosphere to Security)
     UnlockExit (Exit Biosphere to Solar)
@@ -2004,15 +1994,12 @@
     UnlockExit (Exit Living Quarters to Security)
     UnlockExit (Exit Living Quarters to Solar)
     UnlockExit (Exit Med Bay to Biosphere)
-    UnlockExit (Exit Med Bay to Living Quarters)
     UnlockExit (Exit Med Bay to Security)
     UnlockExit (Exit Med Bay to Solar)
     UnlockExit (Exit Security to Biosphere)
-    UnlockExit (Exit Security to Living Quarters)
     UnlockExit (Exit Security to Med Bay)
     UnlockExit (Exit Security to Solar)
     UnlockExit (Exit Solar to Biosphere)
-    UnlockExit (Exit Solar to Living Quarters)
     UnlockExit (Exit Solar to Med Bay)
     UnlockExit (Exit Solar to security)
   </function>
