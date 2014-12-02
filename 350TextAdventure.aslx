@@ -435,7 +435,8 @@
           get input {
             if (IsRegexMatch("yes|y", LCase(result))) {
               msg ("All-clear sent.")
-              set (Check Ship Status, "Security Complete", True)
+              SetObjectFlagOn (Check Ship Status, "Security Complete")
+              checkStatus
             }
           }
         </use>
@@ -1723,7 +1724,8 @@
               <inherit name="editor_object" />
               <look type="script"><![CDATA[
                 msg ("The letter reads:<br/><br/>“TO: N. Passant<br/>FROM: K. Normandeau <br/>Look, I got your message. I know you are sick, but I really need you to look into the problems we have been having with that damn AI. You are the only one that can reason with it, and since you have gotten    sick things have started happening that we cannot explain. I am trying to quiet any rumors as best I can, but Dr. Cain’s sudden death is making people nervous. Please, I’ll carry you to the Core if I have to. <br/>Get well soon, I will come visit you in a couple of days. Enjoy the chocolates, and give Stormy the treats I sent him.”")
-                set (Check Ship Status, "Living Quarters Complete", True)
+                SetObjectFlagOn (Check Ship Status, "Living Quarters Complete")
+                checkStatus
               ]]></look>
               <read type="script"><![CDATA[
                 msg ("“TO: N. Passant<br/>FROM: K. Normandeau <br/>Look, I got your message. I know you are sick, but I really need you to look into the problems we have been having with that damn AI. You are the only one that can reason with it, and since you have gotten sick things have started happening that we cannot explain. I am trying to quiet any rumors as best I can, but Dr. Cain’s sudden death is making people nervous. Please, I’ll carry you to the Core if I have to. <br/>Get well soon, I will come visit you in a couple of days. Enjoy the chocolates, and give Stormy the treats I sent him.”")
