@@ -2037,4 +2037,18 @@
       }
     }
   </function>
+  <function name="checkStatus">
+    if (GetBoolean(Check Ship Status, "Solar Array Station Complete")) {
+      if (GetBoolean(Check Ship Status, "Biosphere Complete")) {
+        if (GetBoolean(Check Ship Status, "Security Complete")) {
+          if (GetBoolean(Check Ship Status, "Med Bay Complete")) {
+            UnlockExit (Exit Biosphere to Living Quarters)
+            UnlockExit (Exit Med Bay to Living Quarters)
+            UnlockExit (Exit Security to Living Quarters)
+            UnlockExit (Exit Solar to Living Quarters)
+          }
+        }
+      }
+    }
+  </function>
 </asl>
