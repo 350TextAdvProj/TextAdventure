@@ -59,6 +59,7 @@
     <exitslistprefix type="string"></exitslistprefix>
     <descprefix type="string"></descprefix>
     <description>You are in a small room, lit only by the dim glow of the monitors that fill the room. There are multiple keyboards and papers scattered on the desk, indicating a workstation for the room's occupant.</description>
+    <alias>Unknown Location</alias>
     <enter type="script">
       AddToInventory (Check Ship Status)
     </enter>
@@ -94,7 +95,6 @@
     <onexit type="script">
       stop sound
     </onexit>
-    <alias>Unknown Location</alias>
     <object name="player">
       <inherit name="editor_object" />
       <inherit name="editor_player" />
@@ -1707,7 +1707,7 @@
           <script type="script">
             msg ("ENTER PASSWORD TO AI CORE:")
             get input {
-              if (IsRegexMatch("password", LCase(result))) {
+              if (IsRegexMatch("Qu33n5G4m81t", LCase(result))) {
                 msg ("CORRECT")
                 MoveObject (player, AI Core)
               }
@@ -1717,6 +1717,7 @@
         <object name="Sleeping Chamber">
           <inherit name="editor_object" />
           <look type="string"></look>
+          <scenery />
           <exit alias="west" to="Corridor">
             <inherit name="westdirection" />
           </exit>
@@ -1736,6 +1737,7 @@
               <look type="script"><![CDATA[
                 msg ("The letter reads:<br/><br/>“TO: N. Passant<br/>FROM: K. Normandeau <br/>Look, I got your message. I know you are sick, but I really need you to look into the problems we have been having with that damn AI. You are the only one that can reason with it, and since you have gotten    sick things have started happening that we cannot explain. I am trying to quiet any rumors as best I can, but Dr. Cain’s sudden death is making people nervous. Please, I’ll carry you to the Core if I have to. <br/>Get well soon, I will come visit you in a couple of days. Enjoy the chocolates, and give Stormy the treats I sent him.”")
                 SetObjectFlagOn (Check Ship Status, "Living Quarters Complete")
+                UnlockExit (AI Entrance)
                 checkStatus
               ]]></look>
               <read type="script"><![CDATA[
