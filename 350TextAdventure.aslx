@@ -76,7 +76,7 @@
                   msg ("NAME: Bishop<br/>ASSIGNMENT: Electronic Systems Monitor on the space station Koncovka.<br/>PRIMARYROLE: Ensure Optimal System Performance<br/>CLEARANCELEVEL: 10<br/>Allowed Access to All Systems.<br/>Preparing Status Report.")
                   SetTimeout (3) {
                     getStatus
-                    msg ("<br/>[Note] At any point the command - print status - will querry the above information.<br/><br/>Would you like to access repair droids(y/n)?")
+                    msg ("<br/>[Note] At any point the command - print status - will query the above information.<br/><br/>Would you like to access repair droids(y/n)?")
                     SRAccessDroids
                   }
                 }
@@ -94,6 +94,7 @@
     <onexit type="script">
       stop sound
     </onexit>
+    <alias>Unknown Location</alias>
     <object name="player">
       <inherit name="editor_object" />
       <inherit name="editor_player" />
@@ -200,7 +201,7 @@
     </exit>
     <exit name="Exit Solar to Living Quarters" to="Living Quarters">
       <scenery type="boolean">false</scenery>
-      <locked />
+      <locked type="boolean">false</locked>
       <lockmessage>You do not have control of that Droid yet.</lockmessage>
     </exit>
     <object name="Desk">
@@ -1321,7 +1322,7 @@
         <value>Look at</value>
       </displayverbs>
       <feature_usegive />
-      <look>A regular looking desk lamp. The bulb is srtangely missing.</look>
+      <look>A regular looking desk lamp. The bulb is strangely missing.</look>
       <useon type="scriptdictionary" />
     </object>
     <object name="Bed">
@@ -1698,10 +1699,20 @@
             msg ("You check each of the bedroom doors. They all seem to be locked. A DNA scanner is mounted to the right of each door.")
           </look>
         </object>
-        <exit alias="south" to="AI Core">
+        <exit name="AI Entrance" alias="south" to="AI Core">
           <inherit name="southdirection" />
           <locked />
-          <lockmessage>The screen above the keypad flashes “Locked, Passcode required”. You will have to find the code somewhere on the station. However, you do remember that one of the crew members who worked in security had been in charge of monitoring the AI, you had looked through his locker.</lockmessage>
+          <lockmessage>The screen above the keypad flashes “Locked, Passcode required”. You will have to find the code somewhere on the station. However, you do remember that one of the crew members who worked in security had been in charge of monitoring the AI, you had looked through his locker. And besides, you should search the living quarters more thoroughly before moving on.</lockmessage>
+          <runscript />
+          <script type="script">
+            msg ("ENTER PASSWORD TO AI CORE:")
+            get input {
+              if (IsRegexMatch("password", LCase(result))) {
+                msg ("CORRECT")
+                MoveObject (player, AI Core)
+              }
+            }
+          </script>
         </exit>
         <object name="Sleeping Chamber">
           <inherit name="editor_object" />
