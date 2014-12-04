@@ -636,7 +636,7 @@
       </object>
       <object name="Biodome">
         <inherit name="editor_room" />
-        <description><![CDATA[The light of myriad stars above filtering through the trees are the first thing you notice. The area you find yourself in appears to be covered by a large dome that serves as a window into the vastness of space. There are tree branches pressing against the dome in several places, and several areas seem to be completely covered by the folliage. Your droid’s sensors detect an atmosphere incredibly rich in oxygen. The floor of this area seems to be almost completely covered by large, thick roots that flow from a gigantic tree in the middle of the dome. Beyond the tree, in one of the corners of the dome, you see a large sign <sign reads whatever the name of the next area is>.]]></description>
+        <description>The light of myriad stars above filtering through the trees are the first thing you notice. The area you find yourself in appears to be covered by a large dome that serves as a window into the vastness of space. There are tree branches pressing against the dome in several places, and several areas seem to be completely overrun by the folliage. Your droid’s sensors detect an atmosphere incredibly rich in oxygen, though there are also traces of neurotoxin on it. The floor of this area seems to be almost completely covered by large, thick roots that flow from a gigantic tree in the middle of the dome. </description>
         <exit to="Holding Area" />
         <object name="Tree">
           <inherit name="editor_object" />
@@ -661,19 +661,41 @@
           <look>The tree is dead and its roots have crumbled. You should now be able to pass.</look>
           <visible type="boolean">false</visible>
         </object>
-        <object name="Door1">
+        <object name="Security Terminal">
           <inherit name="editor_object" />
-          <inherit name="container_open" />
-          <alias>Door</alias>
-          <attr name="feature_container" type="boolean">false</attr>
+          <inherit name="surface" />
           <look type="script">
             if (ListContains(ScopeVisible(), Tree)) {
-              msg ("A mass of gnarled roots are preventing you from reaching the door.")
+              msg ("You can see a security terminal on the other side of the room past the gnarled roots of the tree.")
             }
             else {
-              msg ("You're now able to reach the door.")
+              msg ("Among the remnants of the security terminal you see an emergency power override.")
+              MakeObjectVisible (Power Override)
             }
           </look>
+          <feature_container />
+          <open type="boolean">false</open>
+          <close type="boolean">false</close>
+          <hidechildren type="boolean">false</hidechildren>
+          <listchildren type="boolean">false</listchildren>
+          <contentsprefix>on which there is a</contentsprefix>
+          <listchildrenprefix>on which there is a</listchildrenprefix>
+          <object name="Power Override">
+            <inherit name="editor_object" />
+            <feature_usegive />
+            <use type="script">
+              if (ListContains(ScopeVisible(), Tree)) {
+                msg ("You can't reach that.")
+              }
+              else {
+                msg ("You pull the power override switch. A faint whirring echoes through the room as you restart the Biosphere systems.")
+                SetObjectFlagOn (Check Ship Status, "Biosphere Complete")
+                checkStatus
+              }
+            </use>
+            <visible type="boolean">false</visible>
+            <look>A large red switch sits on top of the security terminal.</look>
+          </object>
         </object>
       </object>
     </object>
