@@ -38,6 +38,7 @@
     <defaultfontsize type="int">14</defaultfontsize>
     <custompaddingbottom type="int">0</custompaddingbottom>
     <custompaddingleft type="int">20</custompaddingleft>
+    <defaultwebfont type="string"></defaultwebfont>
     <object name="Black Chemical">
       <inherit name="editor_object" />
       <visible />
@@ -579,7 +580,7 @@
   </object>
   <object name="Hydroponic Biosphere">
     <inherit name="editor_room" />
-    <description>Around you, you find a dissection table with a stand holding different medical utensils. To your north there is a whiteboard and several bright rectangular monitors. On the right side of the east wall you see a single reinforced door next to a large desk. To the west you see two doors. To your south, you notice a large rectangular mirror beginning about a meter from the floor and ending about a meter from the ceiling of the room. A few circular lamps hang over the operating table, illuminating the room with their sterile white glow.</description>
+    <description><![CDATA[{img:Biosphere Cam 1+2.jpg}<br/><br/>Around you, you find a dissection table with a stand holding different medical utensils. To your north there is a whiteboard and several bright rectangular monitors. On the right side of the east wall you see a single reinforced door next to a large desk. To the west you see two doors. To your south, you notice a large rectangular mirror beginning about a meter from the floor and ending about a meter from the ceiling of the room. A few circular lamps hang over the operating table, illuminating the room with their sterile white glow.]]></description>
     <beforeenter type="script"><![CDATA[
       msg ("<br/>Control of Shatranj III initiated.")
     ]]></beforeenter>
