@@ -650,6 +650,7 @@
           <inherit name="editor_object" />
           <alias>Tree</alias>
           <look>The tree is dead and its roots have crumbled. You should now be able to pass.</look>
+          <visible type="boolean">false</visible>
         </object>
         <object name="Door1">
           <inherit name="editor_object" />
