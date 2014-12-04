@@ -1927,25 +1927,25 @@
       msg ("Solar Array Station        - ONLINE")
     }
     else {
-      msg ("Solar Array Station        - Offline")
+      msg ("Solar Array Station        - Offline : Check power systems and ship status.")
     }
     if (GetBoolean(Check Ship Status, "Biosphere Complete")) {
       msg ("Hydroponic Biosphere     - ONLINE")
     }
     else {
-      msg ("Hydroponic Biosphere     - Offline")
+      msg ("Hydroponic Biosphere     - Offline : Remove the out of control growths covering the oxygen ducts and trigger the power override.")
     }
     if (GetBoolean(Check Ship Status, "Security Complete")) {
       msg ("Security                       - ONLINE")
     }
     else {
-      msg ("Security                        - Offline")
+      msg ("Security                        - Offline : Identify and eliminate any threats to the station and activate the security clearance signal.")
     }
     if (GetBoolean(Check Ship Status, "Med Bay Complete")) {
       msg ("Medical Bay                - ONLINE")
     }
     else {
-      msg ("Medical Bay                - Offline")
+      msg ("Medical Bay                - Offline : Find and trigger the emergency override located in Medbay 02.")
     }
     if (GetBoolean(Check Ship Status, "Solar Array Station Complete")) {
       if (GetBoolean(Check Ship Status, "Biosphere Complete")) {
