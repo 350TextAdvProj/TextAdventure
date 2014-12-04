@@ -1343,6 +1343,7 @@
         HelperOpenObject (Bed)
         msg ("Under the bed is a scalpel.")
       </lookunder>
+      <usestandardverblist />
       <object name="scalpel">
         <inherit name="editor_object" />
         <take />
@@ -1472,7 +1473,7 @@
         <isopen type="boolean">false</isopen>
         <listchildren />
         <openmsg>There are several medical supplies in it:, some gauss, a bottle with a spray labelled “luminol”, some sutures, and a blacklight bulb.</openmsg>
-        <look>There are several medical supplies in it:, some gauss, a bottle with a spray labelled “luminol”, some sutures, and a blacklight bulb.</look>
+        <look>There are several medical supplies in it:, some gauze, a bottle with a spray labelled “luminol”, some sutures, and a blacklight bulb.</look>
         <displayverbs type="stringlist">
           <value>Look at</value>
           <value>Open</value>
