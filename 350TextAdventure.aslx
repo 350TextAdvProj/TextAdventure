@@ -173,9 +173,14 @@
     <descprefix>Control of droid initiated in</descprefix>
     <objectslistprefix>The droid detects</objectslistprefix>
     <exitslistprefix>You can switch to a droid in: </exitslistprefix>
-    <description><![CDATA[{img:Solar Array Cam.jpg}<br/><br/>The robot boots up and surveys the area. In the center of the room there is a u-shaped desk. Water dripping from the roof has left an ugly stain on top and one of the drawers appears to be partly open. No human life is present. There is a green glow to the room and you realize it’s coming from the viscous liquid contained in the glass cylinders at the far end of the room. Capped with metal at the top and bottom, they appear to be batteries. There is a warning label stuck to the front of one, labelling it a highly corrosive material. A computer terminal is tucked away in the corner.<br/>]]></description>
+    <description><![CDATA[<br/><br/>{img:Solar Array Cam.jpg}<br/><br/>The robot boots up and surveys the area. In the center of the room there is a u-shaped desk. Water dripping from the roof has left an ugly stain on top and one of the drawers appears to be partly open. No human life is present. There is a green glow to the room and you realize it’s coming from the viscous liquid contained in the glass cylinders at the far end of the room. Capped with metal at the top and bottom, they appear to be batteries. There is a warning label stuck to the front of one, labelling it a highly corrosive material. A computer terminal is tucked away in the corner.<br/>]]></description>
     <beforefirstenter type="script">
     </beforefirstenter>
+    <enter type="script">
+    </enter>
+    <beforeenter type="script"><![CDATA[
+      msg ("<br/>Control of Pion initiated.")
+    ]]></beforeenter>
     <object name="Solar Array Complete">
       <inherit name="editor_object" />
       <visible type="boolean">false</visible>
@@ -367,6 +372,9 @@
         }
       }
     ]]></firstenter>
+    <beforeenter type="script"><![CDATA[
+      msg ("<br/>Control of Rukh initiated.")
+    ]]></beforeenter>
     <exit name="Exit Security to Solar" to="Solar Array Station">
       <scenery type="boolean">false</scenery>
       <locked />
@@ -572,8 +580,9 @@
   <object name="Hydroponic Biosphere">
     <inherit name="editor_room" />
     <description>Around you, you find a dissection table with a stand holding different medical utensils. To your north there is a whiteboard and several bright rectangular monitors. On the right side of the east wall you see a single reinforced door next to a large desk. To the west you see two doors. To your south, you notice a large rectangular mirror beginning about a meter from the floor and ending about a meter from the ceiling of the room. A few circular lamps hang over the operating table, illuminating the room with their antiseptic white light.</description>
-    <beforeenter type="script">
-    </beforeenter>
+    <beforeenter type="script"><![CDATA[
+      msg ("<br/>Control of Shatranj III initiated.")
+    ]]></beforeenter>
     <beforefirstenter type="script">
     </beforefirstenter>
     <firstenter type="script">
@@ -1230,6 +1239,9 @@
     <inherit name="editor_room" />
     <description><![CDATA[{img:Med Bay Cam 1.jpg}<br/><br/>As your sensors activate a white room slowly comes into view. The contours of an operating table and a few other objects slowly make themselves visible. Finally, the optical sensors of your new metallic body finish booting and the room around you takes a final and clear shape. It is a large white room with long halogen running lights above. To the north of you there is a whiteboard. Behind you, to the south, a single bed with a chart, presumably to write symptoms and results. Next to the bed, a diagnostics unit covered with lights, an instrument stand, and a drawer. To your east you see a yellow reinforced door with the marking “02”. Finally, on the west wall, you see several posters covering the wall.<br/>]]></description>
     <objectslistprefix>The droid detects</objectslistprefix>
+    <beforeenter type="script"><![CDATA[
+      msg ("<br/>Control of Paard Mk. II initiated.")
+    ]]></beforeenter>
     <exit name="Exit Med Bay to Solar" to="Solar Array Station">
       <scenery type="boolean">false</scenery>
       <locked />
@@ -1508,9 +1520,10 @@
     <inherit name="editor_room" />
     <description>You are in the kitchen of the living quarters. The room is dominated by a counters, stoves and ten Konigs engaged in preparing the evening meal. A robot glides into the room from the doors to the rest of the living quarters, carrying plates piled high with uneaten food. As you watch another takes fresh plates out of the room.</description>
     <alias>Living Quarters Kitchen</alias>
-    <beforeenter type="script">
+    <beforeenter type="script"><![CDATA[
       play sound ("LQMusic.mp3", false, true)
-    </beforeenter>
+      msg ("<br/>Control of König initiated.")
+    ]]></beforeenter>
     <onexit type="script">
       stop sound
     </onexit>
