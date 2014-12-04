@@ -586,8 +586,10 @@
     <beforeenter type="script">
     </beforeenter>
     <beforefirstenter type="script">
-      msg ("For a moment all you can see is a wall of red. Red that quickly clusters into darker and lighter areas as the camera of your new temporary tool activates. Briskly fading words describe the systems of the mechanical body, visible for only a moment before the shapes in the room before you come into focus. A high pitched buzz interrupts your concentration, indicating that the microphones in your droid are now active.")
     </beforefirstenter>
+    <firstenter type="script">
+      msg ("For a moment all you can see is a wall of red. Red that quickly clusters into darker and lighter areas as the camera of your new temporary tool activates. Briskly fading words describe the systems of the mechanical body, visible for only a moment before the shapes in the room before you come into focus. A high pitched buzz interrupts your concentration, indicating that the microphones in your droid are now active.")
+    </firstenter>
     <exit name="Exit Biosphere to Solar" to="Solar Array Station">
       <scenery type="boolean">false</scenery>
       <locked />
