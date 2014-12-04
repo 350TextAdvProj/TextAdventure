@@ -1473,7 +1473,7 @@
         <isopen type="boolean">false</isopen>
         <listchildren />
         <openmsg>There are several medical supplies in it:, some gauss, a bottle with a spray labelled “luminol”, some sutures, and a blacklight bulb.</openmsg>
-        <look>There are several medical supplies in it:, some gauze, a bottle with a spray labelled “luminol”, some sutures, and a blacklight bulb.</look>
+        <look>The drawer is closed.</look>
         <displayverbs type="stringlist">
           <value>Look at</value>
           <value>Open</value>
@@ -1482,6 +1482,7 @@
         <alt type="stringlist">
           <value>Drawer</value>
         </alt>
+        <hidechildren type="boolean">false</hidechildren>
         <object name="blacklight bulb">
           <inherit name="editor_object" />
           <take />
