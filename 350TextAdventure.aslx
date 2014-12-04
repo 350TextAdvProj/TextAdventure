@@ -579,7 +579,7 @@
   </object>
   <object name="Hydroponic Biosphere">
     <inherit name="editor_room" />
-    <description>Around you, you find a dissection table with a stand holding different medical utensils. To your north there is a whiteboard and several bright rectangular monitors. On the right side of the east wall you see a single reinforced door next to a large desk. To the west you see two doors. To your south, you notice a large rectangular mirror beginning about a meter from the floor and ending about a meter from the ceiling of the room. A few circular lamps hang over the operating table, illuminating the room with their antiseptic white light.</description>
+    <description>Around you, you find a dissection table with a stand holding different medical utensils. To your north there is a whiteboard and several bright rectangular monitors. On the right side of the east wall you see a single reinforced door next to a large desk. To the west you see two doors. To your south, you notice a large rectangular mirror beginning about a meter from the floor and ending about a meter from the ceiling of the room. A few circular lamps hang over the operating table, illuminating the room with their sterile white glow.</description>
     <beforeenter type="script"><![CDATA[
       msg ("<br/>Control of Shatranj III initiated.")
     ]]></beforeenter>
@@ -636,7 +636,7 @@
       </object>
       <object name="Biodome">
         <inherit name="editor_room" />
-        <description>The light of myriad stars above filtering through the trees are the first thing you notice. The area you find yourself in appears to be covered by a large dome that serves as a window into the vastness of space. There are tree branches pressing against the dome in several places, and several areas seem to be completely overrun by the folliage. Your droid’s sensors detect an atmosphere incredibly rich in oxygen, though there are also traces of neurotoxin on it. The floor of this area seems to be almost completely covered by large, thick roots that flow from a gigantic tree in the middle of the dome. </description>
+        <description>The light of myriad stars above filtering through the trees are the first thing you notice. The area you find yourself in appears to be covered by a large dome that serves as a window into the vastness of space. There are tree branches pressing against the dome in several places, and several areas seem to be completely overrun by the foliage. Your droid’s sensors detect an atmosphere incredibly rich in oxygen, though there are also traces of neurotoxin on it. The floor of this area seems to be almost completely covered by large, thick roots that flow from a gigantic tree in the middle of the dome. </description>
         <exit to="Holding Area" />
         <object name="Tree">
           <inherit name="editor_object" />
@@ -664,6 +664,13 @@
         <object name="Security Terminal">
           <inherit name="editor_object" />
           <inherit name="surface" />
+          <feature_container />
+          <open type="boolean">false</open>
+          <close type="boolean">false</close>
+          <hidechildren type="boolean">false</hidechildren>
+          <listchildren type="boolean">false</listchildren>
+          <contentsprefix>on which there is a</contentsprefix>
+          <listchildrenprefix>on which there is a</listchildrenprefix>
           <look type="script">
             if (ListContains(ScopeVisible(), Tree)) {
               msg ("You can see a security terminal on the other side of the room past the gnarled roots of the tree.")
@@ -673,16 +680,11 @@
               MakeObjectVisible (Power Override)
             }
           </look>
-          <feature_container />
-          <open type="boolean">false</open>
-          <close type="boolean">false</close>
-          <hidechildren type="boolean">false</hidechildren>
-          <listchildren type="boolean">false</listchildren>
-          <contentsprefix>on which there is a</contentsprefix>
-          <listchildrenprefix>on which there is a</listchildrenprefix>
           <object name="Power Override">
             <inherit name="editor_object" />
             <feature_usegive />
+            <visible type="boolean">false</visible>
+            <look>A large red switch sits on top of the security terminal.</look>
             <use type="script">
               if (ListContains(ScopeVisible(), Tree)) {
                 msg ("You can't reach that.")
@@ -693,15 +695,13 @@
                 checkStatus
               }
             </use>
-            <visible type="boolean">false</visible>
-            <look>A large red switch sits on top of the security terminal.</look>
           </object>
         </object>
       </object>
     </object>
     <object name="Supply Room">
       <inherit name="editor_room" />
-      <description>The room is full of locked glass shelves of carefully labelled vials. In front of one of the shelves there is a chair and shattered glass. In the middle of the room there is a large machine with slits to insert vials. You dub it a “chemical mixing device”. </description>
+      <description>The room is full of locked glass shelves of carefully labelled vials. In front of one of the shelves there is a chair and shattered glass. In the middle of the room there is a large machine with slits to insert vials. You dub it a “chemical mixing device”. In one of the corners of the room you notice vertical cylinder stands.</description>
       <exit to="Hydroponic Biosphere" />
       <object name="Glass">
         <inherit name="editor_object" />
@@ -1199,7 +1199,7 @@
       <object name="Drawers">
         <inherit name="editor_object" />
         <inherit name="container_open" />
-        <look>There are six drawers, each sporting a keypad in its middle. Four of the drawers look as if someone tried to forcefully open them, their keypads smashed beyond recognition. Of the remaining two, one is undamaged, and the other one is open.</look>
+        <look>There are six drawers, each sporting a keypad in its middle. Four of the drawers look as if someone tried to forcefully open them, their keypads smashed beyond recognition. Of the remaining two, one is undamaged, and the other one is open. A clipboard on top of the open drawer attracts your attention.</look>
         <feature_container />
         <open type="boolean">false</open>
         <close type="boolean">false</close>
@@ -1224,37 +1224,47 @@
           <open type="boolean">false</open>
           <close type="boolean">false</close>
           <hidechildren />
-          <object name="Clipboard1">
+        </object>
+        <object name="Clipboard1">
+          <inherit name="editor_object" />
+          <inherit name="surface" />
+          <alias>Clipboard</alias>
+          <look>There are several sheets of paper in it. Most of it consists of nondescript equations for biological system engineering. There are a few scribbled notes on it that call your attention.</look>
+          <feature_container />
+          <hidechildren />
+          <object name="Notes">
             <inherit name="editor_object" />
-            <inherit name="surface" />
-            <alias>Clipboard</alias>
-            <look>There are several sheets of paper in it. Most of it consists of nondescript equations for biological system engineering. There are a few scribbled notes on it that call your attention.</look>
-            <feature_container />
-            <hidechildren />
-            <object name="Notes">
-              <inherit name="editor_object" />
-              <read type="script"><![CDATA[
-                msg ("<Note 1><br/><br/>I don’t know what the bigwigs are thinking. I have a bad feeling about this.<br/><br/>worried the terminal’s being tapped ?<br/><br/>It wouldn’t surprise me. I know the A.I. system is state of the art but there is something that creeps me out about being reminded to brush my teeth by a machine.<br/><br/>you are just being paranoid :) what the heck I’ll play along... whats on your mind?<br/><br/>I’m worried about Koschei. I’m glad it was successful but maybe its too successful. All I ask is that you take a look at the growth reports when you can.<br/>lol you are crazy. I’ll look but only cause I like you :)<br/>")
+            <read type="script"><![CDATA[
+              msg ("<Note 1><br/><br/>I don’t know what the bigwigs are thinking. I have a bad feeling about this.<br/><br/>worried the terminal’s being tapped ?<br/><br/>It wouldn’t surprise me. I know the A.I. system is state of the art but there is something that creeps me out about being reminded to brush my teeth by a machine.<br/><br/>you are just being paranoid :) what the heck I’ll play along... whats on your mind?<br/><br/>I’m worried about Koschei. I’m glad it was successful but maybe its too successful. All I ask is that you take a look at the growth reports when you can.<br/>lol you are crazy. I’ll look but only cause I like you :)<br/>")
+              wait {
+                msg ("<Note 2><br/><br/>hey :)<br/><br/>Thought you thought I was paranoid with the whole “notes on paper” thing. Took a look at the report I take it?<br/><br/>shush. the growth is not slowing down. reported it to upstairs but they seemed pleased about it. already put in my transfer.<br/><br/>How did that go?<br/><br/>they said there were no ships leaving until after the showcase... <br/><br/>Yeah. I got the same response. We should figure out a countermeasure just in case.<br/>")
                 wait {
-                  msg ("<Note 2><br/><br/>hey :)<br/><br/>Thought you thought I was paranoid with the whole “notes on paper” thing. Took a look at the report I take it?<br/><br/>shush. the growth is not slowing down. reported it to upstairs but they seemed pleased about it. already put in my transfer.<br/><br/>How did that go?<br/><br/>they said there were no ships leaving until after the showcase... <br/><br/>Yeah. I got the same response. We should figure out a countermeasure just in case.<br/>")
-                  wait {
-                    msg ("<Note 3> <br/><br/>Red and White mixed in equal portions seemed to hinder it. I think adding some Green might slow the process to something controllable.<br/><br/>i like your shorthand :) is it me or is the atmosphere a bit heavy?<br/><br/>I sent a request upstairs. They said the A.I. has everything under control and that its just the “excitement of the reveal.” They also forbid me from doing further testing.<br/>better to ask for forgiveness than for permission ;)<br/>")
-                  }
+                  msg ("<Note 3> <br/><br/>Red and White mixed in equal portions seemed to hinder it. I think adding some Green might slow the process to something controllable.<br/><br/>i like your shorthand :) is it me or is the atmosphere a bit heavy?<br/><br/>I sent a request upstairs. They said the A.I. has everything under control and that its just the “excitement of the reveal.” They also forbid me from doing further testing.<br/>better to ask for forgiveness than for permission ;)<br/>")
                 }
-              ]]></read>
-              <look type="script"><![CDATA[
-                msg ("<Note 1><br/><br/>I don’t know what the bigwigs are thinking. I have a bad feeling about this.<br/><br/>worried the terminal’s being tapped ?<br/><br/>It wouldn’t surprise me. I know the A.I. system is state of the art but there is something that creeps me out about being reminded to brush my teeth by a machine.<br/><br/>you are just being paranoid :) what the heck I’ll play along... whats on your mind?<br/><br/>I’m worried about Koschei. I’m glad it was successful but maybe its too successful. All I ask is that you take a look at the growth reports when you can.<br/>lol you are crazy. I’ll look but only cause I like you :)<br/>")
+              }
+            ]]></read>
+            <look type="script"><![CDATA[
+              msg ("<b><Note 1></b><br/><br/>I don’t know what the bigwigs are thinking. I have a bad feeling about this.<br/><br/>worried the terminal’s being tapped ?<br/><br/>It wouldn’t surprise me. I know the A.I. system is state of the art but there is something that creeps me out about being reminded to brush my teeth by a machine.<br/><br/>you are just being paranoid :) what the heck I’ll play along... whats on your mind?<br/><br/>I’m worried about Koschei. I’m glad it was successful but maybe its too successful. All I ask is that you take a look at the growth reports when you can.<br/>lol you are crazy. I’ll look but only cause I like you :)<br/>")
+              wait {
+                msg ("<b><Note 2></b><br/><br/>hey :)<br/><br/>Thought you thought I was paranoid with the whole “notes on paper” thing. Took a look at the report I take it?<br/><br/>shush. the growth is not slowing down. reported it to upstairs but they seemed pleased about it. already put in my transfer.<br/><br/>How did that go?<br/><br/>they said there were no ships leaving until after the showcase... <br/><br/>Yeah. I got the same response. We should figure out a countermeasure just in case.<br/>")
                 wait {
-                  msg ("<Note 2><br/><br/>hey :)<br/><br/>Thought you thought I was paranoid with the whole “notes on paper” thing. Took a look at the report I take it?<br/><br/>shush. the growth is not slowing down. reported it to upstairs but they seemed pleased about it. already put in my transfer.<br/><br/>How did that go?<br/><br/>they said there were no ships leaving until after the showcase... <br/><br/>Yeah. I got the same response. We should figure out a countermeasure just in case.<br/>")
-                  wait {
-                    msg ("<Note 3> <br/><br/>Red and White mixed in equal portions seemed to hinder it. I think adding some Green might slow the process to something controllable.<br/><br/>i like your shorthand :) is it me or is the atmosphere a bit heavy?<br/><br/>I sent a request upstairs. They said the A.I. has everything under control and that its just the “excitement of the reveal.” They also forbid me from doing further testing.<br/>better to ask for forgiveness than for permission ;)<br/>")
-                  }
+                  msg ("<b><Note 3></b><br/><br/>Red and White mixed in equal portions seemed to hinder it. I think adding some Green might slow the process to something controllable.<br/><br/>i like your shorthand :) is it me or is the atmosphere a bit heavy?<br/><br/>I sent a request upstairs. They said the A.I. has everything under control and that its just the “excitement of the reveal.” They also forbid me from doing further testing.<br/>better to ask for forgiveness than for permission ;)<br/>")
                 }
-              ]]></look>
-            </object>
+              }
+            ]]></look>
           </object>
         </object>
       </object>
+    </object>
+    <object name="Cylindrical Stands">
+      <inherit name="editor_object" />
+      <look>You see a slim red frame looking back at you through its three triangular cameras, a white label on its chest reading “III jnartahS”. Upon realizing that its nothing more than your reflection you continue your inspection of the cylinder stands. Several of the stands are empty and look as if something was removed from them. The label on the stands reads “2,4-DIHYDROXYPHENYLACETYL-L-ASPARAGINYL-N… Deadly Neurotoxin.”</look>
+      <alt type="stringlist">
+        <value>Stands</value>
+      </alt>
+      <displayverbs type="stringlist">
+        <value>Look at</value>
+      </displayverbs>
     </object>
   </object>
   <object name="Med Bay">
@@ -1361,11 +1371,11 @@
       </displayverbs>
       <listchildrenprefix>Underneath is</listchildrenprefix>
       <look>It looks comfortable given the circumstances. It seems designed for a pleasant stay. There are blankets and a pillow in it.</look>
+      <usestandardverblist />
       <lookunder type="script">
         HelperOpenObject (Bed)
         msg ("Under the bed is a scalpel.")
       </lookunder>
-      <usestandardverblist />
       <object name="scalpel">
         <inherit name="editor_object" />
         <take />
