@@ -1495,7 +1495,7 @@
           <selfuseon type="scriptdictionary">
             <item key="Lamp">
               SetObjectFlagOn (Large White Board, "puzzle 1")
-              msg ("The lamp illuminates with an eery puple light.")
+              msg ("The lamp illuminates with an eerie puple light.")
             </item>
           </selfuseon>
         </object>
