@@ -406,17 +406,7 @@
         <drop type="boolean">false</drop>
         <feature_container />
         <look type="script">
-          msg ("You find the records for all the security personnel.")
-          msg ("The file for T. Ayas sticks out about the others.")
-          msg ("Would you like to look at the file?")
-          get input {
-            if (IsRegexMatch("yes|y", LCase(result))) {
-              msg ("$PLACEHOLDER PERSONNEL FILE TEXT")
-            }
-            else {
-              msg ("You close the file cabinet.")
-            }
-          }
+          msg ("All the records for the security personnel are contained here.")
         </look>
         <openscript type="script">
           msg ("You open the file cabinet to find it empty.")
