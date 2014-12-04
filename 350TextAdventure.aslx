@@ -173,7 +173,7 @@
     <descprefix>Control of droid initiated in</descprefix>
     <objectslistprefix>The droid detects</objectslistprefix>
     <exitslistprefix>You can switch to a droid in: </exitslistprefix>
-    <description><![CDATA[{img:Solar Array Cam.jpg}<br/><br/>“The robot boots up and surveys the area. In the center of the room there is a u-shaped desk. Water dripping from the roof has left an ugly stain on top and one of the drawers appears to be partly open. No human life is present. There is a green glow to the room and you realize it’s coming from the viscous liquid contained in the glass cylinders at the far end of the room. Capped with metal at the top and bottom, they appear to be batteries. There is a warning label stuck to the front of one, labelling it a highly corrosive material. A computer terminal is tucked away in the corner.”<br/>]]></description>
+    <description><![CDATA[{img:Solar Array Cam.jpg}<br/><br/>The robot boots up and surveys the area. In the center of the room there is a u-shaped desk. Water dripping from the roof has left an ugly stain on top and one of the drawers appears to be partly open. No human life is present. There is a green glow to the room and you realize it’s coming from the viscous liquid contained in the glass cylinders at the far end of the room. Capped with metal at the top and bottom, they appear to be batteries. There is a warning label stuck to the front of one, labelling it a highly corrosive material. A computer terminal is tucked away in the corner.<br/>]]></description>
     <beforefirstenter type="script">
     </beforefirstenter>
     <object name="Solar Array Complete">
@@ -284,7 +284,7 @@
       </alt>
       <plugin type="script">
         SwitchOn (Terminal)
-        msg ("The terminal looks like it has power now.")
+        msg ("The terminal looks like it now has power.")
       </plugin>
     </object>
     <object name="Terminal">
