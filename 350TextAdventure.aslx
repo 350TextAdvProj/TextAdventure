@@ -1428,6 +1428,7 @@
             SetObjectFlagOn (Check Ship Status, "Med Bay Complete")
             msg ("Life Support power re-established. ")
             AddToInventory (Med Bay Complete)
+            checkStatus
           </pull>
         </object>
       </object>
