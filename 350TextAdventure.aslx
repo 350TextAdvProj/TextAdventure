@@ -310,7 +310,6 @@
             if (result = "password") {
               msg ("Password Correct. <br/>")
               SetTimeout (2) {
-                msg ("Droid initiated in Security Room")
                 SetTimeout (1) {
                   msg ("Solar Array System rebooting.")
                   SetTimeout (1) {
@@ -1914,8 +1913,6 @@
       }
     }
   ]]></function>
-  <function name="updateStatus">
-  </function>
   <function name="SecPuz1" parameters="remaining" type="boolean">
     if (remaining = 0) {
       msg ("YOU HAVE RUN OUT OF BYPASS ATTEMPTS. GOODBYE.")
@@ -2019,7 +2016,7 @@
       }
     }
   </function>
-  <function name="checkStatus">
+  <function name="checkStatus"><![CDATA[
     if (GetBoolean(Check Ship Status, "Solar Array Station Complete")) {
       if (GetBoolean(Check Ship Status, "Biosphere Complete")) {
         if (GetBoolean(Check Ship Status, "Security Complete")) {
@@ -2028,9 +2025,20 @@
             UnlockExit (Exit Med Bay to Living Quarters)
             UnlockExit (Exit Security to Living Quarters)
             UnlockExit (Exit Solar to Living Quarters)
+            UnlockExit (Exit Living Quarters to Biosphere)
+            UnlockExit (Exit Living Quarters to Med Bay)
+            UnlockExit (Exit Living Quarters to Security)
+            UnlockExit (Exit Living Quarters to Solar)
+            msg ("<br/>Checking ships status<br/>...")
+            SetTimeout (1) {
+            }
+            getStatus
+            SetTimeout (1) {
+            }
+            msg ("Living Quarters now accessible. ")
           }
         }
       }
     }
-  </function>
+  ]]></function>
 </asl>
