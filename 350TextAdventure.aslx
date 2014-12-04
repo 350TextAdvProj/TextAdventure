@@ -1704,6 +1704,9 @@
                 msg ("CORRECT")
                 MoveObject (player, AI Core)
               }
+              else {
+                msg ("ERROR: INCORRECT PASSWORD")
+              }
             }
           </script>
         </exit>
