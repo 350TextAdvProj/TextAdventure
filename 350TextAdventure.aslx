@@ -2,9 +2,9 @@
 <asl version="550">
   <include ref="English.aslx" />
   <include ref="Core.aslx" />
-  <game name="Bishop beta 1">
+  <game name="Bishop">
     <inherit name="theme_novella" />
-    <gameid>36273a24-7575-4e61-8f7c-0bdf8d8b7fe9</gameid>
+    <gameid>4197ce3b-4ee2-46ea-8495-5a260441c978</gameid>
     <version>1.0</version>
     <firstpublished>2014</firstpublished>
     <showdescriptiononenter />
