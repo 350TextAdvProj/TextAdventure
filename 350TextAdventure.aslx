@@ -194,26 +194,6 @@
       <inventoryverbs type="stringlist" />
       <drop type="boolean">false</drop>
     </object>
-    <exit name="Exit Solar to security" to="Security">
-      <scenery type="boolean">false</scenery>
-      <locked />
-      <lockmessage>You do not have control of that Droid yet.</lockmessage>
-    </exit>
-    <exit name="Exit Solar to Biosphere" to="Hydroponic Biosphere">
-      <scenery type="boolean">false</scenery>
-      <locked />
-      <lockmessage>You do not have control of that Droid yet.</lockmessage>
-    </exit>
-    <exit name="Exit Solar to Med Bay" to="Med Bay">
-      <scenery type="boolean">false</scenery>
-      <locked />
-      <lockmessage>You do not have control of that Droid yet.</lockmessage>
-    </exit>
-    <exit name="Exit Solar to Living Quarters" to="Living Quarters">
-      <scenery type="boolean">false</scenery>
-      <locked type="boolean">false</locked>
-      <lockmessage>You do not have control of that Droid yet.</lockmessage>
-    </exit>
     <object name="desk">
       <inherit name="editor_object" />
       <inherit name="surface" />
@@ -268,6 +248,9 @@
             <look><![CDATA[The sticky note reads:   <br/><br/><i>Remember to change the Terminal passcode. <br/>‘password’ does not meet security requirements.</i><br/>]]></look>
             <scenery type="boolean">false</scenery>
             <visible />
+            <read type="script"><![CDATA[
+              msg ("The sticky note reads:   <br/><br/><i>Remember to change the Terminal passcode. <br/>‘password’ does not meet security requirements.</i>")
+            ]]></read>
           </object>
         </object>
       </object>
@@ -350,6 +333,89 @@
         }
       ]]></use>
     </object>
+    <object name="uplink station">
+      <inherit name="editor_object" />
+      <look>A robot uplink station. It should allow you to plug in and transfer to a robot in another room.</look>
+      <displayverbs type="stringlist">
+        <value>Look at</value>
+        <value>Use</value>
+      </displayverbs>
+      <feature_usegive />
+      <use type="script"><![CDATA[
+        msg ("The robot slots itself into the uplink station, forming a connection with the station's servers.")
+        msg ("<br/>Accessible areas are:")
+        MakeObjectInvisible (clipboard)
+        MakeObjectInvisible (sticky note)
+        if (GetBoolean(Check Ship Status, "Solar Array Station Complete")) {
+          msg ("    Security<br/>    Hydroponic Biosphere<br/>    Med Bay")
+          if (GetBoolean(Living Quarters, "unlocked")) {
+            msg ("    Living Quarters")
+          }
+          msg ("<br/>Please choose where you would like to go:")
+          get input {
+            if (IsRegexMatch ("security", LCase(result))) {
+              MakeObjectVisible (magazine)
+              MakeObjectVisible (medal)
+              msg ("The camera goes dark as your control transfers over to the new robot.<br/><br/>You hear a faint whirring a few odd beeps as the new robot starts booting up...")
+              SetTimeout (2) {
+                msg ("<br/>Control of Rukh initiated...<br/>")
+                SetTimeout (2) {
+                  MoveObject (player, Security)
+                }
+              }
+            }
+            else if (IsRegexMatch ("hydroponic biosphere|biosphere|hydroponic|hydroponics", LCase(result))) {
+              MakeObjectVisible (vials)
+              MakeObjectVisible (black chemical)
+              MakeObjectVisible (white chemical)
+              msg ("The camera goes dark as your control transfers over to the new robot.<br/><br/>You hear a faint whirring a few odd beeps as the new robot starts booting up...")
+              SetTimeout (2) {
+                msg ("<br/>Control of Shatranj III initiated...<br/>")
+                SetTimeout (2) {
+                  MoveObject (player, Hydroponic Biosphere)
+                }
+              }
+            }
+            else if (IsRegexMatch ("medical bay|medical|med bay|med", LCase(result))) {
+              MakeObjectVisible (Poster)
+              MakeObjectVisible (blacklight bulb)
+              MakeObjectVisible (Spray bottle)
+              MakeObjectVisible (scalpel)
+              msg ("The camera goes dark as your control transfers over to the new robot.<br/><br/>You hear a faint whirring a few odd beeps as the new robot starts booting up...")
+              SetTimeout (2) {
+                msg ("<br/>Control of Paard Mk. II initiated...<br/>")
+                SetTimeout (2) {
+                  MoveObject (player, Med Bay)
+                }
+              }
+            }
+            else if (IsRegexMatch ("living quarters|living|quarters", LCase(result))) {
+              if (GetBoolean(Living Quarters, "unlocked")) {
+                MakeObjectVisible (Dead Cat)
+                MakeObjectVisible (Letter)
+                MakeObjectVisible (keycard)
+                msg ("The camera goes dark as your control transfers over to the new robot.<br/><br/>You hear a faint whirring a few odd beeps as the new robot starts booting up...")
+                SetTimeout (2) {
+                  msg ("<br/>Control of König initiated...<br/>")
+                  SetTimeout (2) {
+                    MoveObject (player, Living Quarters)
+                  }
+                }
+              }
+              else {
+                msg ("<br/>ERROR CODE ORA-10404: ACCESS DENIED, ROOM NOT ACCESSIBLE OR DOES NOT EXIST<br/><br/>You'll have to try the uplink again.")
+              }
+            }
+            else {
+              msg ("<br/>ERROR CODE ORA-10404: ACCESS DENIED, ROOM NOT ACCESSIBLE OR DOES NOT EXIST<br/><br/>You'll have to try the uplink again.")
+            }
+          }
+        }
+        else {
+          msg ("    No additional areas are accessible")
+        }
+      ]]></use>
+    </object>
   </object>
   <object name="Security">
     <inherit name="editor_room" />
@@ -359,9 +425,8 @@
     <turret_online />
     <firstenter type="script">
     </firstenter>
-    <beforeenter type="script"><![CDATA[
-      msg ("<br/>Control of Rukh initiated.")
-    ]]></beforeenter>
+    <beforeenter type="script">
+    </beforeenter>
     <exitslistprefix>The following rooms have been detected:</exitslistprefix>
     <exit name="Exit Security to Solar" to="Solar Array Station">
       <scenery type="boolean">false</scenery>
@@ -541,6 +606,18 @@
       <displayverbs type="stringlist">
         <value>Look at</value>
       </displayverbs>
+    </object>
+    <object name="uplink station1">
+      <inherit name="editor_object" />
+      <alias>uplink station</alias>
+      <look>A robot uplink station. It should allow you to plug in and transfer to a robot in another room.</look>
+      <feature_usegive />
+      <displayverbs type="stringlist">
+        <value>Look at</value>
+        <value>Use</value>
+      </displayverbs>
+      <use type="script">
+      </use>
     </object>
   </object>
   <object name="Hydroponic Biosphere">
@@ -915,16 +992,23 @@
       <isopen type="boolean">false</isopen>
       <displayverbs type="stringlist">
         <value>Look at</value>
+        <value>Remove</value>
+        <value>Take</value>
       </displayverbs>
       <alias>poster</alias>
       <remove type="script">
         msg ("There is a panel beneath the poster. It is screwed securely to the wall.")
-        MakeObjectInvisible (Poster)
         MakeObjectVisible (Panel)
+        AddToInventory (Poster)
       </remove>
       <onopen type="script">
         MakeObjectVisible (Manual Override Box)
       </onopen>
+      <take />
+      <ontake type="script">
+        msg ("There is a panel beneath the poster. It is screwed securely to the wall.")
+        MakeObjectVisible (Panel)
+      </ontake>
     </object>
     <object name="Diagnostic Equipment">
       <inherit name="editor_object" />
@@ -1344,9 +1428,9 @@
           msg ("The roots covering the door under the sign shrivel and wither, finally turning to a fine dust. ")
           MakeObjectInvisible (tree)
           MakeObjectVisible (tree1)
-          RemoveObject (vials)
           RemoveObject (black chemical)
           RemoveObject (white chemical)
+          RemoveObject (vials)
         </item>
         <item key="white chemical">
           msg ("Nothing of interest happens.")
@@ -2562,22 +2646,6 @@
     }
   ]]></function>
   <function name="unlockExits">
-    UnlockExit (Exit Biosphere to Med Bay)
-    UnlockExit (Exit Biosphere to Security)
-    UnlockExit (Exit Biosphere to Solar)
-    UnlockExit (Exit Living Quarters to Biosphere)
-    UnlockExit (Exit Living Quarters to Med Bay)
-    UnlockExit (Exit Living Quarters to Security)
-    UnlockExit (Exit Living Quarters to Solar)
-    UnlockExit (Exit Med Bay to Biosphere)
-    UnlockExit (Exit Med Bay to Security)
-    UnlockExit (Exit Med Bay to Solar)
-    UnlockExit (Exit Security to Biosphere)
-    UnlockExit (Exit Security to Med Bay)
-    UnlockExit (Exit Security to Solar)
-    UnlockExit (Exit Solar to Biosphere)
-    UnlockExit (Exit Solar to Med Bay)
-    UnlockExit (Exit Solar to security)
   </function>
   <function name="SecDrawerPuz" parameters="remaining">
     if (remaining = 0) {
@@ -2605,14 +2673,6 @@
       if (GetBoolean(Check Ship Status, "Biosphere Complete")) {
         if (GetBoolean(Check Ship Status, "Security Complete")) {
           if (GetBoolean(Check Ship Status, "Med Bay Complete")) {
-            UnlockExit (Exit Biosphere to Living Quarters)
-            UnlockExit (Exit Med Bay to Living Quarters)
-            UnlockExit (Exit Security to Living Quarters)
-            UnlockExit (Exit Solar to Living Quarters)
-            UnlockExit (Exit Living Quarters to Biosphere)
-            UnlockExit (Exit Living Quarters to Med Bay)
-            UnlockExit (Exit Living Quarters to Security)
-            UnlockExit (Exit Living Quarters to Solar)
             msg ("<br/>Checking ships status<br/>...")
             SetTimeout (1) {
             }
@@ -2620,6 +2680,7 @@
             SetTimeout (1) {
             }
             msg ("Living Quarters now accessible. ")
+            SetObjectFlagOn (Living Quarters, "unlocked")
           }
         }
       }
