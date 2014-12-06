@@ -80,7 +80,7 @@
                   msg ("<b>NAME:</b> Bishop<br/><b>ASSIGNMENT:</b> Electronic Systems Monitor on the space station Koncovka.<br/><b>PRIMARYROLE:</b> Ensure Optimal System Performance<br/><b>CLEARANCELEVEL:</b> 10<br/>Allowed Access to All Systems.<br/>Preparing Status Report.")
                   SetTimeout (3) {
                     getStatus
-                    msg ("<br/>[Note] At any point the command \"check status\" will query the above information.<br/>")
+                    msg ("<br/>[Note] At any point the command \"print status\" will query the above information.<br/>")
                     SRAccessDroids
                   }
                 }
@@ -696,13 +696,13 @@
     <description><![CDATA[<br/>RETRIEVING AVAILABLE SECURITY CAMERA FOOTAGE...<br/>{img:Biosphere Cam 1+2.jpg}<br/><br/>Around you, you find a dissection table with a stand holding different medical utensils. To your north there is a whiteboard and several bright rectangular monitors. On the right side of the east wall you see a single reinforced door next to a large desk. To the west you see two doors. A few circular lamps hang over the operating table, illuminating the room with their sterile white glow.<br/>]]></description>
     <picture type="string"></picture>
     <usedefaultprefix type="boolean">false</usedefaultprefix>
+    <exitslistprefix>The following rooms have been detected:</exitslistprefix>
     <beforeenter type="script">
     </beforeenter>
     <beforefirstenter type="script">
     </beforefirstenter>
     <firstenter type="script">
     </firstenter>
-    <exitslistprefix>The following rooms have been detected:</exitslistprefix>
     <object name="Hydroponic Biosphere Complete">
       <inherit name="editor_object" />
       <visible type="boolean">false</visible>
@@ -850,6 +850,11 @@
       <inherit name="editor_object" />
       <alias>uplink station</alias>
       <feature_usegive />
+      <look>A robot uplink station. It should allow you to plug in and transfer to a robot in another room.</look>
+      <displayverbs type="stringlist">
+        <value>Look at</value>
+        <value>Use</value>
+      </displayverbs>
       <use type="script"><![CDATA[
         msg ("The robot slots itself into the uplink station, forming a connection with the station's servers.")
         msg ("<br/>Accessible areas are:")
@@ -937,20 +942,15 @@
           MakeObjectVisible (clipboard1)
         }
       ]]></use>
-      <look>A robot uplink station. It should allow you to plug in and transfer to a robot in another room.</look>
-      <displayverbs type="stringlist">
-        <value>Look at</value>
-        <value>Use</value>
-      </displayverbs>
     </object>
   </object>
   <object name="Med Bay">
     <inherit name="editor_room" />
     <description><![CDATA[<br/>RETRIEVING AVAILABLE SECURITY CAMERA FOOTAGE...<br/>{img:Med Bay Cam 1.jpg}<br/><br/>As your sensors activate a white room slowly comes into view. The contours of an operating table and a few other objects slowly make themselves visible. Finally, the optical sensors of your new metallic body finish booting and the room around you takes a final and clear shape. It is a large white room with long halogen running lights above. To the north of you there is a whiteboard. Behind you, to the south, a single bed with a chart, presumably to write symptoms and results. Next to the bed, a diagnostics unit covered with lights, an instrument stand, and a drawer. To your east you see a yellow reinforced door with the marking “02”. Finally, on the west wall, you see several posters covering the wall.<br/>]]></description>
     <objectslistprefix>The droid detects</objectslistprefix>
+    <exitslistprefix>The following rooms have been detected:</exitslistprefix>
     <beforeenter type="script">
     </beforeenter>
-    <exitslistprefix>The following rooms have been detected:</exitslistprefix>
     <object name="Med Bay Complete">
       <inherit name="editor_object" />
       <visible type="boolean">false</visible>
@@ -1286,6 +1286,11 @@
       <inherit name="editor_object" />
       <alias>uplink station</alias>
       <feature_usegive />
+      <displayverbs type="stringlist">
+        <value>Look at</value>
+        <value>Use</value>
+      </displayverbs>
+      <look>A robot uplink station. It should allow you to plug in and transfer to a robot in another room.</look>
       <use type="script"><![CDATA[
         msg ("The robot slots itself into the uplink station, forming a connection with the station's servers.")
         msg ("<br/>Accessible areas are:")
@@ -1373,11 +1378,6 @@
           MakeObjectVisible (scalpel)
         }
       ]]></use>
-      <displayverbs type="stringlist">
-        <value>Look at</value>
-        <value>Use</value>
-      </displayverbs>
-      <look>A robot uplink station. It should allow you to plug in and transfer to a robot in another room.</look>
     </object>
   </object>
   <object name="Living Quarters">
@@ -1385,6 +1385,7 @@
     <description><![CDATA[You are in the kitchen of the living quarters. The room is dominated by a counters, stoves and ten Konigs engaged in preparing the evening meal. A robot glides into the room from the doors to the rest of the living quarters, carrying plates piled high with uneaten food. As you watch another takes fresh plates out of the room.<br/>]]></description>
     <alias>Living Quarters Kitchen</alias>
     <usedefaultprefix type="boolean">false</usedefaultprefix>
+    <exitslistprefix>The following rooms have been detected:</exitslistprefix>
     <beforeenter type="script">
       play sound ("", false, true)
     </beforeenter>
@@ -1394,7 +1395,6 @@
     <beforefirstenter type="script">
       msg ("König  - Online")
     </beforefirstenter>
-    <exitslistprefix>The following rooms have been detected:</exitslistprefix>
     <object name="Living Quarters Complete">
       <inherit name="editor_object" />
       <visible type="boolean">false</visible>
@@ -1466,6 +1466,11 @@
       <inherit name="editor_object" />
       <alias>uplink station</alias>
       <feature_usegive />
+      <look>A robot uplink station. It should allow you to plug in and transfer to a robot in another room.</look>
+      <displayverbs type="stringlist">
+        <value>Look at</value>
+        <value>Use</value>
+      </displayverbs>
       <use type="script"><![CDATA[
         msg ("The robot slots itself into the uplink station, forming a connection with the station's servers.")
         msg ("<br/>Accessible areas are:")
@@ -1539,11 +1544,6 @@
           MakeObjectVisible (keycard)
         }
       ]]></use>
-      <look>A robot uplink station. It should allow you to plug in and transfer to a robot in another room.</look>
-      <displayverbs type="stringlist">
-        <value>Look at</value>
-        <value>Use</value>
-      </displayverbs>
     </object>
   </object>
   <verb>
@@ -1795,6 +1795,7 @@
         <feature_switchable />
         <switchonmsg> </switchonmsg>
         <switchoffmsg> </switchoffmsg>
+        <usedefaultprefix />
         <use type="script">
           if (ListContains(ScopeVisible(), tree)) {
             msg ("You can't reach that.")
@@ -1829,7 +1830,6 @@
             msg ("The switch appears to have broken after you flicked it to the on position. It now wobbles back and forth with no effect.")
           }
         </onswitchoff>
-        <usedefaultprefix />
       </object>
     </object>
     <object name="stars">
@@ -2631,14 +2631,14 @@
       <displayverbs type="stringlist">
         <value>Look at</value>
       </displayverbs>
-      <look type="script">
-        msg ("You check each of the bedroom doors. They all seem to be locked. A DNA scanner is mounted to the right of each door.")
-      </look>
       <alt type="stringlist">
         <value>DNA scanners</value>
         <value>scanner</value>
         <value>DNA scanner</value>
       </alt>
+      <look type="script">
+        msg ("You check each of the bedroom doors. They all seem to be locked. A DNA scanner is mounted to the right of each door.")
+      </look>
     </object>
     <exit name="AI Entrance" to="AI Core">
       <locked />
@@ -2671,11 +2671,11 @@
     <inherit name="editor_room" />
     <description><![CDATA[The living quarters is a large and relatively pleasant area. While the other rooms in the ship have been cold work environments or displays of prestige, this room’s function appears to be simple utility and comfort. <br/><br/>A couple of chairs are placed to let the occupants look out of the window. Two couches create a nook on the right side of the room couches . Behind them in the corner there is a well worn cat tree. The couches are facing towards a small television, game console and in the corner, a cabinet style record player. To either side of the entrance to the kitchen are windowed doors to the sleeping chambers.<br/>]]></description>
     <usedefaultprefix type="boolean">false</usedefaultprefix>
+    <exitslistprefix>The following rooms have been detected:</exitslistprefix>
     <firstenter type="script"><![CDATA[
       msg ("As you direct your robot through the doors into the large, comfortable room, your attention is at first only for the view at the end of the room. The entire opposite was is a window to space, made even more spectacular the swirling colour of the neighbouring nebula.<br/><br/>As you look away from the window, you notice the chess table, with two chairs centred against the wall. A man and a woman are seated at the table, though the game they once played is long forgotten. Both  look to be long dead, already becoming dried husks. The entire room is filled with crew members, sitting on the comfortable couches and chairs, and as you watch a robot brings out a blanket and places it gently over a young woman on the couch, reminiscent of how one would tuck in a child. Some sprawled across the table, surrounded by carefully placed dishes of food should they wake and want for food.<br/><br/>RETRIEVING AVAILABLE SECURITY CAMERA FOOTAGE...")
       picture ("Living Quarters 1.jpg")
     ]]></firstenter>
-    <exitslistprefix>The following rooms have been detected:</exitslistprefix>
     <object name="Cat Tree">
       <inherit name="editor_object" />
       <inherit name="surface" />
