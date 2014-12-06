@@ -93,7 +93,7 @@
     <beforefirstenter type="script">
     </beforefirstenter>
     <beforeenter type="script">
-      play sound ("", false, true)
+      play sound ("Bishop Background Sound.wav", false, true)
     </beforeenter>
     <onexit type="script">
       stop sound
@@ -2755,6 +2755,7 @@
           stop sound
           set (Record Player, "isplaying", False)
           msg ("The record stops playing.")
+          play sound ("Bishop Background Sound.wav", false, true)
         }
         else {
           msg ("No record is playing.")
@@ -2776,6 +2777,7 @@
           stop sound
           set (Record Player, "isplaying", False)
           msg ("The record stops playing.")
+          play sound ("Bishop Background Sound.wav", false, true)
         }
         else {
           msg ("No record is playing.")
