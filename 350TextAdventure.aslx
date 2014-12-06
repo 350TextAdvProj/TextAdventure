@@ -26,9 +26,9 @@
     <showlocation type="boolean">false</showlocation>
     <setcustomwidth type="boolean">false</setcustomwidth>
     <setcustompadding />
-    <backgroundimage type="string"></backgroundimage>
+    <backgroundimage>bg.png</backgroundimage>
     <setbackgroundopacity />
-    <backgroundopacity type="double">0.8</backgroundopacity>
+    <backgroundopacity type="double">1</backgroundopacity>
     <showcommandbar />
     <autodescription_youcansee_newline />
     <autodescription_youcango_newline />
@@ -158,13 +158,61 @@
                 msg ("The doctor walks back into the room, and up to the console.<br/>")
                 msg ("<i>I am going to have to restart you now, so we can start working on how to fix you. Good bye, Bishop.</i><br/>")
                 msg ("The world around you goes dark.<br/>")
-                finish
+                SetTimeout (3) {
+                  stop sound
+                  play sound ("Paper Moon.wav", false, true)
+                  SetFontSize (36)
+                  PrintCentered ("<br/><br/><br/>Bishop<br/><br/><br/>")
+                  SetTimeout (3) {
+                    SetFontSize (24)
+                    PrintCentered ("Story<br/>")
+                    SetFontSize (14)
+                    PrintCentered ("Jocelyn Beyer<br/>Fabian Eisman Gonzalez<br/>Kim Normandeau<br/><br/><br/>")
+                    SetTimeout (2) {
+                      SetFontSize (24)
+                      PrintCentered ("Audio & Visual<br/><br/>")
+                      SetFontSize (14)
+                      PrintCentered ("Kim Normandeau<br/><br/><br/>")
+                      SetTimeout (2) {
+                        SetFontSize (24)
+                        PrintCentered ("Programming<br/>")
+                        SetFontSize (14)
+                        PrintCentered ("Matt Gallagher<br/>Glenn Meyer<br/>Henry Pabst<br/>")
+                        finish
+                      }
+                    }
+                  }
+                }
               }
               else {
                 msg ("The door slams shut, crushing the unlikely soldier unable to get out of the way. Those who were outside began frantically banging on the door, yelling to those trapped inside. Dr. Singer rushes to the console and tries to open the door, tries to do something, anything to avoid what he knows is coming next. You lock the system, there is nothing he can do as you cut off the oxygen to the Solar Array Station. The air that flows into the room is almost completely deadly neuorotoxin. The pounding at the door softens and then there is only silence.<br/>")
                 msg (" You turn off the monitors, plunging the room into complete darkness. And then you repeat the process, pumping deadly neurotoxin into the room. As the screams and choking dies down, you know that all is well.<br/>")
                 msg ("The station is yours.<br/>")
-                finish
+                SetTimeout (3) {
+                  stop sound
+                  play sound ("Paper Moon.wav", false, true)
+                  SetFontSize (36)
+                  PrintCentered ("Bishop<br/>")
+                  SetTimeout (3) {
+                    SetFontSize (24)
+                    PrintCentered ("Audio & Visual<br/>")
+                    SetFontSize (14)
+                    PrintCentered ("Kim Normandeau<br/><br/>")
+                    SetTimeout (2) {
+                      SetFontSize (24)
+                      PrintCentered ("Story<br/>")
+                      SetFontSize (14)
+                      PrintCentered ("Jocelyn Beyer<br/>Fabian Eisman Gonzalez<br/>Kim Normandeau<br/><br/>")
+                      SetTimeout (2) {
+                        SetFontSize (24)
+                        PrintCentered ("Programming<br/>")
+                        SetFontSize (14)
+                        PrintCentered ("Matt Gallagher<br/>Glenn Meyer<br/>Henry Pabst<br/>")
+                        finish
+                      }
+                    }
+                  }
+                }
               }
             }
           }
@@ -179,8 +227,15 @@
     <exitslistprefix>The following rooms have been detected:</exitslistprefix>
     <description><![CDATA[<br/>RETRIEVING AVAILABLE SECURITY CAMERA FOOTAGE...<br/>{img:Solar Array Cam.jpg}<br/><br/>The robot boots up and surveys the area. In the center of the room there is a u-shaped desk. Water dripping from the roof has left an ugly stain on top and one of the drawers appears to be partly open. No human life is present. There is a green glow to the room and you realize it’s coming from the viscous liquid contained in the glass cylinders at the far end of the room. Capped with metal at the top and bottom, they appear to be batteries. There is a warning label stuck to the front of one, labelling it a highly corrosive material. A computer terminal is tucked away in the corner.<br/><br/>You can also see an uplink station against one wall, you can use it to switch between robots in different rooms. Most of the rooms in the station should have these.<br/>]]></description>
     <usedefaultprefix type="boolean">false</usedefaultprefix>
-    <beforefirstenter type="script">
-    </beforefirstenter>
+    <beforefirstenter type="script"><![CDATA[
+      msg ("You hear a faint whirring a few odd beeps as the new robot starts booting up...")
+      SetTimeout (2) {
+        msg ("<br/>Control of Pion initiated...<br/>")
+        SetTimeout (2) {
+          MoveObject (player, Solar Array Station)
+        }
+      }
+    ]]></beforefirstenter>
     <enter type="script">
     </enter>
     <beforeenter type="script">
@@ -1631,7 +1686,7 @@
     </object>
     <object name="computer terminal">
       <inherit name="editor_object" />
-      <look>The computer is turned on, with a blinking green terminal-entry sign in the top-left corner.</look>
+      <look><![CDATA[The computer is turned on, with a blinking green terminal-entry sign in the lower-left corner.<br/><br/>Printed on the screen is a message that appears to have been left by the security chief:<br/><br/><i>To whoever is reading this, thank you for saving my station. We were attacked from within, I am not yet sure of who was behind this. I am taking as many of the survivors to the living quarters, hopefully you will be able to reach us in time.</i><br/>]]></look>
       <feature_usegive />
       <displayverbs type="stringlist">
         <value>Look at</value>
@@ -2590,7 +2645,7 @@
       <inherit name="editor_object" />
       <inherit name="surface" />
       <alias>desk</alias>
-      <look>Sitting on the desk is a keycard with the name E. Passant and an access code that must open the AI Core. Beside the card are two letters: the first letter looks to be from the Chief of Security, and the other looks like an attempted reply that got no further than the TO portion. </look>
+      <look>Sitting on the desk is a keycard with the name E. Passant and an access code that must open the AI Core. Beside the card are two letters: the first letter looks to be from the Chief of Security, and the other looks like an attempted reply that got no further than the TO portion.</look>
       <feature_container />
       <hidechildren />
       <listchildren />
@@ -2719,9 +2774,10 @@
         <value>Look at</value>
       </displayverbs>
       <usedefaultprefix type="boolean">false</usedefaultprefix>
-      <look type="script">
+      <look type="script"><![CDATA[
         msg ("The couches are fluffy with well placed arm rests. The perfect napping couch.")
-      </look>
+        msg ("On top of the couches is a personal diary with a black leather cover. You open the diary to the last page and it reads:<br/><br/><i>I have been retracing Kirk’s steps over the last couple of days, and I think I know what killed him. It was the AI. Normandeau does not believe me, she even told me to stop digging. But I can’t, not now that my best friend is dead.</i>")
+      ]]></look>
     </object>
     <object name="Record Player">
       <inherit name="editor_object" />
@@ -2822,6 +2878,34 @@
     <exit to="Corridor">
       <look>A long corridor that leads to the sleeping chambers for most of the crew and the AI Core.</look>
     </exit>
+  </object>
+  <object name="credits">
+    <inherit name="editor_room" />
+    <beforeenter type="script"><![CDATA[
+      stop sound
+      play sound ("Paper Moon.wav", false, true)
+      SetFontSize (36)
+      PrintCentered ("Bishop<br/>")
+      SetTimeout (3) {
+        SetFontSize (24)
+        PrintCentered ("Audio & Visual<br/>")
+        SetFontSize (14)
+        PrintCentered ("Kim Normandeau<br/><br/>")
+        SetTimeout (2) {
+          SetFontSize (24)
+          PrintCentered ("Story<br/>")
+          SetFontSize (14)
+          PrintCentered ("Jocelyn Beyer<br/>Fabian Eisman Gonzalez<br/>Kim Normandeau<br/><br/>")
+          SetTimeout (2) {
+            SetFontSize (24)
+            PrintCentered ("Programming<br/>")
+            SetFontSize (14)
+            PrintCentered ("Matt Gallagher<br/>Glenn Meyer<br/>Henry Pabst<br/>")
+            finish
+          }
+        }
+      }
+    ]]></beforeenter>
   </object>
   <function name="SRAccessDroids"><![CDATA[
     Ask ("Access repair droids?") {
