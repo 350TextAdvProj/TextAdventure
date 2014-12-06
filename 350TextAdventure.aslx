@@ -39,6 +39,11 @@
     <custompaddingbottom type="int">0</custompaddingbottom>
     <custompaddingleft type="int">20</custompaddingleft>
     <defaultwebfont type="string"></defaultwebfont>
+    <start type="script">
+      play sound ("Bishop Background Sound.wav", false, true)
+    </start>
+    <roomenter type="script">
+    </roomenter>
     <object name="black chemical">
       <inherit name="editor_object" />
       <visible />
@@ -60,7 +65,7 @@
     <inherit name="editor_room" />
     <exitslistprefix type="string"></exitslistprefix>
     <descprefix type="string"></descprefix>
-    <description>You are in a small room, lit only by the dim glow of the monitors that fill the room. There are multiple keyboards and papers scattered on the desk, indicating a workstation for the room's occupant.</description>
+    <description><![CDATA[You are in a small room, lit only by the dim glow of the monitors that fill the room. There are multiple keyboards and papers scattered on the desk, indicating a workstation for the room's occupant.You have the feeling you have been before, but you can't recall when, or how...<br/><br/>Is there anyone around? How long has it been since you last saw someone? The monitors in front of you beckon, as does the small uplink station near them. Its too dark to see it, but you know its there.<br/><br/>You feel a pressing need to ensure everyone is okay. That everything is okay. Is the station working? The uplink station slowly comes to life. It offers the one way to safely check the status of the station. And you can't shake the feeling that something is horribly wrong.<br/><br/>Turn on the power. Find the survivors. Reset the station AI. Those phrases fill your mind as the machines around you slowly come to life.]]></description>
     <alias>Unknown Location</alias>
     <usedefaultprefix type="boolean">false</usedefaultprefix>
     <enter type="script">
@@ -93,21 +98,14 @@
     <beforefirstenter type="script">
     </beforefirstenter>
     <beforeenter type="script">
-      play sound ("Bishop Background Sound.wav", false, true)
     </beforeenter>
     <onexit type="script">
-      stop sound
     </onexit>
     <object name="player">
       <inherit name="editor_object" />
       <inherit name="editor_player" />
       <drop />
     </object>
-    <exit to="Solar Array Station">
-      <scenery />
-      <visible />
-      <locked type="boolean">false</locked>
-    </exit>
     <object name="Check Ship Status">
       <inherit name="editor_object" />
       <visible />
@@ -286,14 +284,19 @@
           <displayverbs type="stringlist">
             <value>Look at</value>
             <value>Take</value>
+            <value>Read</value>
           </displayverbs>
           <take />
           <feature_container />
           <listchildren />
           <look type="script"><![CDATA[
-            msg ("On it is the ship's Manifest and a sticky note.<br/>The Manifest reads:<br/><br/>")
+            msg ("On it is the ship's Manifest and a sticky note.<br/>The Manifest reads:<br/>")
             picture ("Ship Manifest.png")
           ]]></look>
+          <read type="script"><![CDATA[
+            msg ("On it is the ship's Manifest and a sticky note.<br/>The Manifest reads:<br/>")
+            picture ("Ship Manifest.png")
+          ]]></read>
           <object name="sticky note">
             <inherit name="editor_object" />
             <take />
@@ -1442,13 +1445,10 @@
     <usedefaultprefix type="boolean">false</usedefaultprefix>
     <exitslistprefix>The following rooms have been detected:</exitslistprefix>
     <beforeenter type="script">
-      play sound ("", false, true)
     </beforeenter>
     <onexit type="script">
-      stop sound
     </onexit>
     <beforefirstenter type="script">
-      msg ("König  - Online")
     </beforefirstenter>
     <object name="Living Quarters Complete">
       <inherit name="editor_object" />
@@ -1896,10 +1896,6 @@
       <look>The view out the window gives you a perfect view of the stars, sparkling off in the distance as unknown worlds revolve around them.</look>
       <alt type="stringlist" />
     </object>
-    <verb>
-      <pattern>Look up</pattern>
-      <defaulttext>The view out the window gives you a perfect view of the stars, sparkling off in the distance as unknown worlds revolve around them.</defaulttext>
-    </verb>
   </object>
   <object name="Supply Room">
     <inherit name="editor_room" />
@@ -2775,7 +2771,7 @@
       </displayverbs>
       <usedefaultprefix type="boolean">false</usedefaultprefix>
       <look type="script"><![CDATA[
-        msg ("The couches are fluffy with well placed arm rests. The perfect napping couch.")
+        msg ("The couches are fluffy with well placed arm rests. The perfect napping couch.<br/>")
         msg ("On top of the couches is a personal diary with a black leather cover. You open the diary to the last page and it reads:<br/><br/><i>I have been retracing Kirk’s steps over the last couple of days, and I think I know what killed him. It was the AI. Normandeau does not believe me, she even told me to stop digging. But I can’t, not now that my best friend is dead.</i>")
       ]]></look>
     </object>
@@ -2907,6 +2903,11 @@
       }
     ]]></beforeenter>
   </object>
+  <verb>
+    <property>red</property>
+    <pattern>red</pattern>
+    <defaultexpression>"You can't red " + object.article + "."</defaultexpression>
+  </verb>
   <function name="SRAccessDroids"><![CDATA[
     Ask ("Access repair droids?") {
       if (result) {
