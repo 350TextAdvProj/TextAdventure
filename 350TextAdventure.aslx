@@ -1696,11 +1696,11 @@
         msg ("The couch retracts back into the wall, hidden from sight.")
       </onswitchoff>
       <pull type="script">
-        if (IsSwitchedOn(Lever)) {
-          SwitchOff (Lever)
+        if (IsSwitchedOn(lever)) {
+          SwitchOff (lever)
         }
-        else if (not IsSwitchedOn(Lever)) {
-          SwitchOn (Lever)
+        else if (not IsSwitchedOn(lever)) {
+          SwitchOn (lever)
         }
       </pull>
       <onswitchon type="script">
