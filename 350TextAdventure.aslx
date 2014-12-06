@@ -26,7 +26,7 @@
     <showlocation type="boolean">false</showlocation>
     <setcustomwidth type="boolean">false</setcustomwidth>
     <setcustompadding />
-    <backgroundimage>Nostromo-Dark.jpg</backgroundimage>
+    <backgroundimage type="string"></backgroundimage>
     <setbackgroundopacity />
     <backgroundopacity type="double">0.8</backgroundopacity>
     <showcommandbar />
